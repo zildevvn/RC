@@ -1,0 +1,102 @@
+@keyframes rc_scroll_animation {
+    0% {
+        margin-top: -120px;
+    }
+
+    100% {
+        margin-top: 0;
+    }
+}
+
+@keyframes rc_swing {
+    0% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(5deg);
+    }
+}
+
+@keyframes rc_sld_20 {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes rc_sld_30 {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(16px);
+    }
+}
+
+@keyframes rc-draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes rc_watercolor_top {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    100% {
+        transform: translate(-15px, -8px) rotate(-1.5deg) scale(1.03);
+    }
+}
+
+@keyframes rc_watercolor_bottom {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    100% {
+        transform: translate(18px, 6px) rotate(1deg) scale(1.02);
+    }
+}
+
+
+@keyframes tropicalIsland {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate3d(4px, -3px, 0) rotate(0.3deg);
+    }
+
+    50% {
+        transform: translate3d(7px, -6px, 0) rotate(0.5deg);
+    }
+
+    75% {
+        transform: translate3d(-3px, -3px, 0) rotate(-0.2deg);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+}
+
+@keyframes tours-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// .tropical-island {
+//     animation: tropicalIsland 7s ease-in-out infinite;
+// }

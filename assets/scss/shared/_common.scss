@@ -1,0 +1,138 @@
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-optical-sizing: auto;
+    font-variation-settings: "GRAD" 0;
+}
+
+#wpadminbar {
+    overflow: hidden;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 64px;
+
+    @include media-breakpoint-down(md) {
+        font-size: 14px;
+    }
+}
+
+body {
+    // @include media-breakpoint-down(md) {
+    //     font-size: 14px;
+    // }
+
+    figure {
+        max-width: fit-content;
+    }
+
+    .wp-caption-text,
+    .wp-element-caption {
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 12px;
+        font-style: italic;
+        font-family: $font-second;
+        color: $color-primary;
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0 0 24px 0;
+        padding: 0;
+
+        li {
+            position: relative;
+            margin: 0 0 10px 0;
+            padding: 0 0 0 22px;
+            transition: $transition-base;
+
+            &::before {
+                content: "";
+                border: 4px solid $color-primary;
+                background-color: #fff;
+                width: 13px;
+                height: 13px;
+                display: inline-block;
+                border-radius: 50%;
+                position: absolute;
+                left: 0;
+                top: 8px;
+            }
+        }
+    }
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-variation-settings: normal;
+}
+
+a {
+    color: $color-primary;
+}
+
+
+.rc-section {
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 1;
+
+    &__bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+        }
+    }
+}
+
+
+@keyframes rc-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rc-pulse-dot {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0.6;
+    }
+}
