@@ -4,23 +4,10 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-site-verification" content="2mpfUMJmwRUQF5ZE9UEn7dZiskd0XSM3HiLv_0UxQc4" />
-
-    <!-- pinterest -->
-    <meta name="p:domain_verify" content="3cf57f5f957add29f98288016246dd25" />
-
-    <!-- seo bing -->
-    <meta name="msvalidate.01" content="7F52FBDBE648507BE1CF2D7D1EE75784" />
-
-    <!-- seo yandex -->
-    <meta name="yandex-verification" content="4c7a7c75940218b8" />
-
-    <!-- seo dmca -->
-    <meta name='dmca-site-verification' content='aU1FWXMyYnZEdmIySFFxSmc5S3pVcDVJeEZIK3I4cEYxcnBMeU9hWFE1VT01' />
-
-    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <?php wp_head(); ?>
     <!-- Google tag (gtag.js) -->
