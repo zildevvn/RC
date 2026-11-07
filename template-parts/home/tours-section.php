@@ -22,27 +22,7 @@ $query = new WP_Query($args);
     <section class="rc-section tours-section" data-purpose="popular-tours-transfers">
         <div aria-hidden="true" class="rc-section__bg tours-section__bg">
             <div class="tours-section__bg-dots"></div>
-            <svg fill="none" preserveAspectRatio="none" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg">
-                <path d="M -40 160 Q 300 300 540 220 T 960 520 T 1500 360" stroke="#0F4C81" stroke-dasharray="8 8"
-                    stroke-width="3" style="opacity: 0.22;"></path>
-                <path d="M 60 -30 Q 240 340 640 430 T 1140 600 T 1500 820" stroke="#F59E0B" stroke-dasharray="7 7"
-                    stroke-width="2.5" style="opacity: 0.28;"></path>
-                <path d="M 200 850 C 450 680 750 780 1020 540 S 1380 400 1500 480" stroke="#0F4C81" stroke-dasharray="10 10"
-                    stroke-width="2" style="opacity: 0.18;"></path>
-                <circle cx="300" cy="285" fill="#0F4C81" r="7" style="opacity: 0.45;"></circle>
-                <circle cx="300" cy="285" fill="none" r="14" stroke="#0F4C81" stroke-width="1.5" style="opacity: 0.35;">
-                </circle>
-                <circle cx="540" cy="220" fill="#F59E0B" r="8" style="opacity: 0.55;"></circle>
-                <circle cx="540" cy="220" fill="none" r="16" stroke="#F59E0B" stroke-width="1.5" style="opacity: 0.4;">
-                </circle>
-                <circle cx="750" cy="370" fill="#0F4C81" r="7" style="opacity: 0.45;"></circle>
-                <circle cx="960" cy="520" fill="#F59E0B" r="9" style="opacity: 0.55;"></circle>
-                <circle cx="960" cy="520" fill="none" r="18" stroke="#F59E0B" stroke-width="1.5" style="opacity: 0.4;">
-                </circle>
-                <circle cx="1210" cy="440" fill="#0F4C81" r="7" style="opacity: 0.45;"></circle>
-                <circle cx="640" cy="430" fill="#F59E0B" r="8" style="opacity: 0.5;"></circle>
-                <circle cx="1140" cy="600" fill="#0F4C81" r="8" style="opacity: 0.45;"></circle>
-            </svg>
+            <?php echo rc_svg_icon('tours_bg'); ?>
         </div>
         <div class="container">
             <!-- 1. Section Header -->
@@ -100,10 +80,7 @@ $query = new WP_Query($args);
                         <div class="tours-section__card-body">
                             <?php if (!empty($time_tour)): ?>
                                 <div class="tours-section__card-meta">
-                                    <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <polyline points="12 6 12 12 16 14"></polyline>
-                                    </svg>
+                                    <?php echo rc_svg_icon('clock'); ?>
                                     <span><?= esc_html($time_tour) ?></span>
                                 </div>
                             <?php endif; ?>
@@ -119,10 +96,7 @@ $query = new WP_Query($args);
                                         ?>
                                         <li>
                                             <span class="tours-section__card-feature-icon" aria-hidden="true">
-                                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" viewBox="0 0 12 12">
-                                                    <polyline points="2.5 6 5 8.5 9.5 3.5"></polyline>
-                                                </svg>
+                                                <?php echo rc_svg_icon('check'); ?>
                                             </span>
                                             <span class="tours-section__card-feature-text"><?= esc_html($feature_item) ?></span>
                                         </li>

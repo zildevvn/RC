@@ -2,7 +2,7 @@
 $services = get_field('list_services');
 ?>
 <?php if (!empty($services)): ?>
-    <section class="rc-section service-section" style="background-color: rgb(255, 255, 255);">
+    <section class="rc-section service-section">
         <div class="container">
             <div class="service-section__box">
                 <div class="service-section__grid">

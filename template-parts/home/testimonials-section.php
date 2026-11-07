@@ -46,13 +46,7 @@ $testimonials = get_field('testimonials_home');
                                         <div class="testimonials-section__stars">★★★★★</div>
                                         <?php if (!empty($type)): ?>
                                             <div class="testimonials-section__badge d-inline-flex align-items-center">
-                                                <svg viewBox="0 0 24 24">
-                                                    <circle cx="6.5" cy="13.5" r="2.5"></circle>
-                                                    <circle cx="17.5" cy="13.5" r="2.5"></circle>
-                                                    <path
-                                                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-1.85.63-3.55 1.69-4.9L12 13.5l6.31-6.4C19.37 8.45 20 10.15 20 12c0 4.41-3.59 8-8 8z">
-                                                    </path>
-                                                </svg>
+                                                <?php echo rc_svg_icon('tripadvisor'); ?>
                                                 <span><?= esc_html($type) ?></span>
                                             </div>
                                         <?php endif; ?>
@@ -90,17 +84,13 @@ $testimonials = get_field('testimonials_home');
                 <button aria-label="Previous Testimonial"
                     class="swiper-prev"
                     type="button">
-                    <svg fill="none" stroke-width="2.2" viewBox="0 0 24 24">
-                        <path d="M15.75 19.5L8.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
+                    <?php echo rc_svg_icon('swiper_prev'); ?>
                 </button>
                 <div class="swiper-pagination"></div>
                 <button aria-label="Next Testimonial"
                     class="swiper-next"
                     type="button">
-                    <svg fill="none" stroke-width="2.2" viewBox="0 0 24 24">
-                        <path d="M8.25 4.5l7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
+                    <?php echo rc_svg_icon('arrow_next'); ?>
                 </button>
             </div>
         <?php endif; ?>
