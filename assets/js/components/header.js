@@ -203,8 +203,29 @@
         });
     };
 
+    const stickyHeaderBottomBar = () => {
+        const $bottomBar = $('.header-bottom-bar');
+        if (!$bottomBar.length) {
+            return;
+        }
+
+        const $topBar = $('.header-top-bar');
+
+        const updateStickyState = () => {
+            const topOffset = $topBar.length ? $topBar.outerHeight() : 0;
+            const rectTop = $bottomBar[0].getBoundingClientRect().top;
+            const isSticky = window.scrollY > Math.max(0, topOffset - 1) && rectTop <= 1;
+            $bottomBar.toggleClass('is-sticky', isSticky);
+        };
+
+        updateStickyState();
+        window.addEventListener('scroll', updateStickyState, { passive: true });
+        window.addEventListener('resize', updateStickyState, { passive: true });
+    };
+
     $(document).ready(function () {
         mobileHeaderMenu();
+        stickyHeaderBottomBar();
     });
 })(jQuery);
 

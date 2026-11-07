@@ -96,11 +96,22 @@ a {
 
 .rc-badge {
     font-weight: 600;
+    background-color: #eff6ff;
     color: $color-primary;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    font-size: 0.75rem;
     line-height: 1rem;
     margin-bottom: 0.5rem;
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+    border-radius: 9999px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font-weight: 600;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .ha-desc {

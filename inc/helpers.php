@@ -308,3 +308,38 @@ if (!function_exists('rc_get_post_views')) {
 		return (int) $count;
 	}
 }
+
+add_action('init', function () {
+	global $currency;
+	if (!isset($currency) && function_exists('get_field')) {
+		$currency = get_field('currency', 'option');
+	}
+});
+
+if (!function_exists('rc_format_price')) {
+	/**
+	 * Format a price value consistently across the theme.
+	 *
+	 * @param mixed $price Raw price value.
+	 * @return string Formatted price string, or empty string if invalid/empty.
+	 */
+	function rc_format_price($price)
+	{
+		if ($price === null || $price === '' || $price === false) {
+			return '';
+		}
+
+		if (is_string($price)) {
+			$price = str_replace([',', ' '], '', trim($price));
+		}
+
+		if (!is_numeric($price)) {
+			return '';
+		}
+
+		$numeric_price = (float) $price;
+		$decimals = (floor($numeric_price) != $numeric_price) ? 2 : 0;
+
+		return number_format($numeric_price, $decimals, '.', ',');
+	}
+}
