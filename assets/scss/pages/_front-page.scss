@@ -734,4 +734,248 @@ body.home {
             }
         }
     }
+
+    .tours-section {
+        background-color: #f8fafc;
+        overflow: hidden;
+
+        .container {
+            position: relative;
+            z-index: 10;
+        }
+
+        &__bg {
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+
+            &-dots {
+                position: absolute;
+                inset: 0;
+                background-image: radial-gradient(#94a3b8 1.5px, transparent 1.5px);
+                background-size: 24px 24px;
+                opacity: 0.35;
+            }
+
+            svg {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        &__header {
+            max-width: 42rem;
+            margin-bottom: 2.5rem;
+        }
+
+        &__tabs {
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+        }
+
+        &__tab {
+            background-color: $color-white;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            padding: 0.625rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+            cursor: pointer;
+
+            &:hover {
+                border-color: #cbd5e1;
+            }
+
+            &.active {
+                background-color: $color-primary;
+                border-color: $color-primary;
+                color: $color-white;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        &__grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 2rem;
+
+            @include media-breakpoint-up(md) {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            @include media-breakpoint-up(lg) {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        &__card {
+            background-color: $color-white;
+            border-radius: 1rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+
+            &:hover {
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+                .tours-section__card-thumb img {
+                    transform: scale(1.05);
+                }
+            }
+
+            &-thumb {
+                position: relative;
+                overflow: hidden;
+                height: 13rem;
+                width: 100%;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 0;
+                    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+            }
+
+            &-badge {
+                position: absolute;
+                top: 1rem;
+                left: 1rem;
+                background-color: #2563eb;
+                color: $color-white;
+                font-size: 0.75rem;
+                line-height: 1rem;
+                font-weight: 600;
+                padding: 0.25rem 0.75rem;
+                border-radius: 9999px;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+                &--amber {
+                    background-color: $color-secondary;
+                }
+
+                &--emerald {
+                    background-color: #059669;
+                }
+
+                &--indigo {
+                    background-color: #4f46e5;
+                }
+
+                &--rose {
+                    background-color: #e11d48;
+                }
+
+                &--cyan {
+                    background-color: #0891b2;
+                }
+            }
+
+            &-body {
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 0%;
+            }
+
+            &-meta {
+                font-size: 0.75rem;
+                line-height: 1rem;
+                font-weight: 500;
+                color: #64748b;
+                display: flex;
+                align-items: center;
+                gap: 0.375rem;
+
+                svg {
+                    width: 0.875rem;
+                    height: 0.875rem;
+                    color: $color-secondary;
+                    stroke: currentColor;
+                    flex-shrink: 0;
+                }
+            }
+
+            &-title {
+                font-family: $font-second;
+                line-height: 1.75rem;
+                color: $color-heading;
+            }
+
+            &-features {
+                font-size: 0.75rem;
+                line-height: 1rem;
+                color: #475569;
+                margin-bottom: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.375rem;
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    span {
+                        color: $color-secondary;
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            &-footer {
+                border-top: 1px solid #f1f5f9;
+                padding-top: 1rem;
+            }
+
+            &-price-label {
+                font-size: 0.75rem;
+                line-height: 1rem;
+                color: #94a3b8;
+            }
+
+            &-price {
+                color: #d97706;
+                font-weight: 700;
+                font-size: 1.25rem;
+                line-height: 1.75rem;
+
+                span {
+                    font-size: 0.75rem;
+                    line-height: 1rem;
+                    font-weight: 400;
+                    color: #64748b;
+                }
+            }
+
+            &-btn {
+                background-color: $color-primary;
+                color: $color-white;
+                font-size: 0.75rem;
+                line-height: 1rem;
+                font-weight: 600;
+                padding: 0.5rem 1rem;
+                border-radius: 0.5rem;
+                text-decoration: none;
+                transition: background-color 0.15s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.25rem;
+
+                &:hover {
+                    background-color: #0d3f6b;
+                    color: $color-white;
+                }
+            }
+        }
+    }
 }
