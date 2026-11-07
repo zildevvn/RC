@@ -1,0 +1,188 @@
+.rc-faqs {
+    &__item {
+        border-radius: 1rem;
+        border: 1px solid #e2e8f0;
+        background-color: $color-white;
+        margin-bottom: 1rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition:
+            border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:hover {
+            border-color: #cbd5e1;
+        }
+
+        &.is-active,
+        &--active {
+            border-color: rgba(96, 165, 250, 0.8);
+            background-color: rgba(239, 246, 255, 0.8);
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+
+            &:hover {
+                border-color: rgba(96, 165, 250, 0.8);
+            }
+
+            .rc-faqs__question-text {
+                color: $color-primary;
+            }
+
+            .rc-faqs__toggle {
+                background-color: $color-primary;
+                color: $color-white;
+            }
+
+            .rc-faqs__icon-plus {
+                opacity: 0;
+                transform: rotate(90deg) scale(0.75);
+            }
+
+            .rc-faqs__icon-minus {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+
+            .rc-faqs__answer {
+                grid-template-rows: 1fr;
+                opacity: 1;
+                visibility: visible;
+                transition:
+                    grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                    opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1) 0.04s,
+                    visibility 0s linear 0s;
+            }
+
+            .rc-faqs__answer-inner::before {
+                border-top-color: rgba(219, 234, 254, 0.6);
+            }
+        }
+    }
+
+    &__question {
+        padding: 1.5rem;
+        gap: 1rem;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            box-shadow: inset 0 0 0 2px rgba($color-primary, 0.25);
+        }
+
+        &-text {
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: #0f172a;
+            transition: color 0.25s ease;
+
+            @include media-breakpoint-up(md) {
+                font-size: 1.125rem;
+                line-height: 1.75rem;
+            }
+        }
+    }
+
+    &__toggle {
+        position: relative;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 9999px;
+        background-color: #f1f5f9;
+        color: #475569;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        transition:
+            background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+            color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+        svg {
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            stroke: currentColor;
+            transition:
+                opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    }
+
+    &__icon-plus {
+        opacity: 1;
+        transform: rotate(0deg) scale(1);
+    }
+
+    &__icon-minus {
+        opacity: 0;
+        transform: rotate(-90deg) scale(0.75);
+    }
+
+    &__answer {
+        display: grid;
+        grid-template-rows: 0fr;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+            opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+            visibility 0s linear 0.32s;
+
+        &-inner {
+            overflow: hidden;
+            min-height: 0;
+            padding: 0 1.5rem;
+            color: #475569;
+            font-size: 0.875rem;
+            line-height: 1.625;
+
+            @include media-breakpoint-up(md) {
+                font-size: 1rem;
+            }
+
+            &::before {
+                content: "";
+                display: block;
+                padding-top: 1rem;
+                border-top: 1px solid #f1f5f9;
+                transition: border-color 0.25s ease;
+            }
+
+            &::after {
+                content: "";
+                display: block;
+                height: 1.5rem;
+            }
+
+            p {
+                color: inherit;
+                font-size: inherit;
+                line-height: inherit;
+                margin-bottom: 0.75rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &__item,
+        &__question-text,
+        &__toggle,
+        &__toggle svg,
+        &__answer,
+        &__answer-inner::before {
+            transition: none;
+        }
+    }
+}
