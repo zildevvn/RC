@@ -530,12 +530,6 @@ body.home {
             }
         }
 
-        &__header {
-            p {
-                margin-top: 1rem;
-            }
-        }
-
         &__grid {
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -597,6 +591,147 @@ body.home {
             // color: #475569;
             font-size: 0.9rem;
             // line-height: 1.625;
+        }
+    }
+
+    .destinations-section {
+        background-color: $color-white;
+
+        &__header {
+            margin-bottom: 3rem;
+        }
+
+        &__list {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem;
+
+            @include media-breakpoint-up(md) {
+                grid-template-columns: repeat(12, minmax(0, 1fr));
+            }
+
+            .destinations-section__card {
+                height: 260px;
+
+                @include media-breakpoint-up(sm) {
+                    height: 280px;
+                }
+
+                @include media-breakpoint-up(md) {
+                    grid-column: span 4 / span 4;
+                }
+
+                &:nth-child(1),
+                &:nth-child(2) {
+                    height: 280px;
+
+                    @include media-breakpoint-up(sm) {
+                        height: 320px;
+                    }
+                }
+
+                &:nth-child(1),
+                &--col-7 {
+                    @include media-breakpoint-up(md) {
+                        grid-column: span 7 / span 7;
+                    }
+                }
+
+                &:nth-child(2),
+                &--col-5 {
+                    @include media-breakpoint-up(md) {
+                        grid-column: span 5 / span 5;
+                    }
+                }
+
+                &:nth-child(n+3) {
+                    .destinations-section__card-title {
+                        font-size: 1.25rem;
+                        line-height: 1.75rem;
+
+                        @include media-breakpoint-up(md) {
+                            font-size: 1.5rem;
+                            line-height: 2rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__row {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.5rem;
+
+            &--top {
+                margin-bottom: 1.5rem;
+
+                @include media-breakpoint-up(md) {
+                    grid-template-columns: repeat(12, minmax(0, 1fr));
+                }
+
+                .destinations-section__card {
+                    height: 280px;
+
+                    @include media-breakpoint-up(sm) {
+                        height: 320px;
+                    }
+                }
+            }
+        }
+
+        &__card {
+            display: block;
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+
+            &--col-7 {
+                @include media-breakpoint-up(md) {
+                    grid-column: span 7 / span 7;
+                }
+            }
+
+            &--col-5 {
+                @include media-breakpoint-up(md) {
+                    grid-column: span 5 / span 5;
+                }
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 0;
+                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            &:hover img {
+                transform: scale(1.05);
+            }
+
+            &-overlay {
+                position: absolute;
+                inset: 0;
+                background-image: linear-gradient(to top,
+                        rgba(0, 0, 0, 0.8),
+                        rgba(0, 0, 0, 0.2),
+                        transparent);
+                pointer-events: none;
+            }
+
+            &-title {
+                position: absolute;
+                bottom: 1.5rem;
+                left: 0;
+                right: 0;
+                text-align: center;
+                color: $color-white;
+                filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+            }
         }
     }
 }

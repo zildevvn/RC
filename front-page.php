@@ -10,113 +10,15 @@ get_header();
     <?php get_template_part('template-parts/home/hero-section'); ?>
     <?php get_template_part('template-parts/home/service-section'); ?>
     <?php get_template_part('template-parts/home/why-choose-section'); ?>
+    <?php get_template_part('template-parts/home/destinations-section'); ?>
 
 
 
 
 
-    <section class="relative bg-white pt-10 pb-20 px-4 sm:px-6 lg:px-8" data-purpose="popular-destinations"
-        style="background-color: rgb(255, 255, 255);">
-        <div class="max-w-6xl mx-auto">
-            <!-- Section Header -->
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight"
-                    style="font-family: &quot;Cormorant Garamond&quot;, serif; color: rgb(25, 35, 43);">Popular
-                    Destinations</h2>
-                <a class="text-amber-500 hover:text-amber-600 font-medium hover:underline text-center inline-block mt-2 text-base transition-colors"
-                    href="#destinations">
-                    View All Destinations ➔
-                </a>
-            </div>
-            <!-- Asymmetric 5-card destination grid -->
-            <!-- Row 1: 2 large wide cards (60/40 desktop split) -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-6">
-                <!-- Card 1: Hoi An (col-span-7) -->
-                <div
-                    class="md:col-span-7 h-[280px] sm:h-[320px] relative rounded-2xl overflow-hidden group cursor-pointer shadow-md">
-                    <img alt="Hoi An Ancient Town"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD22TFL5relu_2YiPytrPwMcqrtnkPrkjsNX8fzh9YyGKa8HTFtxrTP3EvmV9tL_LhYVdZREGecgM0XEZhhVewfX8y15cizvYgpkpiKytnfg_Rax1ly9jrCrRcqf8HaJMeD5HGr9l_1x8JuI4yrfzhMz2ZR8pggNJeijLY_DGUR_6wrqdbYADn33lkrEZfCvdwYTzqxRDjFmtBtkP38cxR_kI443SnG06YCgEBrIVc">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none">
-                    </div>
-                    <span
-                        class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded shadow-sm">3
-                        tours</span>
-                    <div class="absolute bottom-6 inset-x-0 text-center text-white text-2xl font-bold drop-shadow-md">
-                        Hoi An
-                    </div>
-                </div>
-                <!-- Card 2: Da Nang (col-span-5) -->
-                <div
-                    class="md:col-span-5 h-[280px] sm:h-[320px] relative rounded-2xl overflow-hidden group cursor-pointer shadow-md">
-                    <img alt="Da Nang Beach &amp; Mountains"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjAg20z3lonnXH_Ch-H0R8rLXzbxXrIVx1aQoW2dkw6NLhAaxttvTSsDLGbu1zcR_ip8pjtVN_pR0tcmeiS6pv9Lp4LCtFAEW1uW9R3ufpsfUZJymf5M4rAToWRgtx2YFrhRghqOx8L4h12B4f8g9pjFF7_Ed2qslvDvWg3scWS3evZl_-MChv3WlL1SIkI_0KL2P6RxlitNR7IX1YXYkcK2ZoU05GRK0yie5HVVc">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none">
-                    </div>
-                    <span
-                        class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded shadow-sm">2
-                        tours</span>
-                    <div class="absolute bottom-6 inset-x-0 text-center text-white text-2xl font-bold drop-shadow-md">
-                        Da Nang
-                    </div>
-                </div>
-            </div>
-            <!-- Row 2: 3 equal columns -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 3: Hue -->
-                <div class="h-[260px] sm:h-[280px] relative rounded-2xl overflow-hidden group cursor-pointer shadow-md">
-                    <img alt="Hue Imperial Citadel"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9pJInW01u6WUVjz1LvlJ09E_vGbzOjiORpv04Js8h7CBuZjNHFyiHW6GuAwsxFze9gmXtJc7CK-g2Xl4PSmqYAGF1vd8lgdjG1ONc5aH6in7Qa7-Oxh3Zo18xahIjRvFYODPhLE0Dw_F3OLNEhjaB105IIUdaxGTL4RDdaJ3f4eUPdr-r3QTGEp1UXJGkD8tjXIn5bJxgpio6HbuzqwfeLldXtYYZt4FSdgWs6m4">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none">
-                    </div>
-                    <span
-                        class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded shadow-sm">5
-                        tours</span>
-                    <div
-                        class="absolute bottom-6 inset-x-0 text-center text-white text-xl md:text-2xl font-bold drop-shadow-md">
-                        Hue
-                    </div>
-                </div>
-                <!-- Card 4: My Son -->
-                <div class="h-[260px] sm:h-[280px] relative rounded-2xl overflow-hidden group cursor-pointer shadow-md">
-                    <img alt="My Son Sanctuary"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1chHjhzlf7S64ngkrhaD_glRXJONhk0s0nIPICh5ocO4sXHFgQ0I_XVikFsG_bWoG_8faDoV3fcM7AZ465SWgeWHPBCExObejGVzrIsr8G7AFddJ3lXKm7vPbWQAJPhafGz13XPCLygmOgOqGBoIXaufhf7rdQT3z4bQk5ScSW3_Xh0C5KDTGYkc6VdpsqMW143fUciTVF9iJfWeNSmTejLDZnI4V7eCWjBMQKHo">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none">
-                    </div>
-                    <span
-                        class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded shadow-sm">4
-                        tours</span>
-                    <div
-                        class="absolute bottom-6 inset-x-0 text-center text-white text-xl md:text-2xl font-bold drop-shadow-md">
-                        My Son
-                    </div>
-                </div>
-                <!-- Card 5: Son Tra -->
-                <div class="h-[260px] sm:h-[280px] relative rounded-2xl overflow-hidden group cursor-pointer shadow-md">
-                    <img alt="Son Tra Peninsula"
-                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuARdMwHN2iUql6Nj0F8t353xRmeaKQ_9d1YnG_3OYkwZJSdT0esv5_Zhk8OS4zimc0oPoMsEVnbR9bgwxlyiNFC8vDP8dGcXofZ_qSJeEljjblkpN_GJd8uFfRvRL5QrVBnaoNWllU8n_dcIjqvrroV8Z00D7mYuSk3_2ob2AbxTOECCaAZJZMO9kIkS4cCgvnqQnxxw-7CFMrOc5NuMupgR3yH-NQoL9r9U-v0Y0k">
-                    <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none">
-                    </div>
-                    <span
-                        class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded shadow-sm">3
-                        tours</span>
-                    <div
-                        class="absolute bottom-6 inset-x-0 text-center text-white text-xl md:text-2xl font-bold drop-shadow-md">
-                        Son Tra
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!-- BEGIN: Popular Private Car Tours & Transfers Section -->
+
+
+
     <section class="relative bg-slate-50 py-20 px-6 overflow-hidden" data-purpose="popular-tours-transfers"
         style="background-color: rgb(248, 250, 252);">
         <div aria-hidden="true" class="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden">

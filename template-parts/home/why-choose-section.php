@@ -43,7 +43,7 @@ $items = get_field('list_items_wc_home');
             <?php endif; ?>
 
             <?php if (!empty($desc)): ?>
-                <p class="mb-0"> <?= $desc ?> </p>
+                <p class="ha-desc"> <?= $desc ?> </p>
             <?php endif; ?>
         </div>
 
