@@ -107,7 +107,51 @@ import { CountUp } from 'countup.js';
         });
     };
 
+    const testimonialsSwiper = () => {
+        const sections = document.querySelectorAll('.testimonials-section');
+        if (!sections.length) {
+            return;
+        }
+
+        sections.forEach((section) => {
+            const sliderEl = section.querySelector('.testimonials-section__grid.swiper');
+            if (!sliderEl || sliderEl.swiper) {
+                return;
+            }
+
+            const prevEl = section.querySelector('.swiper-prev');
+            const nextEl = section.querySelector('.swiper-next');
+            const paginationEl = section.querySelector('.swiper-pagination');
+
+            new Swiper(sliderEl, {
+                modules: [Navigation, Pagination],
+                slidesPerView: 1,
+                spaceBetween: 20,
+                watchOverflow: true,
+                navigation: {
+                    prevEl: prevEl,
+                    nextEl: nextEl,
+                },
+                pagination: {
+                    el: paginationEl,
+                    clickable: true,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 24,
+                    },
+                    992: {
+                        slidesPerView: 3,
+                        spaceBetween: 32,
+                    },
+                },
+            });
+        });
+    };
+
     $(document).ready(function () {
         modalSearch();
+        testimonialsSwiper();
     });
 })(jQuery);
