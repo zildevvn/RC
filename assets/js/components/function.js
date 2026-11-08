@@ -185,8 +185,120 @@ import { CountUp } from 'countup.js';
         });
     };
 
+    const modalBookCar = () => {
+        const $modal = $('#book-car-modal');
+        if (!$modal.length || $modal.data('rcModalBookCarInit')) {
+            return;
+        }
+
+        $modal.data('rcModalBookCarInit', true);
+
+        const $closeBtn = $modal.find('.book-car-modal__close');
+        const $overlay = $modal.find('.book-car-modal__overlay');
+        let $activeTrigger = null;
+        let focusTimer = null;
+
+        const openModal = ($trigger) => {
+            if ($modal.hasClass('is-active')) {
+                return;
+            }
+
+            $activeTrigger = $trigger && $trigger.length ? $trigger : null;
+            $modal.addClass('is-active').attr('aria-hidden', 'false');
+            $('.rc-book-car-trigger').attr('aria-expanded', 'true');
+            $('body').addClass('book-car-modal-open');
+
+            const $firstInput = $modal
+                .find('.book-car-modal__body')
+                .find('input:not([type="hidden"]), select, textarea')
+                .filter(':visible:not(:disabled)')
+                .first();
+            const $focusTarget = $firstInput.length ? $firstInput : $closeBtn;
+
+            if ($focusTarget.length) {
+                $focusTarget.trigger('focus');
+                clearTimeout(focusTimer);
+                focusTimer = setTimeout(() => {
+                    if ($modal.hasClass('is-active')) {
+                        $focusTarget.trigger('focus');
+                    }
+                }, 50);
+            }
+        };
+
+        const closeModal = () => {
+            if (!$modal.hasClass('is-active')) {
+                return;
+            }
+
+            clearTimeout(focusTimer);
+            $modal.removeClass('is-active').attr('aria-hidden', 'true');
+            $('.rc-book-car-trigger').attr('aria-expanded', 'false');
+            $('body').removeClass('book-car-modal-open');
+
+            if ($activeTrigger && $activeTrigger.is(':visible')) {
+                $activeTrigger.trigger('focus');
+            }
+            $activeTrigger = null;
+        };
+
+        $(document).on('click.rcModalBookCar', '.rc-book-car-trigger', function (e) {
+            e.preventDefault();
+            openModal($(this));
+        });
+
+        $closeBtn.on('click.rcModalBookCar', function (e) {
+            e.preventDefault();
+            closeModal();
+        });
+
+        $overlay.on('click.rcModalBookCar', function () {
+            closeModal();
+        });
+
+        $modal.on('click.rcModalBookCar', function (e) {
+            if ($(e.target).is($modal)) {
+                closeModal();
+            }
+        });
+
+        $(document).on('keydown.rcModalBookCar', function (e) {
+            if (!$modal.hasClass('is-active')) {
+                return;
+            }
+
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeModal();
+                return;
+            }
+
+            if (e.key === 'Tab') {
+                const $focusable = $modal
+                    .find('button, [href], input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])')
+                    .filter(':visible:not(:disabled)');
+
+                if (!$focusable.length) {
+                    return;
+                }
+
+                const firstEl = $focusable[0];
+                const lastEl = $focusable[$focusable.length - 1];
+
+                if (e.shiftKey && document.activeElement === firstEl) {
+                    e.preventDefault();
+                    lastEl.focus();
+                } else if (!e.shiftKey && document.activeElement === lastEl) {
+                    e.preventDefault();
+                    firstEl.focus();
+                }
+            }
+        });
+    };
+
     $(document).ready(function () {
         modalSearch();
+        modalBookCar();
         testimonialsSwiper();
         rcFaqs();
     });

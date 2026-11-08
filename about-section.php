@@ -2,6 +2,8 @@
 /**
  * Template Name: About
  */
+$phone = function_exists('get_field') ? get_field('phone', 'option') : '';
+$whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 get_header();
 ?>
 <main id="primary" class="site-main">
@@ -902,7 +904,8 @@ get_header();
                     Need custom multi-day itinerary or special route?
                 </span>
                 <a class="shrink-0 pill-shaped bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-6 py-2.5 rounded-full inline-flex items-center gap-2 shadow-md transition-colors text-sm"
-                    href="https://wa.me/" rel="noopener noreferrer" target="_blank">
+                    href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" rel="noopener noreferrer" target="_blank"
+                    aria-label="Chat with us on WhatsApp">
                     <span class="">Chat on WhatsApp Now</span>
                     <span class="font-bold">➔</span>
                 </a>
@@ -1141,17 +1144,20 @@ get_header();
                             itineraries and quick bookings.
                         </p>
                         <div class="space-y-2 mb-6 text-xs text-slate-600 font-medium">
-                            <div class="flex items-center gap-2">
-                                <span class="text-amber-500 font-bold">•</span>
-                                <span class="">Hotline: <strong class="text-slate-900">+84 820 334 533</strong></span>
-                            </div>
+                            <?php if (!empty($phone)): ?>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-amber-500 font-bold">•</span>
+                                    <span class="">Hotline: <strong class="text-slate-900"><?= esc_html($phone) ?></strong></span>
+                                </div>
+                            <?php endif; ?>
                             <div class="flex items-center gap-2">
                                 <span class="text-emerald-600 font-bold">•</span>
                                 <span class="">Response time: <strong class="text-slate-900">&lt; 5 mins</strong></span>
                             </div>
                         </div>
                         <a class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors text-sm"
-                            href="https://wa.me/" rel="noopener noreferrer" target="_blank">
+                            href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" rel="noopener noreferrer" target="_blank"
+                            aria-label="Chat with us on WhatsApp">
                             <span class="">Chat with Us on WhatsApp</span>
                             <span class="font-bold">➔</span>
                         </a>
@@ -1535,8 +1541,9 @@ get_header();
                             </a>
                             <!-- WhatsApp Action Button -->
                             <a class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all text-center flex items-center justify-center gap-2 text-base cursor-pointer"
-                                href="https://wa.me/" rel="noopener noreferrer" style="background-color: #25D366;"
-                                target="_blank">
+                                href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" rel="noopener noreferrer" style="background-color: #25D366;"
+                                target="_blank"
+                                aria-label="Chat with us on WhatsApp">
                                 <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24">
                                     <path
                                         d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.668-.699c.969.54 1.761.82 2.79.82 3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.766-5.766zm9.969 5.766c0 5.503-4.468 9.969-9.969 9.969-1.758 0-3.414-.462-4.858-1.267l-5.173 1.36 1.385-5.048c-.901-1.488-1.423-3.23-1.423-5.014 0-5.503 4.468-9.969 9.969-9.969 5.501 0 10.069 4.466 10.069 9.969z">
@@ -1545,20 +1552,22 @@ get_header();
                                 <span class="">Chat on WhatsApp</span>
                             </a>
                             <!-- Helpline -->
-                            <div
-                                class="text-xs text-slate-300 text-center mt-2 flex items-center justify-center gap-1.5 flex-wrap">
-                                <span class="">Or call our 24/7 hotline directly:</span>
-                                <a class="font-bold text-white hover:text-amber-400 inline-flex items-center gap-1 transition-colors"
-                                    href="tel:+84820334533">
-                                    <svg class="w-3.5 h-3.5 stroke-current text-amber-400" fill="none" stroke-width="2"
-                                        viewBox="0 0 24 24">
-                                        <path
-                                            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                                            stroke-linecap="round" stroke-linejoin="round"></path>
-                                    </svg>
-                                    <span class="">+84 820 334 533</span>
-                                </a>
-                            </div>
+                            <?php if (!empty($phone)): ?>
+                                <div
+                                    class="text-xs text-slate-300 text-center mt-2 flex items-center justify-center gap-1.5 flex-wrap">
+                                    <span class="">Or call our 24/7 hotline directly:</span>
+                                    <a class="font-bold text-white hover:text-amber-400 inline-flex items-center gap-1 transition-colors"
+                                        href="tel:<?= esc_attr(preg_replace('/\s+/', '', $phone)) ?>">
+                                        <svg class="w-3.5 h-3.5 stroke-current text-amber-400" fill="none" stroke-width="2"
+                                            viewBox="0 0 24 24">
+                                            <path
+                                                d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                                                stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                        <span class="<?= !empty($phone) ? '' : '' ?>"><?= esc_html($phone) ?></span>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

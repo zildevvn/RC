@@ -39,7 +39,8 @@ $kk_score = $kk_count > 0
                 <?php endif; ?>
 
                 <div class="hero-section__actions">
-                    <a class="rc-button" data-purpose="primary-cta-button" href="#book">
+                    <a class="rc-button rc-book-car-trigger" data-purpose="primary-cta-button" href="#book"
+                        aria-controls="book-car-modal" aria-expanded="false">
                         <span>Book Car Now</span>
                         <?php echo rc_svg_icon('arrow_next'); ?>
                     </a>

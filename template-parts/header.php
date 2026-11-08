@@ -4,6 +4,7 @@ $logo_url = wp_get_attachment_url($custom_logo_id);
 $text_support = get_field('text_support', 'option');
 $phone = get_field('phone', 'option');
 $email = get_field('email', 'option');
+$whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
 
 <header id="site-header" class="header-main">
@@ -12,7 +13,10 @@ $email = get_field('email', 'option');
             <div class="header-top d-flex justify-content-between align-items-center gap-2">
                 <div class="header-top__contacts d-flex align-items-center">
                     <?php if (!empty($phone)): ?>
-                        <a href="tel:<?= esc_attr($phone) ?>" class="header-top__link d-flex align-items-center">
+                        <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                            class="header-top__link d-flex align-items-center"
+                            target="_blank" rel="noopener noreferrer"
+                            aria-label="Chat with us on WhatsApp">
                             <?php echo rc_svg_icon('phone'); ?>
                             <span><?= esc_html($phone) ?></span>
                         </a>
@@ -66,8 +70,10 @@ $email = get_field('email', 'option');
                         </button>
 
                         <?php if (!empty($phone)): ?>
-                            <a href="tel:<?= esc_attr($phone) ?>"
-                                class="header-main__cta d-none d-md-inline-flex align-items-center">
+                            <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                                class="header-main__cta d-none d-md-inline-flex align-items-center"
+                                target="_blank" rel="noopener noreferrer"
+                                aria-label="Chat with us on WhatsApp">
                                 <?php echo rc_svg_icon('phone'); ?>
                                 <span><?= esc_html($phone) ?></span>
                             </a>
@@ -116,7 +122,10 @@ $email = get_field('email', 'option');
             <?php if (!empty($phone) || !empty($email) || !empty($text_support)): ?>
                 <div class="mobile-menu__footer">
                     <?php if (!empty($phone)): ?>
-                        <a href="tel:<?= esc_attr($phone) ?>" class="mobile-menu__contact d-flex align-items-center">
+                        <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                            class="mobile-menu__contact d-flex align-items-center"
+                            target="_blank" rel="noopener noreferrer"
+                            aria-label="Chat with us on WhatsApp">
                             <?php echo rc_svg_icon('phone'); ?>
                             <span><?= esc_html($phone) ?></span>
                         </a>

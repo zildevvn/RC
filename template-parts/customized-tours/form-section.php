@@ -68,9 +68,9 @@ $open_time = get_field('open_time', 'option');
                         <?php endif; ?>
 
                         <?php if (!empty($phone)): ?>
-                            <?php $whatsapp_phone = preg_replace('/\D/', '', $phone); ?>
+                            <?php $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : ''; ?>
 
-                            <a href="https://wa.me/<?= esc_attr($whatsapp_phone) ?>" aria-label="WhatsApp"
+                            <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" aria-label="WhatsApp"
                                 class="contact-info d-flex" target="_blank" rel="noopener noreferrer">
                                 <div class="contact-info__icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"

@@ -59,6 +59,16 @@ function rc_search_template()
 	load_template(get_template_directory() . '/template-parts/modal-search.php', false);
 }
 
+/**
+ * Book Car Modal template
+ * @return void
+ */
+add_action('rc_hook_book_car', 'rc_book_car_modal_template');
+function rc_book_car_modal_template()
+{
+	load_template(get_template_directory() . '/template-parts/modal-book-car.php', false);
+}
+
 
 /**
  * Post loop item template

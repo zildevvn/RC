@@ -122,7 +122,7 @@ $query = new WP_Query($args);
                 wp_reset_postdata(); ?>
             </div>
 
-            <div class="tours-section__footer flex justify-content-center">
+            <div class="tours-section__footer d-flex justify-content-center">
                 <a href="<?php echo home_url('/da-nang-travel-car/') ?>" class="rc-button"
                     label=" View All  da nang travel car">
                     View All

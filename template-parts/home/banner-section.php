@@ -1,3 +1,7 @@
+<?php
+$phone = function_exists('get_field') ? get_field('phone', 'option') : '';
+$whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
+?>
 <section class="rc-section banner-section bg-white" data-purpose="final-cta-section">
     <div class="container">
         <div class="banner-section__card position-relative overflow-hidden">
@@ -59,29 +63,35 @@
                 <div class="banner-section__action-col d-flex flex-column justify-content-center w-100">
                     <div class="banner-section__actions d-flex flex-column gap-3 w-100 mx-auto">
                         <!-- Primary Action Button -->
-                        <a class="rc-button" href="#book">
+                        <a class="rc-button rc-book-car-trigger" href="#book" aria-controls="book-car-modal"
+                            aria-expanded="false">
                             Book Your Car Now
                             <?php echo rc_svg_icon('arrow_next'); ?>
                         </a>
                         <!-- WhatsApp Action Button -->
-                        <a class="rc-button--secondary" href="https://wa.me/" rel="noopener noreferrer" target="_blank">
+                        <a class="rc-button--secondary"
+                            href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                            rel="noopener noreferrer" target="_blank"
+                            aria-label="Chat with us on WhatsApp">
                             Chat on WhatsApp
                             <?php echo rc_svg_icon('arrow_next'); ?>
                         </a>
                         <!-- Helpline -->
-                        <div
-                            class="banner-section__helpline text-center mt-2 d-flex align-items-center justify-content-center flex-wrap">
-                            <span>Or call our 24/7 hotline directly:</span>
-                            <a class="banner-section__helpline-link fw-bold d-inline-flex align-items-center gap-1"
-                                href="tel:+84820334533">
-                                <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
-                                    <path
-                                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                                        stroke-linecap="round" stroke-linejoin="round"></path>
-                                </svg>
-                                <span>+84 820 334 533</span>
-                            </a>
-                        </div>
+                        <?php if (!empty($phone)): ?>
+                            <div
+                                class="banner-section__helpline text-center mt-2 d-flex align-items-center justify-content-center flex-wrap">
+                                <span>Or call our 24/7 hotline directly:</span>
+                                <a class="banner-section__helpline-link fw-bold d-inline-flex align-items-center gap-1"
+                                    href="tel:<?= esc_attr(preg_replace('/\s+/', '', $phone)) ?>">
+                                    <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+                                        <path
+                                            d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                                            stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                    <span><?= esc_html($phone) ?></span>
+                                </a>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

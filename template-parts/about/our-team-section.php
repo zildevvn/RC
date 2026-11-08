@@ -83,8 +83,8 @@ $teams = get_field('our_team_list');
                                             </a>
                                         <?php endif; ?>
                                         <?php if (!empty($whatsapp)): ?>
-                                            <?php $whatsapp_url = preg_replace('/\D/', '', $whatsapp); ?>
-                                            <a href="https://wa.me/<?= esc_attr($whatsapp_url) ?>" target="_blank"
+                                            <?php $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($whatsapp) : ''; ?>
+                                            <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" target="_blank"
                                                 rel="noopener noreferrer" class="social-link" aria-label="WhatsApp">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

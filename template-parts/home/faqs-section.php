@@ -3,6 +3,8 @@ $heading = get_field('heading_faq_home');
 $badge = get_field('badge_faq_home');
 $sub_heading = get_field('desc_faq_home');
 $faqs = get_field('faqs_home');
+$phone = function_exists('get_field') ? get_field('phone', 'option') : '';
+$whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
 <section class="rc-section faqs-section bg-white" data-purpose="faq-section">
     <div aria-hidden="true" class="rc-section__bg faqs-section__bg d-flex align-items-center justify-content-end">
@@ -39,16 +41,21 @@ $faqs = get_field('faqs_home');
                         itineraries and quick bookings.
                     </p>
                     <div class="faqs-section__contact-meta d-flex flex-column gap-2">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="faqs-section__dot faqs-section__dot--amber fw-bold">•</span>
-                            <span>Hotline: <strong>+84 820 334 533</strong></span>
-                        </div>
+                        <?php if (!empty($phone)): ?>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="faqs-section__dot faqs-section__dot--amber fw-bold">•</span>
+                                <span>Hotline: <strong><?= esc_html($phone) ?></strong></span>
+                            </div>
+                        <?php endif; ?>
                         <div class="d-flex align-items-center gap-2">
                             <span class="faqs-section__dot faqs-section__dot--emerald fw-bold">•</span>
                             <span>Response time: <strong>&lt; 5 mins</strong></span>
                         </div>
                     </div>
-                    <a class="rc-button" href="https://wa.me/" rel="noopener noreferrer" target="_blank">
+                    <a class="rc-button"
+                        href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                        rel="noopener noreferrer" target="_blank"
+                        aria-label="Chat with us on WhatsApp">
                         Chat with Us on WhatsApp
                         <?php echo rc_svg_icon('arrow_next'); ?>
                     </a>

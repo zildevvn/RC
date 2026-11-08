@@ -9,6 +9,7 @@
 
 do_action('rc_hook_footer');
 do_action('rc_hook_search');
+do_action('rc_hook_book_car');
 wp_footer();
 ?>
 <!--Start of Tawk.to Script-->

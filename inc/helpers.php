@@ -343,3 +343,35 @@ if (!function_exists('rc_format_price')) {
 		return number_format($numeric_price, $decimals, '.', ',');
 	}
 }
+
+if (!function_exists('rc_whatsapp_url')) {
+	/**
+	 * Generate a standardized WhatsApp chat URL from a phone number or ACF 'phone' option.
+	 *
+	 * @param string|null $phone Optional phone number string. If null, retrieves from ACF 'phone' option.
+	 * @return string Valid WhatsApp URL (e.g. 'https://wa.me/84820334533') or empty string if invalid/empty.
+	 */
+	function rc_whatsapp_url($phone = null)
+	{
+		if ($phone === null && function_exists('get_field')) {
+			$phone = get_field('phone', 'option');
+		}
+
+		if (empty($phone) || !is_string($phone)) {
+			return '';
+		}
+
+		// Strip all non-digit characters (+, spaces, hyphens, parentheses, etc.)
+		$digits = preg_replace('/\D+/', '', $phone);
+		if (empty($digits)) {
+			return '';
+		}
+
+		// Normalize domestic numbers (leading 0) to Vietnamese country code (84)
+		if (strpos($digits, '0') === 0) {
+			$digits = '84' . substr($digits, 1);
+		}
+
+		return 'https://wa.me/' . $digits;
+	}
+}

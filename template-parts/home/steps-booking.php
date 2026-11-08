@@ -2,7 +2,8 @@
 $heading = get_field('heading_stb_home');
 $badge = get_field('badge_stb_home');
 $sub_heading = get_field('desc_stb_home');
-
+$phone = function_exists('get_field') ? get_field('phone', 'option') : '';
+$whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
 <section class="rc-section steps-booking-section bg-white" data-purpose="easy-steps-booking">
     <div aria-hidden="true"
@@ -110,7 +111,9 @@ $sub_heading = get_field('desc_stb_home');
                 Need custom multi-day itinerary or special route?
             </span>
             <a class="steps-booking-section__cta-btn pill-shaped d-inline-flex align-items-center flex-shrink-0"
-                href="https://wa.me/" rel="noopener noreferrer" target="_blank">
+                href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                rel="noopener noreferrer" target="_blank"
+                aria-label="Chat with us on WhatsApp">
                 <span>Chat on WhatsApp Now</span>
                 <span class="fw-bold">➔</span>
             </a>

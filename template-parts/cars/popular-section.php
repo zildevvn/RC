@@ -162,9 +162,11 @@ $phone = get_field('phone', 'option');
                 </div>
             </div>
             <?php if (!empty($phone)): ?>
-                <a href="https://wa.me/<?php echo preg_replace('/\D/', '', $phone); ?>"
+                <?php $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : ''; ?>
+                <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
                     class="vm-button d-flex align-items-center justify-content-center" target="_blank"
-                    rel="noopener noreferrer">
+                    rel="noopener noreferrer"
+                    aria-label="Chat with us on WhatsApp">
                     Contact Now
 
                     <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"

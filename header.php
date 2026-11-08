@@ -11,7 +11,7 @@
         rel="stylesheet">
 
     <!-- Tailwind CSS CDN with Forms & Container Queries plugins -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -26,7 +26,7 @@
                 }
             }
         }
-    </script>
+    </script> -->
     <?php wp_head(); ?>
 </head>
 
