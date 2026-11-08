@@ -26,7 +26,7 @@ $query = new WP_Query($args);
         </div>
         <div class="container">
             <!-- 1. Section Header -->
-            <div class="tours-section__header text-center mx-auto">
+            <div class="tours-section__header text-center mx-auto" data-aos="fade-up">
                 <?php if (!empty($badge)): ?>
                     <p class="rc-badge">
                         <?= $badge ?>
@@ -44,7 +44,7 @@ $query = new WP_Query($args);
                 <?php endif; ?>
             </div>
             <!-- 3. 6 Tour Cards Grid -->
-            <div class="tours-section__grid">
+            <div class="tours-section__grid" data-aos="fade-up">
                 <?php
                 $card_index = 0;
                 while ($query->have_posts()):

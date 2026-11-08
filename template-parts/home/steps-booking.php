@@ -12,7 +12,7 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
     </div>
     <div class="container">
         <!-- 1. Section Header -->
-        <div class="steps-booking-section__header text-center mx-auto">
+        <div class="steps-booking-section__header text-center mx-auto" data-aos="fade-up">
             <?php if (!empty($badge)): ?>
                 <p class="rc-badge">
                     <?= $badge ?>
@@ -30,10 +30,9 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
             <?php endif; ?>
         </div>
         <!-- 2. 4-Step Process Flow -->
-        <div class="steps-booking-section__flow position-relative">
+        <div class="steps-booking-section__flow position-relative" data-aos="fade-up">
             <!-- Horizontal Dashed Connecting Line (visible on desktop) -->
-            <div aria-hidden="true"
-                class="steps-booking-section__line d-none d-lg-block">
+            <div aria-hidden="true" class="steps-booking-section__line d-none d-lg-block">
                 <div class="steps-booking-section__line-bar"></div>
                 <?php echo rc_svg_icon('steps_line'); ?>
             </div>
@@ -111,9 +110,8 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                 Need custom multi-day itinerary or special route?
             </span>
             <a class="steps-booking-section__cta-btn pill-shaped d-inline-flex align-items-center flex-shrink-0"
-                href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
-                rel="noopener noreferrer" target="_blank"
-                aria-label="Chat with us on WhatsApp">
+                href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" rel="noopener noreferrer"
+                target="_blank" aria-label="Chat with us on WhatsApp">
                 <span>Chat on WhatsApp Now</span>
                 <span class="fw-bold">➔</span>
             </a>

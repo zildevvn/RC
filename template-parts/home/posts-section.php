@@ -13,7 +13,8 @@ $query = new WP_Query($args);
     <section class="rc-section posts-section" data-purpose="blog-section">
         <div class="container">
             <!-- Section Header -->
-            <div class="posts-section__header d-flex flex-column flex-md-row align-items-md-end justify-content-between">
+            <div class="posts-section__header d-flex flex-column flex-md-row align-items-md-end justify-content-between"
+                data-aos="fade-up">
                 <div>
                     <?php if (!empty($badge)): ?>
                         <p class="rc-badge"> <?= $badge ?> </p>
@@ -35,7 +36,7 @@ $query = new WP_Query($args);
                 </a>
             </div>
             <!-- 3-Card Article Grid -->
-            <div class="posts-section__grid">
+            <div class="posts-section__grid" data-aos="fade-up">
                 <?php
                 $badge_modifiers = array(
                     '',

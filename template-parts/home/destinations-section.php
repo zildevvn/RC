@@ -15,7 +15,7 @@ $terms = get_terms([
     <section class="rc-section destinations-section" data-purpose="destinations-section">
         <div class="container">
             <!-- Section Header -->
-            <div class="destinations-section__header text-center">
+            <div class="destinations-section__header text-center" data-aos="fade-up">
                 <?php if (!empty($badge)): ?>
                     <p class="rc-badge">
                         <?= $badge ?>
@@ -32,7 +32,7 @@ $terms = get_terms([
                     </p>
                 <?php endif; ?>
             </div>
-            <div class="destinations-section__list">
+            <div class="destinations-section__list" data-aos="fade-up">
                 <?php foreach ($terms as $index => $term): ?>
                     <?php
                     if (!($term instanceof WP_Term)) {

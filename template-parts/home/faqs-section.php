@@ -13,7 +13,7 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
     <div class="container">
         <div class="faqs-section__grid">
             <!-- Left Column: Sticky/Prominent Info & Help Card -->
-            <div class="faqs-section__left">
+            <div class="faqs-section__left" data-aos="fade-up">
                 <?php if (!empty($badge)): ?>
                     <p class="rc-badge">
                         <?= $badge ?>
@@ -52,10 +52,8 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                             <span>Response time: <strong>&lt; 5 mins</strong></span>
                         </div>
                     </div>
-                    <a class="rc-button"
-                        href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
-                        rel="noopener noreferrer" target="_blank"
-                        aria-label="Chat with us on WhatsApp">
+                    <a class="rc-button" href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                        rel="noopener noreferrer" target="_blank" aria-label="Chat with us on WhatsApp">
                         Chat with Us on WhatsApp
                         <?php echo rc_svg_icon('arrow_next'); ?>
                     </a>
@@ -63,7 +61,7 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
             </div>
             <!-- Right Column: Accordion List -->
             <?php if (!empty($faqs) && is_array($faqs)): ?>
-                <div class="faqs-section__right rc-faqs d-flex flex-column w-100">
+                <div class="faqs-section__right rc-faqs d-flex flex-column w-100" data-aos="fade-up">
                     <?php
                     $faq_index = 0;
                     foreach ($faqs as $key => $value):

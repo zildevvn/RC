@@ -4,7 +4,7 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
 ?>
 <section class="rc-section banner-section bg-white" data-purpose="final-cta-section">
     <div class="container">
-        <div class="banner-section__card position-relative overflow-hidden">
+        <div class="banner-section__card position-relative overflow-hidden" data-aos="fade-up">
             <div aria-hidden="true" class="banner-section__waves">
                 <svg fill="none" preserveAspectRatio="none" viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg">
                     <path d="M 250 430 C 480 310, 680 160, 1050 120" stroke="#FFFFFF" stroke-width="3.5"></path>
@@ -70,9 +70,8 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                         </a>
                         <!-- WhatsApp Action Button -->
                         <a class="rc-button--secondary"
-                            href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
-                            rel="noopener noreferrer" target="_blank"
-                            aria-label="Chat with us on WhatsApp">
+                            href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" rel="noopener noreferrer"
+                            target="_blank" aria-label="Chat with us on WhatsApp">
                             Chat on WhatsApp
                             <?php echo rc_svg_icon('arrow_next'); ?>
                         </a>

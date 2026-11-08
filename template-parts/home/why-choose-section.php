@@ -10,7 +10,7 @@ $items = get_field('list_items_wc_home');
     </div>
     <div class="container">
         <!-- Section Header -->
-        <div class="wc-section__header text-center mx-auto">
+        <div class="wc-section__header text-center mx-auto" data-aos="fade-up">
             <?php if (!empty($badge)): ?>
                 <p class="rc-badge"> <?= $badge ?> </p>
             <?php endif; ?>
@@ -27,7 +27,7 @@ $items = get_field('list_items_wc_home');
         </div>
 
         <?php if (!empty($items)): ?>
-            <div class="wc-section__grid">
+            <div class="wc-section__grid" data-aos="fade-up">
                 <?php foreach ($items as $item): ?>
                     <div class="wc-section__card">
                         <div class="wc-section__card-icon">

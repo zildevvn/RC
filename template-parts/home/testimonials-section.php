@@ -7,7 +7,7 @@ $testimonials = get_field('testimonials_home');
 <section class="rc-section testimonials-section" data-purpose="testimonials-section">
     <div class="container">
         <!-- Section Header -->
-        <div class="testimonials-section__header text-center mx-auto">
+        <div class="testimonials-section__header text-center mx-auto" data-aos="fade-up">
             <?php if (!empty($badge)): ?>
                 <p class="rc-badge">
                     <?= $badge ?>
@@ -18,7 +18,8 @@ $testimonials = get_field('testimonials_home');
                 <?= $heading ?>
             </h2>
 
-            <div class="testimonials-section__rating d-flex flex-column flex-sm-row align-items-center justify-content-center gap-2 mt-2">
+            <div
+                class="testimonials-section__rating d-flex flex-column flex-sm-row align-items-center justify-content-center gap-2 mt-2">
                 <div class="testimonials-section__stars fw-bold">★★★★★</div>
                 <p class="testimonials-section__rating-text mb-0">
                     Rated <span class="fw-bold">4.9/5</span> based on 1,450+ reviews on TripAdvisor
@@ -29,7 +30,7 @@ $testimonials = get_field('testimonials_home');
 
         <?php if (!empty($testimonials) && is_array($testimonials)): ?>
             <!-- Testimonials Carousel -->
-            <div class="testimonials-section__grid swiper">
+            <div class="testimonials-section__grid swiper" data-aos="fade-up">
                 <div class="swiper-wrapper">
                     <?php foreach ($testimonials as $key => $testimonial):
                         $name = isset($testimonial['name']) ? $testimonial['name'] : '';
@@ -42,7 +43,8 @@ $testimonials = get_field('testimonials_home');
                         <div class="swiper-slide">
                             <div class="testimonials-section__card d-flex flex-column justify-content-between">
                                 <div>
-                                    <div class="testimonials-section__card-top d-flex align-items-center justify-content-between">
+                                    <div
+                                        class="testimonials-section__card-top d-flex align-items-center justify-content-between">
                                         <div class="testimonials-section__stars">★★★★★</div>
                                         <?php if (!empty($type)): ?>
                                             <div class="testimonials-section__badge d-inline-flex align-items-center">
@@ -60,8 +62,7 @@ $testimonials = get_field('testimonials_home');
                                 <!-- Customer Info -->
                                 <div class="testimonials-section__author d-flex align-items-center">
                                     <?php if (!empty($avatar)): ?>
-                                        <img alt="<?= esc_attr($avatar_alt) ?>"
-                                            class="testimonials-section__avatar"
+                                        <img alt="<?= esc_attr($avatar_alt) ?>" class="testimonials-section__avatar"
                                             src="<?= esc_url($avatar) ?>">
                                     <?php endif; ?>
                                     <div>
@@ -81,15 +82,11 @@ $testimonials = get_field('testimonials_home');
 
             <!-- Carousel Controls -->
             <div class="testimonials-section__controls d-flex align-items-center justify-content-center">
-                <button aria-label="Previous Testimonial"
-                    class="swiper-prev"
-                    type="button">
+                <button aria-label="Previous Testimonial" class="swiper-prev" type="button">
                     <?php echo rc_svg_icon('swiper_prev'); ?>
                 </button>
                 <div class="swiper-pagination"></div>
-                <button aria-label="Next Testimonial"
-                    class="swiper-next"
-                    type="button">
+                <button aria-label="Next Testimonial" class="swiper-next" type="button">
                     <?php echo rc_svg_icon('arrow_next'); ?>
                 </button>
             </div>

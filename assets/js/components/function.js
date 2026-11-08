@@ -1,6 +1,7 @@
 import Swiper from 'swiper';
 import { Pagination, Navigation, Autoplay, EffectFade, Keyboard, Thumbs } from 'swiper/modules';
 import { CountUp } from 'countup.js';
+import AOS from 'aos';
 
 
 (function ($) {
@@ -296,10 +297,33 @@ import { CountUp } from 'countup.js';
         });
     };
 
+    const initAOS = () => {
+        if (typeof AOS === 'undefined') {
+            return;
+        }
+
+        AOS.init({
+            duration: 700,
+            easing: 'ease-out-cubic',
+            once: true,
+            offset: 60,
+            disable: function () {
+                return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            }
+        });
+    };
+
     $(document).ready(function () {
         modalSearch();
         modalBookCar();
         testimonialsSwiper();
         rcFaqs();
+        initAOS();
+    });
+
+    $(window).on('load', function () {
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
     });
 })(jQuery);
