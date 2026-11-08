@@ -1,0 +1,548 @@
+/* ----------------------------------------- */
+/* REVIEWS COMPONENT (.rc-reviews)
+/* ----------------------------------------- */
+
+.rc-reviews {
+    margin-top: 1rem;
+
+    // Heading
+    &__title {
+        margin-bottom: 1.5rem;
+    }
+
+    // Container & List
+    &__container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__list-wrapper {
+        width: 100%;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    // Review Card
+    &__card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 1.35rem 1.5rem;
+        box-shadow: 0 4px 16px -2px rgba(15, 35, 43, 0.04);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+        &:hover {
+            border-color: rgba(15, 76, 129, 0.18);
+            box-shadow: 0 10px 24px -4px rgba(15, 35, 43, 0.08);
+            transform: translateY(-2px);
+        }
+
+        @include media-breakpoint-down(md) {
+            padding: 1.15rem 1.25rem;
+            border-radius: 14px;
+        }
+
+        &-header {
+            display: flex;
+            align-items: center;
+            gap: 0.875rem;
+            flex-wrap: wrap;
+        }
+
+        &-rating {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+
+            @include media-breakpoint-down(sm) {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 0.25rem;
+            }
+        }
+
+        &-content {
+            margin-top: 0.875rem;
+            font-size: 0.9375rem;
+            color: $color-body;
+            line-height: 1.65;
+
+            p {
+                margin-bottom: 0.75rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            @include media-breakpoint-down(md) {
+                font-size: 0.875rem;
+            }
+        }
+
+        &-pending {
+            margin-top: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            padding: 0.4rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.8125rem;
+            font-style: italic;
+
+            svg {
+                width: 15px;
+                height: 15px;
+                flex-shrink: 0;
+                color: #d97706;
+            }
+        }
+    }
+
+    // Author Avatar
+    &__avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, $color-primary 0%, lighten($color-primary, 14%) 100%);
+        color: #ffffff;
+        font-family: $font-second;
+        font-weight: 700;
+        font-size: 1.125rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 4px 10px rgba(15, 76, 129, 0.2);
+        user-select: none;
+
+        @include media-breakpoint-down(md) {
+            width: 38px;
+            height: 38px;
+            font-size: 1rem;
+        }
+    }
+
+    // Author Meta
+    &__author-meta {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.25;
+    }
+
+    &__author-name {
+        font-family: $font-primary;
+        font-size: 1rem;
+        font-weight: 700;
+        color: $color-heading;
+        margin: 0;
+
+        @include media-breakpoint-down(md) {
+            font-size: 0.9375rem;
+        }
+    }
+
+    &__date {
+        font-size: 0.8125rem;
+        color: #64748b;
+        margin-top: 2px;
+    }
+
+    // Pagination
+    &__pagination {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+
+        ul.page-numbers {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 0;
+                margin: 0;
+
+                &::before {
+                    display: none !important;
+                }
+            }
+
+            .page-numbers {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 38px;
+                height: 38px;
+                padding: 0 0.5rem;
+                border-radius: 10px;
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                color: $color-heading;
+                font-size: 0.875rem;
+                font-weight: 600;
+                text-decoration: none;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    background: rgba(15, 76, 129, 0.08);
+                    border-color: $color-primary;
+                    color: $color-primary;
+                }
+
+                &.current {
+                    background: $color-primary;
+                    border-color: $color-primary;
+                    color: #ffffff;
+                    box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+                }
+            }
+        }
+    }
+
+    // Empty State
+    &__empty {
+        background: #f8fafc;
+        border: 1.5px dashed #cbd5e1;
+        border-radius: 16px;
+        padding: 3rem 1.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        color: #64748b;
+
+        svg {
+            width: 44px;
+            height: 44px;
+            color: #94a3b8;
+            stroke-width: 1.5;
+        }
+
+        p {
+            font-size: 1rem;
+            font-weight: 500;
+            margin: 0;
+            color: #475569;
+        }
+    }
+
+    // Form Container
+    &__form-container {
+        margin-top: 3rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 2rem 2.25rem;
+        box-shadow: 0 10px 30px -5px rgba(15, 35, 43, 0.06), 0 4px 12px -2px rgba(15, 35, 43, 0.03);
+
+        @include media-breakpoint-down(md) {
+            padding: 1.5rem 1.25rem;
+            border-radius: 16px;
+            margin-top: 2.25rem;
+        }
+    }
+
+    &__form-title {
+        font-family: $font-second;
+        font-size: clamp(1.25rem, 2vw, 1.5rem);
+        font-weight: 700;
+        color: $color-heading;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.65rem;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 38px;
+            height: 3px;
+            background-color: $color-secondary;
+            border-radius: 2px;
+        }
+    }
+
+    // Form Notices
+    &__notice {
+        padding: 0.85rem 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.45;
+
+        svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        &--pending {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+
+            svg {
+                color: #d97706;
+            }
+        }
+
+        &--success {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+
+            svg {
+                color: #16a34a;
+            }
+        }
+    }
+
+    // Form Fields
+    &__form {
+        &-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.15rem;
+
+            @include media-breakpoint-down(md) {
+                grid-template-columns: 1fr;
+                gap: 1.15rem;
+            }
+        }
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.15rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &--rating {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.15rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.875rem;
+        }
+
+        &--item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+
+            .rc-reviews__label {
+                margin: 0;
+                font-weight: 600;
+                font-size: 0.875rem;
+                color: #475569;
+            }
+        }
+
+        &--comment {
+            height: 100%;
+
+            .rc-reviews__textarea {
+                height: 100%;
+                min-height: 160px;
+                resize: vertical;
+            }
+        }
+    }
+
+    &__ratings-col {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+
+    &__label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: $color-heading;
+        margin-bottom: 0.45rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+
+        .required {
+            color: #ef4444;
+        }
+    }
+
+    &__input,
+    &__textarea {
+        width: 100%;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        background: #f8fafc;
+        font-size: 0.9375rem;
+        color: $color-heading;
+        font-family: inherit;
+        box-sizing: border-box;
+        transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+
+        &::placeholder {
+            color: #94a3b8;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: $color-primary;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.12);
+        }
+    }
+
+    &__input {
+        height: 46px;
+        padding: 0.625rem 1rem;
+    }
+
+    &__textarea {
+        padding: 0.75rem 1rem;
+        min-height: 140px;
+        line-height: 1.6;
+    }
+
+    &__submit {
+        margin-top: 1.25rem;
+        height: 48px;
+        padding: 0 1.75rem;
+        font-size: 0.9375rem;
+        font-weight: 700;
+        border-radius: 12px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            transition: transform 0.25s ease;
+        }
+
+        &:hover svg {
+            transform: translateX(3px);
+        }
+    }
+}
+
+// Star Picker (.star-picker)
+.star-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    &__label {
+        cursor: pointer;
+        margin: 0;
+        display: inline-flex;
+        color: #cbd5e1;
+        transition: color 0.15s ease, transform 0.15s ease;
+        user-select: none;
+
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+            transition: transform 0.15s ease;
+        }
+
+        &:hover {
+            transform: scale(1.18);
+        }
+
+        &:focus-within {
+            outline: 2px solid $color-secondary;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+    }
+
+    &__input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    // Checked state: highlight star and preceding stars
+    &:not(:hover) {
+        .star-picker__label:has(~ .star-picker__label input:checked),
+        .star-picker__label:has(input:checked) {
+            color: #f59e0b;
+        }
+    }
+
+    // Hover state: highlight star and preceding stars
+    &:hover {
+        .star-picker__label {
+            color: #cbd5e1;
+        }
+
+        .star-picker__label:has(~ .star-picker__label:hover),
+        .star-picker__label:hover {
+            color: #f59e0b;
+        }
+    }
+}
+
+// Rendered Star Ratings (.rc-stars)
+.rc-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+
+    .rc-star {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--star-size, 18px);
+        height: var(--star-size, 18px);
+        flex-shrink: 0;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        &--filled {
+            color: #f59e0b;
+        }
+
+        &--empty {
+            color: #e2e8f0;
+        }
+    }
+}
+

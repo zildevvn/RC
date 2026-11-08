@@ -68,25 +68,25 @@ $query = new WP_Query($args);
                     $formatted_price = rc_format_price($price_tour);
                     $card_index++;
                     ?>
-                    <div class="tours-section__card">
-                        <div class="tours-section__card-thumb">
+                    <div class="tours-section__card tour-item">
+                        <div class="tour-item-thumb">
                             <?php if (!empty($thumb_url)): ?>
                                 <img alt="<?= esc_attr($thumb_alt) ?>" src="<?= esc_url($thumb_url) ?>">
                             <?php endif; ?>
                             <?php if (!empty($card_badge)): ?>
-                                <span class="tours-section__card-badge"><?= esc_html($card_badge) ?></span>
+                                <span class="tour-item-badge"><?= esc_html($card_badge) ?></span>
                             <?php endif; ?>
                         </div>
-                        <div class="tours-section__card-body">
+                        <div class="tour-item-body">
                             <?php if (!empty($time_tour)): ?>
-                                <div class="tours-section__card-meta">
+                                <div class="tour-item-meta">
                                     <?php echo rc_svg_icon('clock'); ?>
                                     <span><?= esc_html($time_tour) ?></span>
                                 </div>
                             <?php endif; ?>
-                            <h3 class="tours-section__card-title"><?= esc_html($title) ?></h3>
+                            <h3 class="tour-item-title"><?= esc_html($title) ?></h3>
                             <?php if (!empty($features_tour) && is_array($features_tour)): ?>
-                                <ul class="tours-section__card-features list-unstyled">
+                                <ul class="tour-item-features list-unstyled">
                                     <?php foreach ($features_tour as $feature):
                                         $feature_item = isset($feature['item']) ? trim($feature['item']) : '';
                                         if (empty($feature_item)) {
@@ -95,19 +95,19 @@ $query = new WP_Query($args);
                                         $feature_item = preg_replace('/\bdrop-o$/i', 'drop-off', $feature_item);
                                         ?>
                                         <li>
-                                            <span class="tours-section__card-feature-icon" aria-hidden="true">
+                                            <span class="tour-item-feature-icon" aria-hidden="true">
                                                 <?php echo rc_svg_icon('check'); ?>
                                             </span>
-                                            <span class="tours-section__card-feature-text"><?= esc_html($feature_item) ?></span>
+                                            <span class="tour-item-feature-text"><?= esc_html($feature_item) ?></span>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
                             <?php endif; ?>
-                            <div class="tours-section__card-footer mt-auto d-flex align-items-center justify-content-between">
+                            <div class="tour-item-footer mt-auto d-flex align-items-center justify-content-between">
                                 <div>
                                     <?php if ($formatted_price !== ''): ?>
-                                        <span class="tours-section__card-price-label d-block">Starting from</span>
-                                        <span class="tours-section__card-price"><?= esc_html($currency . $formatted_price) ?>
+                                        <span class="tour-item-price-label d-block">Starting from</span>
+                                        <span class="tour-item-price"><?= esc_html($currency . $formatted_price) ?>
                                             <span>/ car</span></span>
                                     <?php endif; ?>
                                 </div>

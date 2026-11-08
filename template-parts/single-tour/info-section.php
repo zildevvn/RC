@@ -7,7 +7,7 @@ $min_pax = isset($paxs_tours['min']) ? $paxs_tours['min'] : '';
 $max_pax = isset($paxs_tours['max']) ? $paxs_tours['max'] : '';
 
 ?>
-<section class="vm-tour-info vm-section">
+<section class="rc-tour-info rc-section">
     <div class="container">
         <?php if ($location_tour || $time_tour || $price_tour || ($min_pax && $max_pax)): ?>
             <div class="tour-info-card">

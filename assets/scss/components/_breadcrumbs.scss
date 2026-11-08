@@ -1,0 +1,116 @@
+// ==========================================================================
+// Component: Breadcrumbs (.rc-breadcrumbs)
+// Global navigation breadcrumb component
+// ==========================================================================
+
+.rc-breadcrumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 0.35rem;
+    font-family: $font-primary;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-weight: 500;
+    color: $color-body;
+    margin-bottom: 1rem;
+
+    // Links
+    a,
+    &__link {
+        color: $color-body;
+        text-decoration: none;
+        transition: color 0.2s ease, opacity 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        font-weight: 600;
+
+
+        &:hover {
+            color: $color-secondary;
+            text-decoration: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $color-secondary;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+    }
+
+    // Separator
+    &__separator,
+    >span:not(.rc-breadcrumbs__current) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0.5rem;
+        color: $color-secondary !important;
+        line-height: 1;
+        flex-shrink: 0;
+        user-select: none;
+
+        svg {
+            width: 13px;
+            height: 13px;
+            display: inline-block;
+            vertical-align: middle;
+            stroke-width: 2.25;
+            flex-shrink: 0;
+            color: inherit;
+        }
+    }
+
+    // Current page item (active / leaf node)
+    &__current {
+        font-weight: 600;
+        color: $color-heading;
+        word-break: break-word;
+    }
+
+    // Dark Background Contexts (Hero sections, Search banner, dark surfaces)
+    .hero-section &,
+    .hero-section-shared &,
+    .search-hero-section &,
+    &--light {
+        color: rgba($color-white, 0.85);
+
+        a,
+        .rc-breadcrumbs__link {
+            color: rgba($color-white, 0.75);
+
+            &:hover {
+                color: $color-secondary;
+            }
+
+            &:focus-visible {
+                outline-color: $color-secondary;
+            }
+        }
+
+        .rc-breadcrumbs__separator,
+        >span:not(.rc-breadcrumbs__current) {
+            color: rgba($color-white, 0.5);
+        }
+
+        .rc-breadcrumbs__current {
+            color: $color-white;
+        }
+    }
+
+    // Mobile / Tablet responsiveness
+    @include media-breakpoint-down(md) {
+        font-size: 0.8125rem;
+        margin-bottom: 0.75rem;
+
+        &__separator,
+        >span:not(.rc-breadcrumbs__current) {
+            margin: 0 0.35rem;
+
+            svg {
+                width: 11px;
+                height: 11px;
+            }
+        }
+    }
+}

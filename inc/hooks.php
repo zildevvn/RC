@@ -69,6 +69,16 @@ function rc_book_car_modal_template()
 	load_template(get_template_directory() . '/template-parts/modal-book-car.php', false);
 }
 
+/**
+ * Back to top template
+ * @return void
+ */
+add_action('rc_hook_back_to_top', 'rc_back_to_top_template');
+function rc_back_to_top_template()
+{
+	load_template(get_template_directory() . '/template-parts/back-to-top.php', false);
+}
+
 
 /**
  * Post loop item template

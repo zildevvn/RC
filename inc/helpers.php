@@ -185,6 +185,22 @@ if (!function_exists('rc_calculate_tour_price')) {
 			$total_pax = 1;
 		}
 
+		// Fixed Price for Book Car option (takes priority if price field exists)
+		if (isset($selected_option['price']) && $selected_option['price'] !== '') {
+			$raw_price = is_array($selected_option['price']) && isset($selected_option['price']['price']) ? $selected_option['price']['price'] : $selected_option['price'];
+			$fixed_price = floatval(str_replace(['₫', '$', ',', ' '], '', $raw_price));
+			if ($fixed_price > 0) {
+				return [
+					'price_per_person' => $fixed_price,
+					'child_price' => 0,
+					'total_price' => $fixed_price,
+					'is_price_available' => true,
+					'is_car_tour' => true,
+					'is_private_tour' => false
+				];
+			}
+		}
+
 		$private_tour = $selected_option['private_tour'] ?? false;
 		$price_group = $selected_option['price_group'] ?? 0;
 		$price_group_child = $selected_option['child_price_group'] ?? $selected_option['child_price_group'] ?? null;

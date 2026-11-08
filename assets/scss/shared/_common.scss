@@ -120,7 +120,9 @@ a {
 }
 
 .swiper-prev,
-.swiper-next {
+.swiper-next,
+.rc-swiper-prev,
+.rc-swiper-next {
     width: 3rem;
     height: 3rem;
     border-radius: 9999px;
@@ -133,7 +135,7 @@ a {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), color 0.15s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s ease;
 
     &:hover:not(.swiper-button-disabled) {
         background-color: $color-primary;
@@ -142,7 +144,7 @@ a {
     }
 
     &.swiper-button-disabled {
-        opacity: 0.5;
+        opacity: 0.4;
         cursor: not-allowed;
     }
 
@@ -192,5 +194,179 @@ a {
         transition-property: none !important;
         transform: none !important;
         opacity: 1 !important;
+    }
+}
+
+// ==========================================================================
+// Editorial Content Lists (Single Tour & Single Post)
+// Scoped strictly to main editorial content areas inside site-main
+// ==========================================================================
+:is(.single-post, .single-tours, .single-tour, .single) .site-main :is(.main-section-left__content, .tour-overview__content, .tour-overview, .tour-highlights__content, .tour-highlights, .tour-itinerary__desc, .itinerary-item__desc, .entry-content) {
+    ul:not([class*="menu"]):not([class*="nav"]):not(.anchor-nav__list):not(.swiper-wrapper):not(.comment-list):not(.page-numbers) {
+        list-style: none;
+        margin: 1.25rem 0 1.5rem;
+        padding-left: 0;
+
+        // Spacing with adjacent elements
+        h2 + &,
+        h3 + &,
+        h4 + &,
+        h5 + &,
+        h6 + & {
+            margin-top: 0.875rem;
+        }
+
+        p + & {
+            margin-top: 1rem;
+        }
+
+        & + p {
+            margin-top: 1.25rem;
+        }
+
+        // Level 1 list items
+        > li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.625rem;
+            line-height: 1.7;
+            color: $color-body;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            // Level 1 custom marker: Modern primary-colored capsule/dot with subtle ambient halo
+            &::before {
+                content: '';
+                position: absolute;
+                left: 0.125rem;
+                top: 0.58em;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background-color: $color-primary;
+                box-shadow: 0 0 0 3px rgba($color-primary, 0.14);
+                transition: background-color 0.2s ease, transform 0.2s ease;
+            }
+
+            p {
+                margin-bottom: 0.5rem;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            strong,
+            b {
+                color: $color-heading;
+                font-weight: 600;
+            }
+
+            a {
+                color: $color-primary;
+                text-decoration: underline;
+                text-underline-offset: 3px;
+                transition: color 0.2s ease;
+
+                &:hover {
+                    color: $color-secondary;
+                }
+            }
+
+            // Level 2 (Nested unordered list)
+            > ul {
+                list-style: none;
+                margin: 0.5rem 0 0.5rem 0.25rem;
+                padding-left: 0;
+
+                > li {
+                    padding-left: 1.35rem;
+                    margin-bottom: 0.45rem;
+                    font-size: 0.95em;
+                    line-height: 1.65;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    // Level 2 custom marker: Refined ring with warm secondary gold
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        left: 0.125rem;
+                        top: 0.58em;
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                        background-color: transparent;
+                        border: 2px solid $color-secondary;
+                        box-shadow: none;
+                    }
+
+                    // Level 3 (Deeply nested list)
+                    > ul {
+                        list-style: none;
+                        margin: 0.35rem 0 0.35rem 0.25rem;
+                        padding-left: 0;
+
+                        > li {
+                            padding-left: 1.25rem;
+                            margin-bottom: 0.35rem;
+                            font-size: 0.95em;
+
+                            // Level 3 custom marker: Subtle sleek dash
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                left: 0.125rem;
+                                top: 0.68em;
+                                width: 5px;
+                                height: 2px;
+                                border-radius: 1px;
+                                background-color: rgba($color-heading, 0.45);
+                                border: none;
+                                box-shadow: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Responsive adjustments for mobile and tablet
+        @include media-breakpoint-down(md) {
+            margin: 1rem 0 1.25rem;
+
+            > li {
+                padding-left: 1.35rem;
+                margin-bottom: 0.5rem;
+                font-size: 0.9375rem;
+                line-height: 1.65;
+
+                &::before {
+                    width: 6px;
+                    height: 6px;
+                    top: 0.55em;
+                    box-shadow: 0 0 0 2.5px rgba($color-primary, 0.12);
+                }
+
+                > ul {
+                    margin: 0.4rem 0 0.4rem;
+
+                    > li {
+                        padding-left: 1.2rem;
+                        margin-bottom: 0.35rem;
+
+                        &::before {
+                            width: 5px;
+                            height: 5px;
+                            top: 0.55em;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

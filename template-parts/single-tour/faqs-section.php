@@ -4,7 +4,7 @@ $faqs = get_field('faqs_list_tour');
 
 <?php if (!empty($faqs)): ?>
     <div id="tour-faqs" class="tour-faqs">
-        <h2 class="vm-heading ">Frequently Asked Questions</h2>
+        <h2 class="rc-heading ">Frequently Asked Questions</h2>
         <div class="faqs-section__list faqs-list">
             <?php foreach ($faqs as $key => $item): ?>
                 <?php $classActive = $key == 0 ? 'is-active' : '' ?>

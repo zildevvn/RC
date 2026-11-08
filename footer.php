@@ -10,6 +10,7 @@
 do_action('rc_hook_footer');
 do_action('rc_hook_search');
 do_action('rc_hook_book_car');
+do_action('rc_hook_back_to_top');
 wp_footer();
 ?>
 <!--Start of Tawk.to Script-->

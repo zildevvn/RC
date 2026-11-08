@@ -50,32 +50,43 @@ if (is_array($current_tour_cats) && !empty($current_tour_cats)) {
 ?>
 
 <?php if ($the_query->have_posts()): ?>
-    <section class="vm-section related-tour-section">
+    <section class="rc-section related-tour-section">
         <div class="container">
-            <?php vm_icon_heading() ?>
 
-            <h2 class="vm-heading">
-                <?php echo $heading; ?>
-            </h2>
+            <div
+                class="related-tour-section__header d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+                <div>
+                    <h2 class="rc-heading mb-2">
+                        <?php echo $heading; ?>
+                    </h2>
+                    <p class="rc-sub-heading mb-0">Explore with Rent Car Da Nang and discover the region's best beaches and
+                        iconic attractions.</p>
+                </div>
+                <div class="rc-related-nav d-none d-md-flex align-items-center gap-2 flex-shrink-0">
+                    <button type="button" class="rc-swiper-prev swiper-prev" aria-label="Previous tours">
+                        <?php echo rc_svg_icon('lightbox_prev'); ?>
+                    </button>
+                    <button type="button" class="rc-swiper-next swiper-next" aria-label="Next tours">
+                        <?php echo rc_svg_icon('lightbox_next'); ?>
+                    </button>
+                </div>
+            </div>
 
-            <p class="vm-sub-heading">Explore our Phu Quoc Island Tours and discover the island's best beaches and
-                attractions.</p>
-
-
-            <div class="related-tour-section__list swiper">
+            <div class="related-tour-section__list rc-related-carousel swiper">
                 <div class="swiper-wrapper">
                     <?php
                     while ($the_query->have_posts()):
                         $the_query->the_post();
                         ?>
                         <div class="swiper-slide">
-                            <?php vm_item_tour(); ?>
+                            <?php rc_item_tour(); ?>
                         </div>
                         <?php
                     endwhile;
                     wp_reset_postdata();
                     ?>
                 </div>
+                <div class="swiper-pagination rc-related-pagination d-md-none mt-3"></div>
             </div>
 
         </div>
