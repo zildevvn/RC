@@ -1,48 +1,105 @@
 .rc-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.425rem;
-    background: $color-secondary;
-    color: $color-primary;
-    border-radius: 0.5rem;
-    padding: 0.875rem 1.75rem;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    text-decoration: none;
-    font-weight: 600;
-    box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2), 0 4px 6px -4px rgba(245, 158, 11, 0.2);
-
-    svg {
-        width: 100%;
-        height: auto;
-        max-width: 20px;
-    }
-
+    &,
     &--secondary {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #ffffff;
-        font-weight: 600;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         gap: 0.425rem;
         border-radius: 0.5rem;
-        padding: 0.875rem 1.75rem;
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
-            color: #ffffff;
-        }
+        padding: 12px 20px;
+        font-weight: 600;
+        text-decoration: none;
+        transition:
+            background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+            border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+            color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
         svg {
             width: 100%;
             height: auto;
             max-width: 20px;
+            flex-shrink: 0;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+
+            svg.lucide-chevron-right,
+            svg.lucide-arrow-right,
+            svg:last-child:not(:first-child) {
+                transform: translateX(4px);
+            }
+
+            svg.lucide-chevron-left,
+            svg.lucide-arrow-left {
+                transform: translateX(-4px);
+            }
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        &:focus-visible {
+            outline: 2px solid $color-secondary;
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
+
+            svg {
+                transition: none;
+            }
+
+            &:hover,
+            &:active {
+                transform: none;
+
+                svg {
+                    transform: none;
+                }
+            }
+        }
+    }
+
+    background-color: $color-secondary;
+    color: $color-heading;
+    box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2), 0 4px 6px -4px rgba(245, 158, 11, 0.2);
+
+    &:hover {
+        background-color: #fbbf24;
+        color: $color-heading;
+        box-shadow: 0 14px 20px -3px rgba(245, 158, 11, 0.32), 0 6px 8px -4px rgba(245, 158, 11, 0.22);
+    }
+
+    &:active {
+        box-shadow: 0 6px 10px -3px rgba(245, 158, 11, 0.2);
+    }
+
+    &.back-home-btn:hover svg:first-child:not(:last-child) {
+        transform: translateX(-4px);
+    }
+
+    &--secondary {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: $color-white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.45);
+            color: $color-white;
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.25);
+        }
+
+        &:active {
+            box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.2);
         }
     }
 }

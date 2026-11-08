@@ -2,8 +2,7 @@
 add_action('after_setup_theme', function () {
 	register_nav_menus([
 		'primary-menu' => esc_html__('Primary Menu', 'rc'),
-		'daily-tours-menu' => esc_html__('Daily Tours Menu', 'rc'),
-		'package-tours-menu' => esc_html__('Package Tours Menu', 'rc'),
+		'tours-menu' => esc_html__('Tours Menu', 'rc'),
 		'company-menu' => esc_html__('Company Menu', 'rc'),
 	]);
 });
