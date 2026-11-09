@@ -57,17 +57,17 @@ $formatted_price = rc_format_price($price_tour);
             <div class="form-group half">
                 <label>Adults</label>
                 <div class="quantity-selector">
-                    <button class="qty-btn">-</button>
-                    <input type="number" value="2" min="1">
-                    <button class="qty-btn">+</button>
+                    <button class="qty-btn" type="button">-</button>
+                    <input type="number" name="adults" value="2" min="1" max="50">
+                    <button class="qty-btn" type="button">+</button>
                 </div>
             </div>
             <div class="form-group half">
                 <label>Children <small>(4-11 yrs)</small></label>
                 <div class="quantity-selector">
-                    <button class="qty-btn">-</button>
-                    <input type="number" value="0" min="0">
-                    <button class="qty-btn">+</button>
+                    <button class="qty-btn" type="button">-</button>
+                    <input type="number" name="children" value="0" min="0" max="50">
+                    <button class="qty-btn" type="button">+</button>
                 </div>
             </div>
         </div>

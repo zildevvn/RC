@@ -33,17 +33,45 @@ function rc_ajax_check_availability()
     setup_postdata($post);
 
     $tour_options = get_field('tour_options', $post_id);
-    $count = !empty($tour_options) && is_array($tour_options) ? count($tour_options) : 0;
+    $filtered_options = [];
+
+    if (!empty($tour_options) && is_array($tour_options)) {
+        foreach ($tour_options as $key => $option) {
+            $type = $option['type'] ?? '';
+            $capacity = intval($type);
+
+            if ($capacity <= 0 && !empty($option['pax'])) {
+                $capacity = intval(preg_replace('/\D/', '', $option['pax']));
+            }
+            if ($capacity <= 0 && !empty($option['maximum'])) {
+                $capacity = intval(preg_replace('/\D/', '', $option['maximum']));
+            }
+
+            // Filter: Capacity >= Total Guests
+            if ($capacity <= 0 || $capacity >= $total_pax) {
+                $filtered_options[$key] = $option;
+            }
+        }
+    }
+
+    $count = count($filtered_options);
 
     ob_start();
-    get_template_part('template-parts/single-tour/tour-options', null, ['post_id' => $post_id]);
+    get_template_part('template-parts/single-tour/tour-options', null, [
+        'post_id'          => $post_id,
+        'adults'           => $adults,
+        'children'         => $children,
+        'total_pax'        => $total_pax,
+        'filtered_options' => $filtered_options,
+    ]);
     $html = ob_get_clean();
 
     wp_reset_postdata();
 
     wp_send_json_success([
-        'count' => $count,
-        'html'  => $html,
+        'count'        => $count,
+        'html'         => $html,
+        'total_guests' => $total_pax,
     ]);
 }
 

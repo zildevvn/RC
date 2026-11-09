@@ -44,8 +44,16 @@
                 return;
             }
 
-            const adults = parseInt($form.find('.quantity-selector input').eq(0).val()) || 0;
-            const children = parseInt($form.find('.quantity-selector input').eq(1).val()) || 0;
+            const $adultsInput = $form.find('input[name="adults"]').length
+                ? $form.find('input[name="adults"]')
+                : $form.find('.quantity-selector input').eq(0);
+            const $childrenInput = $form.find('input[name="children"]').length
+                ? $form.find('input[name="children"]')
+                : $form.find('.quantity-selector input').eq(1);
+
+            const adults = parseInt($adultsInput.val()) || 0;
+            const children = parseInt($childrenInput.val()) || 0;
+            const totalGuests = adults + children;
 
             if ($btn.hasClass('is-loading')) return;
 
@@ -64,14 +72,15 @@
                     post_id: postId,
                     date: date,
                     adults: adults,
-                    children: children
+                    children: children,
+                    total_guests: totalGuests
                 },
                 success: function (response) {
                     $btn.removeClass('is-loading').text(originalText);
                     $btn.prop('disabled', false);
 
                     if (response.success) {
-                        if (response.data.count > 0 && response.data.html) {
+                        if (response.data.html) {
                             $container.html(response.data.html);
                             $container.slideDown(400, function () {
                                 $('html, body').animate({
@@ -79,7 +88,7 @@
                                 }, 600);
                             });
                         } else {
-                            $container.html('<div class="container"><div class="rc-tour-options-empty vm-tour-options-empty" style="padding:40px 20px;text-align:center;background:#fff;border-radius:12px;margin:30px 0;border:1px solid #eaeaea;">No available tour options found for the selected date. Please try another date.</div></div>');
+                            $container.html('<div class="container"><div class="rc-tour-options-empty vm-tour-options-empty" style="padding:40px 20px;text-align:center;background:#fff;border-radius:12px;margin:30px 0;border:1px solid #eaeaea;">Không có option phù hợp. Vui lòng thử lại với số lượng khách khác.</div></div>');
                             $container.slideDown(400);
                         }
                     } else {
@@ -125,8 +134,16 @@
             const optionId = $tourItem.data('key');
             const postId = $container.data('post-id');
             const date = $form.find('input[type="date"]').val();
-            const adults = parseInt($form.find('.quantity-selector input').eq(0).val()) || 0;
-            const children = parseInt($form.find('.quantity-selector input').eq(1).val()) || 0;
+
+            const $adultsInput = $form.find('input[name="adults"]').length
+                ? $form.find('input[name="adults"]')
+                : $form.find('.quantity-selector input').eq(0);
+            const $childrenInput = $form.find('input[name="children"]').length
+                ? $form.find('input[name="children"]')
+                : $form.find('.quantity-selector input').eq(1);
+
+            const adults = parseInt($adultsInput.val()) || 0;
+            const children = parseInt($childrenInput.val()) || 0;
 
             $.ajax({
                 url: php_data.ajax_url,

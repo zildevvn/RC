@@ -11,14 +11,71 @@ if (!$current_post_id && !empty($args['post_id'])) {
     $current_post_id = intval($_POST['post_id']);
 }
 
-$tour_options = $current_post_id ? get_field('tour_options', $current_post_id) : get_field('tour_options');
+// Get guest counts (Adults + Children)
+$adults = isset($args['adults']) ? intval($args['adults']) : (isset($_POST['adults']) ? intval($_POST['adults']) : 2);
+$children = isset($args['children']) ? intval($args['children']) : (isset($_POST['children']) ? intval($_POST['children']) : 0);
+$total_pax = isset($args['total_pax']) ? intval($args['total_pax']) : ($adults + $children);
+
+// If filtered_options passed from ajax, use it; otherwise filter all options by total guests
+$tour_options = [];
+if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
+    $tour_options = $args['filtered_options'];
+} else {
+    $all_options = $current_post_id ? get_field('tour_options', $current_post_id) : get_field('tour_options');
+    if (!empty($all_options) && is_array($all_options)) {
+        foreach ($all_options as $key => $option) {
+            $type = $option['type'] ?? '';
+            $capacity = intval($type);
+
+            if ($capacity <= 0 && !empty($option['pax'])) {
+                $capacity = intval(preg_replace('/\D/', '', $option['pax']));
+            }
+            if ($capacity <= 0 && !empty($option['maximum'])) {
+                $capacity = intval(preg_replace('/\D/', '', $option['maximum']));
+            }
+
+            // Filter: Capacity >= Total Guests
+            if ($capacity <= 0 || $total_pax <= 0 || $capacity >= $total_pax) {
+                $tour_options[$key] = $option;
+            }
+        }
+    }
+}
 ?>
 
-<?php if (!empty($tour_options)): ?>
+<?php if (empty($tour_options)): ?>
+    <section class="rc-section rc-tour-options vm-tour-options rc-tour-options--empty">
+        <div class="container">
+            <div class="rc-tour-options-empty vm-tour-options-empty">
+                <div class="empty-icon">
+                    <?php echo rc_svg_icon('alert_circle'); ?>
+                </div>
+                <h3>Không có option phù hợp</h3>
+                <p>
+                    <?php if ($total_pax > 0): ?>
+                        Không tìm thấy phương tiện hoặc gói dịch vụ phù hợp cho <strong><?= esc_html($total_pax) ?> khách</strong>. Vui lòng giảm số lượng khách hoặc liên hệ trực tiếp với chúng tôi để được hỗ trợ.
+                    <?php else: ?>
+                        Không có tour option nào phù hợp. Vui lòng thử lại với ngày hoặc số lượng khách khác.
+                    <?php endif; ?>
+                </p>
+            </div>
+        </div>
+    </section>
+<?php else: ?>
+    <?php
+    $first_key = array_key_first($tour_options);
+    $options_count = count($tour_options);
+    ?>
     <section class="rc-section rc-tour-options vm-tour-options">
         <div class="container">
             <h2 class="rc-heading rc-tour-options__title">
-                <?php printf(esc_html__('Choose from %d available options', 'rc'), count($tour_options)); ?>
+                <?php
+                if ($options_count === 1) {
+                    esc_html_e('Choose from 1 available option', 'rc');
+                } else {
+                    printf(esc_html__('Choose from %d available options', 'rc'), $options_count);
+                }
+                ?>
             </h2>
 
             <div class="rc-tour-options__grid vm-tour-options__grid">
@@ -28,8 +85,13 @@ $tour_options = $current_post_id ? get_field('tour_options', $current_post_id) :
                     $starting_time = $option['starting_time'] ?? '';
                     $pax = $option['pax'] ?? ($option['maximum'] ?? '');
                     $description = isset($option['description']) ? $option['description'] : '';
-                    $is_selected_class = ($key === 0) ? 'is-selected' : '';
-
+                    $is_first = ($key === $first_key);
+                    $is_selected_class = $is_first ? 'is-selected' : '';
+                    $type = $option['type'] ?? '';
+                    // 4 : 4 seat
+                    // 7 : 7 seat
+                    // 16 : 16 seat
+            
                     // Price logic for Book Car: fixed single price from $option['price']
                     $raw_price = $option['price'] ?? '';
                     $formatted_price = rc_format_price($raw_price);
@@ -105,8 +167,8 @@ $tour_options = $current_post_id ? get_field('tour_options', $current_post_id) :
 
                         <!-- CTA -->
                         <div class="option-item__cta">
-                            <button type="button" class="btn btn-select <?= ($key === 0) ? 'btn-select--active' : '' ?>">
-                                <?= ($key === 0) ? 'Continue' : 'Select' ?>
+                            <button type="button" class="btn btn-select <?= $is_first ? 'btn-select--active' : '' ?>">
+                                <?= $is_first ? 'Continue' : 'Select' ?>
                             </button>
                         </div>
                     </div>
