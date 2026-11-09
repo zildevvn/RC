@@ -195,6 +195,17 @@ if (!$booking_data) {
                                                 <span class="payment-option__desc">Fast domestic bank transfer or QR payment</span>
                                             </div>
                                         </label>
+                                        <label class="payment-option payment-option--paypal">
+                                            <input type="radio" name="payment_method" value="paypal">
+                                            <div class="payment-option__radio-indicator"></div>
+                                            <div class="payment-option__info">
+                                                <div class="d-flex align-items-center justify-content-between gap-2">
+                                                    <strong class="payment-option__title">PayPal</strong>
+                                                    <span class="payment-option__badge"><?php echo rc_svg_icon('paypal'); ?></span>
+                                                </div>
+                                                <span class="payment-option__desc">Safe payment with PayPal balance, debit or credit card</span>
+                                            </div>
+                                        </label>
                                     </div>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -207,10 +218,23 @@ if (!$booking_data) {
                                     <div class="invalid-feedback"></div>
                                 </div>
 
-                                <button type="submit" class="btn-submit-booking rc-button">
-                                    <span>CONFIRM BOOKING</span>
-                                    <?php echo rc_svg_icon('button_arrow'); ?>
-                                </button>
+                                <div id="rc-standard-submit-wrap">
+                                    <button type="submit" class="btn-submit-booking rc-button">
+                                        <span>CONFIRM BOOKING</span>
+                                        <?php echo rc_svg_icon('button_arrow'); ?>
+                                    </button>
+                                </div>
+
+                                <div id="rc-paypal-button-wrap" style="display: none;" class="mt-3">
+                                    <div id="paypal-button-container"></div>
+                                    <div class="paypal-loading-notice" style="display: none; text-align: center; padding: 12px; color: #475569; font-size: 0.875rem;">
+                                        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                        <span>Connecting to PayPal...</span>
+                                    </div>
+                                    <div class="paypal-info-note text-center mt-2" style="font-size: 0.75rem; color: #94a3b8;">
+                                        <span>You will be prompted to authorize your payment in a secure PayPal window.</span>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>

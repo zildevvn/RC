@@ -411,6 +411,37 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
+                    "key": "field_6af1c8e2c62d4",
+                    "label": "Type",
+                    "name": "type",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "4": "4 seat",
+                        "7": "7 seat",
+                        "16": "16 seat"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 0,
+                    "ui": 1,
+                    "ajax": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_6af02d813b183"
+                },
+                {
                     "key": "field_6af02d993b184",
                     "label": "Name",
                     "name": "name",
@@ -522,5 +553,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1794125413
+    "modified": 1794230558
 }

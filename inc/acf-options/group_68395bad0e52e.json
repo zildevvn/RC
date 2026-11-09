@@ -154,6 +154,96 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_rc_paypal_tab",
+            "label": "PayPal",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_rc_paypal_sandbox",
+            "label": "Sandbox Mode",
+            "name": "paypal_sandbox",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Enable sandbox test environment for PayPal",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "message": "Enable Sandbox mode",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Sandbox",
+            "ui_off_text": "Live"
+        },
+        {
+            "key": "field_rc_paypal_exchange_rate",
+            "label": "Exchange Rate (VND per USD)",
+            "name": "paypal_exchange_rate",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Exchange rate to convert VND to USD for PayPal charges (e.g. 25400)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 25400,
+            "placeholder": "25400",
+            "step": "1"
+        },
+        {
+            "key": "field_rc_paypal_client_id",
+            "label": "PayPal Client ID",
+            "name": "paypal_client_id",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Enter PayPal REST API Client ID (Can also be set via RC_PAYPAL_CLIENT_ID constant)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_rc_paypal_client_secret",
+            "label": "PayPal Client Secret",
+            "name": "paypal_client_secret",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Enter PayPal REST API Client Secret (Never exposed to frontend. Can also be set via RC_PAYPAL_CLIENT_SECRET constant)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
         }
     ],
     "location": [

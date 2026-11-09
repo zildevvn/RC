@@ -11,6 +11,7 @@ function rc_set_custom_edit_tour_booking_columns($columns)
     $columns['tour'] = __('Service', 'rc');
     $columns['booking_date'] = __('Date', 'rc');
     $columns['total_price'] = __('Total Price', 'rc');
+    $columns['payment'] = __('Payment', 'rc');
     $columns['date'] = __('Submitted On', 'rc');
     return $columns;
 }
@@ -56,6 +57,23 @@ function rc_custom_tour_booking_column($column, $post_id)
             if ($price) {
                 echo number_format((float) $price, 0, '.', ',') . ' VND';
             }
+            break;
+        case 'payment':
+            $method = get_post_meta($post_id, 'payment_method', true);
+            $pay_status = get_post_meta($post_id, 'payment_status', true);
+            $method_label = ($method === 'paypal') ? 'PayPal' : (($method === 'bank_transfer') ? 'Bank Transfer' : 'Pay on Arrival');
+            
+            $status_style = 'background:#f1f5f9;color:#475569;';
+            if ($pay_status === 'paid') {
+                $status_style = 'background:#dcfce7;color:#15803d;border:1px solid #86efac;';
+            } elseif ($pay_status === 'failed') {
+                $status_style = 'background:#fee2e2;color:#b91c1c;border:1px solid #fca5a5;';
+            } else {
+                $status_style = 'background:#fef3c7;color:#b45309;border:1px solid #fde68a;';
+            }
+
+            echo '<strong>' . esc_html($method_label) . '</strong><br>';
+            echo '<span style="display:inline-block;margin-top:4px;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;text-transform:uppercase;' . $status_style . '">' . esc_html($pay_status ?: 'pending') . '</span>';
             break;
     }
 }
@@ -115,6 +133,35 @@ function rc_booking_meta_box_html($post)
     if ($customer_messages)
         echo '<tr><th>Messages</th><td>' . nl2br(esc_html($customer_messages)) . '</td></tr>';
     echo '<tr><th>Payment Method</th><td>' . esc_html($payment_method) . '</td></tr>';
+    
+    $payment_status = get_post_meta($post->ID, 'payment_status', true);
+    $booking_status = get_post_meta($post->ID, 'booking_status', true);
+    echo '<tr><th>Payment Status</th><td><strong style="text-transform:uppercase;color:' . ($payment_status === 'paid' ? '#15803d' : '#b45309') . ';">' . esc_html($payment_status ?: 'pending') . '</strong> (' . esc_html($booking_status ?: 'Pending') . ')</td></tr>';
+
+    if ($payment_method === 'paypal') {
+        $paypal_order_id = get_post_meta($post->ID, 'paypal_order_id', true);
+        $paypal_capture_id = get_post_meta($post->ID, 'paypal_capture_id', true);
+        $paypal_amount = get_post_meta($post->ID, 'paypal_amount', true);
+        $paypal_currency = get_post_meta($post->ID, 'paypal_currency', true);
+        $paypal_captured_at = get_post_meta($post->ID, 'paypal_captured_at', true);
+        $paypal_payer_email = get_post_meta($post->ID, 'paypal_payer_email', true);
+
+        if ($paypal_order_id) {
+            echo '<tr><th>PayPal Order ID</th><td><code>' . esc_html($paypal_order_id) . '</code></td></tr>';
+        }
+        if ($paypal_capture_id) {
+            echo '<tr><th>PayPal Capture ID</th><td><code style="color:#15803d;font-weight:bold;">' . esc_html($paypal_capture_id) . '</code></td></tr>';
+        }
+        if ($paypal_amount && $paypal_currency) {
+            echo '<tr><th>PayPal Charged</th><td><strong>' . esc_html($paypal_amount) . ' ' . esc_html($paypal_currency) . '</strong></td></tr>';
+        }
+        if ($paypal_payer_email) {
+            echo '<tr><th>PayPal Payer</th><td>' . esc_html($paypal_payer_email) . '</td></tr>';
+        }
+        if ($paypal_captured_at) {
+            echo '<tr><th>Paid At</th><td>' . esc_html($paypal_captured_at) . '</td></tr>';
+        }
+    }
     echo '</tbody></table>';
 
     echo '<h3 class="rc-booking-section-title">Service Details</h3>';
