@@ -1,0 +1,834 @@
+// ==========================================================================
+// Contact Page Styles (_contact.scss)
+// Executive Hub Composition: Horizontal Deck + Dedicated Inquiry Portal
+// ==========================================================================
+
+$font-serif: 'Cormorant Garamond', Georgia, serif !default;
+
+.contact-main-section {
+    padding: 85px 0 100px;
+    background-color: #F8FAFC;
+    position: relative;
+
+    @include media-breakpoint-down(lg) {
+        padding: 65px 0 80px;
+    }
+
+    @include media-breakpoint-down(md) {
+        padding: 45px 0 60px;
+    }
+
+    // ----------------------------------------------------------------------
+    // 1. Section Header Block
+    // ----------------------------------------------------------------------
+    .contact-header-block {
+        max-width: 720px;
+        margin: 0 auto 3.25rem auto;
+
+        @include media-breakpoint-down(md) {
+            margin-bottom: 2.25rem;
+        }
+
+        &__badge {
+            display: inline-block;
+            margin-bottom: 0.75rem;
+            background-color: rgba($color-secondary, 0.14);
+            color: darken($color-secondary, 15%);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 0.8125rem;
+            padding: 0.35rem 1.1rem;
+            border-radius: 999px;
+            font-family: $font-primary;
+        }
+
+        &__title {
+            font-family: $font-serif;
+            font-size: clamp(2.35rem, 3.8vw, 3.25rem);
+            font-weight: 700;
+            color: $color-heading;
+            line-height: 1.18;
+            letter-spacing: -0.015em;
+            margin-bottom: 0.85rem;
+        }
+
+        &__desc {
+            font-family: $font-second;
+            font-size: 1.0625rem;
+            line-height: 1.65;
+            color: #64748B;
+            margin-bottom: 0;
+
+            @include media-breakpoint-down(md) {
+                font-size: 0.9375rem;
+            }
+        }
+    }
+
+    // ----------------------------------------------------------------------
+    // 2. TIER 1: Horizontal Quick-Contact Deck (3 Cards Grid)
+    // ----------------------------------------------------------------------
+    .contact-deck-strip {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 3.25rem;
+
+        @include media-breakpoint-down(lg) {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @include media-breakpoint-down(sm) {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    .contact-deck-card {
+        background: #FFFFFF;
+        border-radius: 20px;
+        border: 1px solid rgba(15, 76, 129, 0.08);
+        padding: 1.75rem 1.65rem;
+        box-shadow: 0 4px 20px rgba(15, 76, 129, 0.04);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                    border-color 0.3s ease;
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 35px rgba(15, 76, 129, 0.1);
+            border-color: rgba(15, 76, 129, 0.2);
+        }
+
+        &__top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+
+        &__icon-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba($color-primary, 0.07);
+            color: $color-primary;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+
+            svg {
+                width: 22px;
+                height: 22px;
+                stroke: currentColor;
+            }
+
+            &--whatsapp {
+                background: rgba(37, 211, 102, 0.12);
+                color: #128C7E;
+            }
+
+            &--email {
+                background: rgba($color-secondary, 0.12);
+                color: darken($color-secondary, 15%);
+            }
+        }
+
+        &__tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748B;
+            background: #F1F5F9;
+            padding: 0.3rem 0.65rem;
+            border-radius: 999px;
+            font-family: $font-primary;
+        }
+
+        &__status-dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #059669;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            font-family: $font-primary;
+
+            .pulse-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background-color: #10B981;
+                display: inline-block;
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+                animation: contactPulse 2s infinite cubic-bezier(0.66, 0, 0, 1);
+            }
+        }
+
+        &__body {
+            margin-bottom: 1.35rem;
+        }
+
+        &__eyebrow {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #94A3B8;
+            margin-bottom: 0.35rem;
+            font-family: $font-primary;
+        }
+
+        &__value {
+            font-family: $font-primary;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: $color-heading;
+            line-height: 1.4;
+            margin: 0;
+            word-break: break-word;
+        }
+
+        &__footer {
+            border-top: 1px solid #F1F5F9;
+            padding-top: 1rem;
+            margin-top: auto;
+        }
+
+        &__action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: $font-primary;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.25s ease;
+
+            svg {
+                transition: transform 0.25s ease;
+            }
+
+            &:hover svg {
+                transform: translateX(4px);
+            }
+
+            &--link {
+                color: $color-primary;
+
+                &:hover {
+                    color: darken($color-primary, 10%);
+                }
+            }
+
+            &--btn {
+                background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+                color: #FFFFFF !important;
+                padding: 0.55rem 1.1rem;
+                border-radius: 999px;
+                box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+
+                &:hover {
+                    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+                    transform: translateY(-1px);
+                    color: #FFFFFF !important;
+                }
+            }
+        }
+    }
+
+    // ----------------------------------------------------------------------
+    // 3. TIER 2: Executive Inquiry & Booking Suite
+    // ----------------------------------------------------------------------
+    .contact-portal {
+        background: transparent;
+
+        &__grid {
+            display: grid;
+            grid-template-columns: 7fr 5fr;
+            gap: 2.25rem;
+            align-items: stretch;
+
+            @include media-breakpoint-down(xl) {
+                grid-template-columns: 6.5fr 5.5fr;
+                gap: 1.75rem;
+            }
+
+            @include media-breakpoint-down(lg) {
+                grid-template-columns: 1fr;
+                gap: 2.25rem;
+            }
+        }
+    }
+
+    // ----------------------------------------------------------------------
+    // Left Column: Direct Message Form Console
+    // ----------------------------------------------------------------------
+    .contact-form-card {
+        background: #FFFFFF;
+        border-radius: 24px;
+        padding: 3.5rem 3rem;
+        border: 1px solid rgba(15, 76, 129, 0.07);
+        box-shadow: 0 20px 50px -10px rgba(15, 76, 129, 0.08), 0 2px 6px rgba(0, 0, 0, 0.02);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        @include media-breakpoint-down(xl) {
+            padding: 3rem 2.25rem;
+        }
+
+        @include media-breakpoint-down(md) {
+            padding: 2.25rem 1.5rem;
+            border-radius: 20px;
+        }
+
+        &__head {
+            margin-bottom: 2rem;
+
+            @include media-breakpoint-down(md) {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        &__eyebrow {
+            display: inline-block;
+            font-family: $font-primary;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: $color-secondary;
+            margin-bottom: 0.5rem;
+        }
+
+        &__title {
+            font-family: $font-serif;
+            font-size: clamp(2.1rem, 2.8vw, 2.6rem);
+            font-weight: 700;
+            color: $color-heading;
+            line-height: 1.2;
+            letter-spacing: -0.015em;
+            margin-bottom: 0.75rem;
+        }
+
+        &__subtitle {
+            font-family: $font-second;
+            font-size: 0.9375rem;
+            line-height: 1.65;
+            color: #64748B;
+            margin-bottom: 0;
+        }
+
+        &__guarantee {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #F1F5F9;
+
+            .guarantee-pill {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                font-family: $font-second;
+                font-size: 0.8125rem;
+                color: #64748B;
+                line-height: 1.5;
+                background: #F8FAFC;
+                border: 1px solid #EDF2F7;
+                border-radius: 12px;
+                padding: 0.8rem 1.15rem;
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                    color: $color-secondary;
+                    stroke: currentColor;
+                    flex-shrink: 0;
+                }
+            }
+        }
+    }
+
+    // ----------------------------------------------------------------------
+    // Right Column: "Why Rent With Us" Showcase Panel
+    // ----------------------------------------------------------------------
+    .contact-showcase-panel {
+        background: linear-gradient(165deg, #071524 0%, #0A1E34 40%, $color-primary 100%);
+        color: #FFFFFF;
+        border-radius: 24px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 50px -10px rgba(7, 21, 36, 0.45);
+        position: relative;
+
+        @include media-breakpoint-down(md) {
+            border-radius: 20px;
+        }
+    }
+
+    .contact-showcase-media {
+        position: relative;
+        width: 100%;
+        height: 230px;
+        overflow: hidden;
+        flex-shrink: 0;
+
+        @include media-breakpoint-down(md) {
+            height: 190px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        &:hover img {
+            transform: scale(1.04);
+        }
+
+        &__gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(7, 21, 36, 0.05) 0%, rgba(7, 21, 36, 0.45) 55%, #071524 100%);
+            pointer-events: none;
+        }
+
+        &__badge {
+            position: absolute;
+            bottom: 1.25rem;
+            left: 1.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(7, 21, 36, 0.72);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            font-family: $font-primary;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+
+            .stars {
+                color: #F59E0B;
+                letter-spacing: 0.12em;
+                font-size: 0.8125rem;
+            }
+        }
+    }
+
+    .contact-showcase-content {
+        padding: 2.25rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-between;
+
+        @include media-breakpoint-down(md) {
+            padding: 1.75rem 1.25rem;
+        }
+
+        &__header {
+            margin-bottom: 1.75rem;
+        }
+    }
+
+    .contact-showcase-badge {
+        display: inline-block;
+        font-family: $font-primary;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: $color-secondary;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-showcase-title {
+        font-family: $font-serif;
+        font-size: clamp(1.75rem, 2.3vw, 2.15rem);
+        font-weight: 700;
+        color: #FFFFFF;
+        line-height: 1.25;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.01em;
+    }
+
+    .contact-showcase-desc {
+        font-family: $font-second;
+        font-size: 0.9375rem;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.82);
+        margin-bottom: 0;
+    }
+
+    // USP Points (3 Items)
+    .contact-perks-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.35rem;
+        margin-bottom: 2rem;
+    }
+
+    .contact-perk-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1.15rem;
+
+        &__icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: rgba(223, 161, 40, 0.12);
+            border: 1px solid rgba(223, 161, 40, 0.28);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: $color-secondary;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+            svg {
+                width: 22px;
+                height: 22px;
+                stroke: currentColor;
+                fill: none;
+                color: $color-secondary;
+                flex-shrink: 0;
+
+                path, line, circle, polyline, rect {
+                    stroke: currentColor;
+                }
+            }
+        }
+
+        &__text {
+            h5 {
+                font-family: $font-primary;
+                font-size: 1.025rem;
+                font-weight: 700;
+                color: #FFFFFF;
+                margin-bottom: 0.35rem;
+                line-height: 1.35;
+            }
+
+            p {
+                font-family: $font-second;
+                font-size: 0.875rem;
+                color: rgba(255, 255, 255, 0.78);
+                line-height: 1.55;
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    // Direct Assistance Bar (Bottom)
+    .contact-concierge-callout {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-radius: 18px;
+        padding: 1.15rem 1.35rem;
+        display: flex;
+        align-items: center;
+        gap: 1.15rem;
+        margin-top: auto;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba($color-secondary, 0.45);
+            transform: translateY(-2px);
+        }
+
+        &__avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: $color-secondary;
+            color: $color-heading;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(223, 161, 40, 0.35);
+
+            svg {
+                width: 22px;
+                height: 22px;
+                stroke: currentColor;
+            }
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+
+            .label {
+                font-family: $font-primary;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: rgba(255, 255, 255, 0.68);
+                font-weight: 600;
+                margin-bottom: 0.2rem;
+            }
+
+            .link {
+                font-family: $font-primary;
+                font-size: 1.125rem;
+                font-weight: 800;
+                color: $color-secondary;
+                text-decoration: none;
+                transition: color 0.2s ease;
+                display: inline-block;
+
+                &:hover {
+                    color: #FBBF24;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    // ----------------------------------------------------------------------
+    // 4. Ninja Forms Form Controls & Styling
+    // ----------------------------------------------------------------------
+    .contact-form-wrapper {
+        .nf-form-cont {
+            margin: 0;
+            padding: 0;
+        }
+
+        .nf-form-layout {
+            padding: 0;
+        }
+
+        .nf-fields-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.35rem 1rem;
+
+            @include media-breakpoint-down(sm) {
+                gap: 1rem;
+            }
+        }
+
+        .nf-field-container {
+            margin-bottom: 0 !important;
+            padding: 0 !important;
+            width: 100%;
+
+            // Half-width inputs on tablet/desktop
+            &.textbox-container:not(.full-width),
+            &.email-container,
+            &.phone-container {
+                @media (min-width: 576px) {
+                    width: calc(50% - 0.5rem);
+                }
+            }
+
+            &.textarea-container,
+            &.submit-container {
+                width: 100%;
+            }
+        }
+
+        .nf-field-label label {
+            font-family: $font-primary;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $color-heading;
+            margin-bottom: 0.45rem;
+            display: inline-block;
+
+            .ninja-forms-req-symbol {
+                color: #EF4444;
+                margin-left: 0.2rem;
+                font-weight: 700;
+            }
+        }
+
+        .nf-field-element {
+            position: relative;
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            input[type="number"],
+            select {
+                width: 100%;
+                height: 52px;
+                padding: 0.75rem 1.15rem;
+                font-family: $font-second;
+                font-size: 0.9375rem;
+                color: $color-heading;
+                background-color: #F8FAFC;
+                border: 1.5px solid #E2E8F0;
+                border-radius: 12px;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+                transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+
+                &::placeholder {
+                    color: #94A3B8;
+                    font-size: 0.9375rem;
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: $color-primary;
+                    box-shadow: 0 0 0 4px rgba($color-primary, 0.12);
+                    background-color: #FFFFFF;
+                }
+            }
+
+            textarea {
+                width: 100%;
+                min-height: 130px;
+                padding: 0.85rem 1.15rem;
+                font-family: $font-second;
+                font-size: 0.9375rem;
+                color: $color-heading;
+                background-color: #F8FAFC;
+                border: 1.5px solid #E2E8F0;
+                border-radius: 12px;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+                resize: vertical;
+                transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+
+                &::placeholder {
+                    color: #94A3B8;
+                    font-size: 0.9375rem;
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: $color-primary;
+                    box-shadow: 0 0 0 4px rgba($color-primary, 0.12);
+                    background-color: #FFFFFF;
+                }
+            }
+
+            // Action Button (Primary CTA Accent Color)
+            input[type="button"],
+            input[type="submit"],
+            .ninja-forms-field[type="button"] {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: auto;
+                min-width: 190px;
+                height: 52px;
+                padding: 0.85rem 2.5rem;
+                background-color: $color-secondary;
+                color: $color-heading;
+                font-family: $font-primary;
+                font-size: 1rem;
+                font-weight: 700;
+                letter-spacing: 0.015em;
+                border: none;
+                border-radius: 999px;
+                cursor: pointer;
+                box-shadow: 0 10px 20px -3px rgba(223, 161, 40, 0.35), 0 4px 6px -4px rgba(223, 161, 40, 0.2);
+                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                margin-top: 0.5rem;
+
+                @include media-breakpoint-down(sm) {
+                    width: 100%;
+                }
+
+                &:hover {
+                    background-color: #FBBF24;
+                    color: $color-heading;
+                    box-shadow: 0 14px 25px -3px rgba(223, 161, 40, 0.45), 0 6px 10px -4px rgba(223, 161, 40, 0.25);
+                    transform: translateY(-3px);
+                }
+
+                &:active {
+                    transform: translateY(-1px);
+                    box-shadow: 0 6px 12px -3px rgba(223, 161, 40, 0.3);
+                }
+            }
+        }
+
+        // Ninja Forms Validation & Feedback
+        .nf-error-wrap {
+            .nf-error-msg {
+                font-size: 0.8125rem;
+                color: #EF4444;
+                margin-top: 0.35rem;
+                font-weight: 500;
+            }
+        }
+
+        .nf-field-container.nf-error input,
+        .nf-field-container.nf-error textarea {
+            border-color: #EF4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+        }
+
+        .nf-response-msg {
+            background-color: #ECFDF5;
+            border: 1px solid #A7F3D0;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            color: #065F46;
+            font-size: 0.9375rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            line-height: 1.5;
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .nf-loading-spinner {
+            border: 3px solid rgba($color-primary, 0.2);
+            border-top-color: $color-primary;
+        }
+    }
+}
+
+// --------------------------------------------------------------------------
+// Keyframe Animations
+// --------------------------------------------------------------------------
+@keyframes contactPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}

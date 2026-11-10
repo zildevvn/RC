@@ -118,12 +118,16 @@ if (!function_exists('rc_load_button')) {
 		<a href="<?= $btn_url ?>" class="rc-button d-flex align-items-center justify-content-center" target="<?= $btn_target ?>"
 			role="button" rel="noopener noreferrer" aria-label="<?= $aria_label ?>">
 			<?= $btn_text ?>
-			<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-				<path d="M12 21L12 3M12 3L20.5 11.5M12 3L3.5 11.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
-					stroke-linejoin="round"></path>
-			</svg>
+			<?= rc_svg_icon('arrow_btn'); ?>
 		</a>
 	<?php }
+}
+
+if (!function_exists('vm_load_button')) {
+	function vm_load_button($btn_url, $btn_text, $btn_target = '_blank', $aria_label = '')
+	{
+		rc_load_button($btn_url, $btn_text, $btn_target, $aria_label);
+	}
 }
 
 // Helper function to safely extract image data

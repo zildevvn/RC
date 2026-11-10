@@ -10,57 +10,87 @@ global $wp_query;
 $search_query = trim(get_search_query());
 $total_results = $wp_query->found_posts;
 $bg_banner = get_field('bg_banner', 'option');
+$bg_banner_url = '';
+$bg_banner_alt = '';
+
+if (!empty($bg_banner)) {
+	if (is_array($bg_banner)) {
+		$bg_banner_url = $bg_banner['url'] ?? '';
+		$bg_banner_alt = !empty($bg_banner['alt']) ? $bg_banner['alt'] : '';
+		if (empty($bg_banner_alt) && !empty($bg_banner['ID'])) {
+			$bg_banner_alt = get_post_meta($bg_banner['ID'], '_wp_attachment_image_alt', true);
+		}
+	} else {
+		$bg_banner_url = $bg_banner;
+		if (function_exists('attachment_url_to_postid')) {
+			$banner_id = attachment_url_to_postid($bg_banner_url);
+			if ($banner_id) {
+				$bg_banner_alt = get_post_meta($banner_id, '_wp_attachment_image_alt', true);
+			}
+		}
+	}
+
+	if (empty($bg_banner_alt)) {
+		$bg_banner_alt = !empty($search_query) ? sprintf('Search results for "%s"', strip_tags($search_query)) : 'Search Our Site';
+	}
+}
 ?>
-<section class="rc-section hero-section-shared search-hero-section">
-	<div class="rc-section__bg">
-		<?php if (!empty($bg_banner)): ?>
-			<img src="<?= esc_url($bg_banner) ?>" alt="background hero for search page" />
-		<?php else: ?>
-			<div style="background-color:#1B365D; width: 100%; height: 100%;"></div>
+<section class="rc-section hero-section-shared search-hero-section<?= !empty($bg_banner_url) ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?>">
+	<div class="hero-section-shared__bg rc-section__bg">
+		<?php if (!empty($bg_banner_url)): ?>
+			<img src="<?= esc_url($bg_banner_url) ?>" alt="<?= esc_attr($bg_banner_alt) ?>" class="hero-section-shared__img" loading="eager" />
 		<?php endif; ?>
+		<div class="hero-section-shared__overlay"></div>
+		<div class="hero-section-shared__glow"></div>
+		<div class="hero-section-shared__motif" aria-hidden="true">
+			<?= rc_svg_icon('hero_pattern'); ?>
+		</div>
 	</div>
 
-	<div class="container">
+	<div class="container hero-section-shared__container">
 		<div class="hero-section-shared__box">
-			<?php rc_breadcrumbs('Search Results'); ?>
+			<div class="hero-section-shared__meta-bar">
+				<div class="hero-section-shared__breadcrumbs-pill">
+					<?php rc_breadcrumbs('Search Results'); ?>
+				</div>
+			</div>
+
 			<?php if (!empty($search_query)): ?>
-				<h1 class="search-title">
+				<h1 class="search-title hero-section-shared__title">
 					Search: <span>"<?php echo esc_html($search_query); ?>"</span>
 				</h1>
 				<?php if ($total_results > 0): ?>
-					<p class="search-subtitle">
+					<p class="search-subtitle hero-section-shared__desc">
 						We found <strong><?php echo esc_html($total_results); ?></strong>
 						result<?php echo $total_results !== 1 ? 's' : ''; ?> for your search.
 					</p>
 				<?php else: ?>
-					<p class="search-subtitle">
+					<p class="search-subtitle hero-section-shared__desc">
 						We couldn't find any results matching your search.
 					</p>
 				<?php endif; ?>
 			<?php else: ?>
-				<h1 class="rc-heading-animation search-title">Search Our Site</h1>
-				<p class="search-subtitle">Enter a keyword below to find tours, cars, and articles.</p>
+				<h1 class="rc-heading-animation search-title hero-section-shared__title">Search Our Site</h1>
+				<p class="search-subtitle hero-section-shared__desc">Enter a keyword below to find tours, cars, and articles.</p>
 			<?php endif; ?>
 
 			<div class="search-form-wrapper">
 				<form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>"
 					class="modern-search-form">
 					<div class="input-group">
-						<svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-							stroke-linecap="round" stroke-linejoin="round">
-							<circle cx="11" cy="11" r="8"></circle>
-							<line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-						</svg>
+						<span class="search-icon">
+							<?= rc_svg_icon('search_outline'); ?>
+						</span>
 						<input type="search" name="s" placeholder="What are you looking for?"
 							value="<?php echo esc_attr($search_query); ?>" required />
 						<button type="submit" class="rc-button rc-button--primary search-submit">Search</button>
 					</div>
 				</form>
 			</div>
-
-
 		</div>
 	</div>
+
+	<div class="hero-section-shared__bottom-accent" aria-hidden="true"></div>
 </section>
 
 <div class="search-results" id="search-results">

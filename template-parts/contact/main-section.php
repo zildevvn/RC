@@ -1,156 +1,230 @@
 <?php
 $heading = get_field('heading_contact');
-$desc = get_field('desc_contact');
+$badge = get_field('badge_contact');
+$sub_heading = get_field('sub_heading_contact');
+$image = get_field('image_contact');
 $form_contact = get_field('form_contact');
 $address = get_field('address', 'option');
-$phone = get_field('phone', 'option');
 $email = get_field('email', 'option');
-$open_time = get_field('open_time', 'option');
+$phone = get_field('phone', 'option');
+
+// Handle image data if provided in ACF
+$image_url = '';
+$image_alt = '';
+if (!empty($image)) {
+    if (is_array($image)) {
+        $image_url = $image['url'] ?? '';
+        $image_alt = !empty($image['alt']) ? $image['alt'] : (!empty($image['title']) ? $image['title'] : 'Rent Car Da Nang Fleet & Service');
+    } elseif (is_numeric($image)) {
+        $image_url = wp_get_attachment_url($image);
+        $image_alt = get_post_meta($image, '_wp_attachment_image_alt', true) ?: 'Rent Car Da Nang Fleet & Service';
+    } else {
+        $image_url = $image;
+        $image_alt = 'Rent Car Da Nang Fleet & Service';
+    }
+}
+
+$whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
+$clean_phone = !empty($phone) ? preg_replace('/[^0-9+]/', '', $phone) : '';
 ?>
-<section class="vm-section main-section">
+<section class="rc-section contact-main-section main-section">
     <div class="container">
-
-        <?php vm_icon_heading() ?>
-
-        <?php if (!empty($heading)): ?>
-            <h2 class="vm-heading">
-                <?= $heading ?>
-            </h2>
-        <?php endif; ?>
-
-        <?php if (!empty($desc)): ?>
-            <p class="vm-sub-heading">
-                <?= $desc ?>
-            </p>
-        <?php endif; ?>
-
-        <div class="main-section-warp">
-            <div class="main-section__left">
-
-                <div class="main-section__left-bg">
-
-                </div>
-
-                <div class="main-section__left-inner">
-                    <h3 class="h4">Let's Connect</h3>
-
-                    <div class="contact-cards">
-                        <?php if (!empty($address)): ?>
-                            <div class="contact-info d-flex address">
-                                <div class="contact-info__icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="lucide lucide-map-pin-check-icon lucide-map-pin-check">
-                                        <path
-                                            d="M19.43 12.935c.357-.967.57-1.955.57-2.935a8 8 0 0 0-16 0c0 4.993 5.539 10.193 7.399 11.799a1 1 0 0 0 1.202 0 32.197 32.197 0 0 0 .813-.728" />
-                                        <circle cx="12" cy="10" r="3" />
-                                        <path d="m16 18 2 2 4-4" />
-                                    </svg>
-                                </div>
-                                <div class="contact-info__content">
-                                    <h3 class="h5">Address</h3>
-                                    <p class="mb-0"> <?= $address ?> </p>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if (!empty($phone)): ?>
-                            <?php $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : ''; ?>
-
-                            <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" aria-label="WhatsApp"
-                                class="contact-info d-flex" target="_blank" rel="noopener noreferrer">
-                                <div class="contact-info__icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path
-                                            d="M21 11.5a8.38 8.38 0 0 1-9 8.5 8.5 8.5 0 0 1-4.4-1.2L3 20l1.2-4.5A8.5 8.5 0 1 1 21 11.5Z" />
-                                        <path d="M8 10.5c.5 2 2 3.5 4 4" />
-                                    </svg>
-                                </div>
-
-                                <div class="contact-info__content">
-                                    <h3 class="h5">WhatsApp</h3>
-                                    <p class="mb-0">
-                                        <?= esc_html($phone) ?>
-                                    </p>
-                                </div>
-                            </a>
-                        <?php endif; ?>
-
-
-                        <?php if (!empty($email)): ?>
-                            <a href="mailto:<?= $email ?>" aria-label="Send us email" class="contact-info d-flex">
-                                <div class="contact-info__icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-mail-check-icon lucide-mail-check">
-                                        <path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8" />
-                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-                                        <path d="m16 19 2 2 4-4" />
-                                    </svg>
-                                </div>
-                                <div class="contact-info__content">
-                                    <h3 class="h5">Email Us</h3>
-                                    <p class="mb-0">
-                                        <?= $email ?>
-                                    </p>
-                                </div>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="main-section__right">
-                <?php if (!empty($form_contact)): ?>
-
-                    <div class="form-wrapper">
-                        <?= do_shortcode($form_contact) ?>
-                    </div>
-
-                    <div class="form-features">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                    <polyline points="9 12 11 14 15 10"></polyline>
-                                </svg>
-                            </div>
-                            <div class="feature-content">
-                                <h4>Your data is safe</h4>
-                                <p>We never share your info</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                            </div>
-                            <div class="feature-content">
-                                <h4>Quick response</h4>
-                                <p>We'll get back to you soon</p>
-                            </div>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
-                                </svg>
-                            </div>
-                            <div class="feature-content">
-                                <h4>Friendly support</h4>
-                                <p>Always ready to help</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- 1. Section Header -->
+        <?php if (!empty($heading) || !empty($badge) || !empty($sub_heading)): ?>
+            <div class="contact-header-block text-center">
+                <?php if (!empty($badge)): ?>
+                    <span class="rc-badge contact-header-block__badge">
+                        <?= esc_html($badge) ?>
+                    </span>
                 <?php endif; ?>
+
+                <?php if (!empty($heading)): ?>
+                    <h2 class="rc-heading contact-header-block__title">
+                        <?= wp_kses_post($heading) ?>
+                    </h2>
+                <?php endif; ?>
+
+                <?php if (!empty($sub_heading)): ?>
+                    <p class="contact-header-block__desc">
+                        <?= wp_kses_post($sub_heading) ?>
+                    </p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- 2. TIER 1: Horizontal Quick-Contact Deck (3 Standalone Action Pillars) -->
+        <div class="contact-deck-strip contact-cards">
+            <!-- Channel 1: Headquarters & Fleet Depot -->
+            <?php if (!empty($address)): ?>
+                <div class="contact-deck-card contact-deck-card--office contact-info address">
+                    <div class="contact-deck-card__top">
+                        <div class="contact-deck-card__icon-badge">
+                            <?= rc_svg_icon('map_pin_check'); ?>
+                        </div>
+                        <span class="contact-deck-card__tag">Headquarters</span>
+                    </div>
+                    <div class="contact-deck-card__body contact-info__content">
+                        <span class="contact-deck-card__eyebrow">Visit Our Office</span>
+                        <h3 class="contact-deck-card__value h5"><?= esc_html($address) ?></h3>
+                    </div>
+                    <div class="contact-deck-card__footer">
+                        <a href="#map-section" class="contact-deck-card__action contact-deck-card__action--link">
+                            <span>Locate on Map</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Channel 2: WhatsApp & 24/7 Priority Line -->
+            <?php if (!empty($phone)): ?>
+                <div class="contact-deck-card contact-deck-card--hotline contact-info">
+                    <div class="contact-deck-card__top">
+                        <div class="contact-deck-card__icon-badge contact-deck-card__icon-badge--whatsapp">
+                            <?= rc_svg_icon('whatsapp'); ?>
+                        </div>
+                        <span class="contact-deck-card__status-dot">
+                            <span class="pulse-dot"></span>
+                            Online 24/7
+                        </span>
+                    </div>
+                    <div class="contact-deck-card__body contact-info__content">
+                        <span class="contact-deck-card__eyebrow">Priority Line & WhatsApp</span>
+                        <h3 class="contact-deck-card__value h5"><?= esc_html($phone) ?></h3>
+                    </div>
+                    <div class="contact-deck-card__footer">
+                        <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : 'tel:' . esc_attr($clean_phone) ?>"
+                           target="_blank" rel="noopener noreferrer"
+                           class="contact-deck-card__action contact-deck-card__action--btn">
+                            <span>Start WhatsApp Chat</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <!-- Channel 3: Official Inquiries & Quotes -->
+            <?php if (!empty($email)): ?>
+                <div class="contact-deck-card contact-deck-card--email contact-info">
+                    <div class="contact-deck-card__top">
+                        <div class="contact-deck-card__icon-badge contact-deck-card__icon-badge--email">
+                            <?= rc_svg_icon('mail_check'); ?>
+                        </div>
+                        <span class="contact-deck-card__tag">Quick Reply</span>
+                    </div>
+                    <div class="contact-deck-card__body contact-info__content">
+                        <span class="contact-deck-card__eyebrow">Official Email Desk</span>
+                        <h3 class="contact-deck-card__value h5"><?= esc_html($email) ?></h3>
+                    </div>
+                    <div class="contact-deck-card__footer">
+                        <a href="mailto:<?= esc_attr($email) ?>"
+                           class="contact-deck-card__action contact-deck-card__action--link">
+                            <span>Send an Email</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <!-- 3. TIER 2: Executive Inquiry & Booking Suite -->
+        <div class="contact-portal main-section-warp">
+            <div class="contact-portal__grid">
+                <!-- Portal Left: Dedicated Elevated Form Console -->
+                <div class="contact-portal__form-col main-section__right">
+                    <div class="contact-form-card">
+                        <div class="contact-form-card__head">
+                            <span class="contact-form-card__eyebrow">Booking & Rental Inquiries</span>
+                            <h3 class="contact-form-card__title">Send Us a Direct Message</h3>
+                            <p class="contact-form-card__subtitle">
+                                Tell us your travel dates, vehicle preference, or custom itinerary. Our concierge desk will respond with an all-inclusive quote within 15 minutes.
+                            </p>
+                        </div>
+
+                        <?php if (!empty($form_contact)): ?>
+                            <div class="contact-form-wrapper form-wrapper">
+                                <?= do_shortcode($form_contact) ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="contact-form-card__guarantee">
+                            <div class="guarantee-pill">
+                                <?= rc_svg_icon('shield_check'); ?>
+                                <span>100% Privacy Protected • Transparent All-Inclusive Quotes • Free Cancellation 24h Prior</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portal Right: Editorial Experience & Concierge Guarantees -->
+                <div class="contact-portal__showcase-col main-section__left">
+                    <div class="contact-showcase-panel main-section__left-inner">
+                        <?php if (!empty($image_url)): ?>
+                            <div class="contact-showcase-media main-section__left-bg">
+                                <img src="<?= esc_url($image_url) ?>" alt="<?= esc_attr($image_alt) ?>" loading="lazy" />
+                                <div class="contact-showcase-media__gradient"></div>
+                                <div class="contact-showcase-media__badge">
+                                    <span class="stars">★★★★★</span>
+                                    <span>5-Star Rated Service</span>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+
+                        <div class="contact-showcase-content">
+                            <div class="contact-showcase-content__header">
+                                <span class="contact-showcase-badge">Premium Fleet & Chauffeur</span>
+                                <h4 class="contact-showcase-title">Why Rent With Rent Car Da Nang?</h4>
+                                <p class="contact-showcase-desc">
+                                    We provide comfortable, modern sedans, SUVs, and luxury vans with licensed, courteous English-speaking drivers throughout Da Nang, Hoi An, Hue, and Central Vietnam.
+                                </p>
+                            </div>
+
+                            <div class="contact-perks-list">
+                                <div class="contact-perk-item">
+                                    <div class="contact-perk-item__icon">
+                                        <?= rc_svg_icon('clock_check'); ?>
+                                    </div>
+                                    <div class="contact-perk-item__text">
+                                        <h5>Punctual Pickups Guaranteed</h5>
+                                        <p>Flight-tracked airport meet & greet with complimentary waiting time.</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-perk-item">
+                                    <div class="contact-perk-item__icon">
+                                        <?= rc_svg_icon('step_driver'); ?>
+                                    </div>
+                                    <div class="contact-perk-item__text">
+                                        <h5>Professional English-Speaking Drivers</h5>
+                                        <p>Experienced, friendly chauffeurs dedicated to a smooth journey.</p>
+                                    </div>
+                                </div>
+
+                                <div class="contact-perk-item">
+                                    <div class="contact-perk-item__icon">
+                                        <?= rc_svg_icon('step_shield'); ?>
+                                    </div>
+                                    <div class="contact-perk-item__text">
+                                        <h5>Comprehensive Insurance & Sanitised Cars</h5>
+                                        <p>Fully licensed fleet with comprehensive coverage for all passengers.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="contact-concierge-callout">
+                                <div class="contact-concierge-callout__avatar">
+                                    <?= rc_svg_icon('headset'); ?>
+                                </div>
+                                <div class="contact-concierge-callout__info">
+                                    <span class="label">Need Immediate Assistance?</span>
+                                    <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : 'tel:' . esc_attr($clean_phone) ?>" class="link">
+                                        <?= !empty($phone) ? esc_html($phone) : 'Chat via WhatsApp' ?>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
