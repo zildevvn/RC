@@ -3,7 +3,44 @@
 // Executive Hub Composition: Horizontal Deck + Dedicated Inquiry Portal
 // ==========================================================================
 
-$font-serif: 'Cormorant Garamond', Georgia, serif !default;
+body.page-template-contact-template {
+    .map-section {
+        background: $color-bg;
+        padding: 60px 0;
+
+        @include media-breakpoint-down(lg) {
+            padding: 40px 0;
+        }
+
+        &__embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 45%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+
+            @include media-breakpoint-down(lg) {
+                padding-bottom: 56.25%;
+            }
+
+            @include media-breakpoint-down(md) {
+                padding-bottom: 75%;
+                box-shadow: 0px 1px 2px rgba(0, 0, 0, .08), 0px 4px 12px rgba(0, 0, 0, .05);
+            }
+
+            iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+        }
+    }
+}
 
 .contact-main-section {
     padding: 85px 0 100px;
@@ -29,27 +66,27 @@ $font-serif: 'Cormorant Garamond', Georgia, serif !default;
             margin-bottom: 2.25rem;
         }
 
-        &__badge {
-            display: inline-block;
-            margin-bottom: 0.75rem;
-            background-color: rgba($color-secondary, 0.14);
-            color: darken($color-secondary, 15%);
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            font-size: 0.8125rem;
-            padding: 0.35rem 1.1rem;
-            border-radius: 999px;
-            font-family: $font-primary;
-        }
+        // &__badge {
+        //     display: inline-block;
+        //     margin-bottom: 0.75rem;
+        //     background-color: rgba($color-secondary, 0.14);
+        //     color: darken($color-secondary, 15%);
+        //     font-weight: 700;
+        //     letter-spacing: 0.06em;
+        //     text-transform: uppercase;
+        //     font-size: 0.8125rem;
+        //     padding: 0.35rem 1.1rem;
+        //     border-radius: 999px;
+        //     font-family: $font-primary;
+        // }
 
         &__title {
-            font-family: $font-serif;
-            font-size: clamp(2.35rem, 3.8vw, 3.25rem);
-            font-weight: 700;
-            color: $color-heading;
-            line-height: 1.18;
-            letter-spacing: -0.015em;
+            // font-family: $font-serif;
+            // font-size: clamp(2.35rem, 3.8vw, 3.25rem);
+            // font-weight: 700;
+            // color: $color-heading;
+            // line-height: 1.18;
+            // letter-spacing: -0.015em;
             margin-bottom: 0.85rem;
         }
 
@@ -99,8 +136,8 @@ $font-serif: 'Cormorant Garamond', Georgia, serif !default;
         justify-content: space-between;
         position: relative;
         transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                    box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                    border-color 0.3s ease;
+            box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            border-color 0.3s ease;
 
         &:hover {
             transform: translateY(-5px);
@@ -317,12 +354,6 @@ $font-serif: 'Cormorant Garamond', Georgia, serif !default;
         }
 
         &__title {
-            font-family: $font-serif;
-            font-size: clamp(2.1rem, 2.8vw, 2.6rem);
-            font-weight: 700;
-            color: $color-heading;
-            line-height: 1.2;
-            letter-spacing: -0.015em;
             margin-bottom: 0.75rem;
         }
 
@@ -358,6 +389,32 @@ $font-serif: 'Cormorant Garamond', Georgia, serif !default;
                     color: $color-secondary;
                     stroke: currentColor;
                     flex-shrink: 0;
+                }
+            }
+        }
+
+        .nf-form-cont {
+
+
+            .nf-form-content {
+                nf-fields-wrap {
+                    @include media-breakpoint-up(lg) {
+                        flex-direction: inherit;
+                        flex-wrap: wrap;
+                    }
+
+                    nf-field {
+                        // max-width: calc(50% - 8px);
+
+                        &:first-child,
+                        &:nth-child(2),
+                        &:nth-child(3),
+                        &:nth-child(4) {
+                            @include media-breakpoint-up(lg) {
+                                max-width: calc(50% - 8px);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -468,13 +525,14 @@ $font-serif: 'Cormorant Garamond', Georgia, serif !default;
     }
 
     .contact-showcase-title {
-        font-family: $font-serif;
-        font-size: clamp(1.75rem, 2.3vw, 2.15rem);
-        font-weight: 700;
-        color: #FFFFFF;
-        line-height: 1.25;
-        margin-bottom: 0.75rem;
+        // font-family: $font-serif;
+        // font-size: clamp(1.75rem, 2.3vw, 2.15rem);
+        // font-weight: 700;
+        // color: #FFFFFF;
+        // line-height: 1.25;
+        // margin-bottom: 0.75rem;
         letter-spacing: -0.01em;
+        color: #FFFFFF;
     }
 
     .contact-showcase-desc {
@@ -522,7 +580,11 @@ $font-serif: 'Cormorant Garamond', Georgia, serif !default;
                 color: $color-secondary;
                 flex-shrink: 0;
 
-                path, line, circle, polyline, rect {
+                path,
+                line,
+                circle,
+                polyline,
+                rect {
                     stroke: currentColor;
                 }
             }
@@ -622,200 +684,200 @@ $font-serif: 'Cormorant Garamond', Georgia, serif !default;
     // ----------------------------------------------------------------------
     // 4. Ninja Forms Form Controls & Styling
     // ----------------------------------------------------------------------
-    .contact-form-wrapper {
-        .nf-form-cont {
-            margin: 0;
-            padding: 0;
-        }
+    // .contact-form-wrapper {
+    //     .nf-form-cont {
+    //         margin: 0;
+    //         padding: 0;
+    //     }
 
-        .nf-form-layout {
-            padding: 0;
-        }
+    //     .nf-form-layout {
+    //         padding: 0;
+    //     }
 
-        .nf-fields-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.35rem 1rem;
+    //     .nf-fields-wrap {
+    //         display: flex;
+    //         flex-wrap: wrap;
+    //         gap: 1.35rem 1rem;
 
-            @include media-breakpoint-down(sm) {
-                gap: 1rem;
-            }
-        }
+    //         @include media-breakpoint-down(sm) {
+    //             gap: 1rem;
+    //         }
+    //     }
 
-        .nf-field-container {
-            margin-bottom: 0 !important;
-            padding: 0 !important;
-            width: 100%;
+    //     .nf-field-container {
+    //         margin-bottom: 0 !important;
+    //         padding: 0 !important;
+    //         width: 100%;
 
-            // Half-width inputs on tablet/desktop
-            &.textbox-container:not(.full-width),
-            &.email-container,
-            &.phone-container {
-                @media (min-width: 576px) {
-                    width: calc(50% - 0.5rem);
-                }
-            }
+    //         // Half-width inputs on tablet/desktop
+    //         &.textbox-container:not(.full-width),
+    //         &.email-container,
+    //         &.phone-container {
+    //             @media (min-width: 576px) {
+    //                 width: calc(50% - 0.5rem);
+    //             }
+    //         }
 
-            &.textarea-container,
-            &.submit-container {
-                width: 100%;
-            }
-        }
+    //         &.textarea-container,
+    //         &.submit-container {
+    //             width: 100%;
+    //         }
+    //     }
 
-        .nf-field-label label {
-            font-family: $font-primary;
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: $color-heading;
-            margin-bottom: 0.45rem;
-            display: inline-block;
+    //     .nf-field-label label {
+    //         font-family: $font-primary;
+    //         font-size: 0.875rem;
+    //         font-weight: 600;
+    //         color: $color-heading;
+    //         margin-bottom: 0.45rem;
+    //         display: inline-block;
 
-            .ninja-forms-req-symbol {
-                color: #EF4444;
-                margin-left: 0.2rem;
-                font-weight: 700;
-            }
-        }
+    //         .ninja-forms-req-symbol {
+    //             color: #EF4444;
+    //             margin-left: 0.2rem;
+    //             font-weight: 700;
+    //         }
+    //     }
 
-        .nf-field-element {
-            position: relative;
+    //     .nf-field-element {
+    //         position: relative;
 
-            input[type="text"],
-            input[type="email"],
-            input[type="tel"],
-            input[type="number"],
-            select {
-                width: 100%;
-                height: 52px;
-                padding: 0.75rem 1.15rem;
-                font-family: $font-second;
-                font-size: 0.9375rem;
-                color: $color-heading;
-                background-color: #F8FAFC;
-                border: 1.5px solid #E2E8F0;
-                border-radius: 12px;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-                transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    //         input[type="text"],
+    //         input[type="email"],
+    //         input[type="tel"],
+    //         input[type="number"],
+    //         select {
+    //             width: 100%;
+    //             height: 52px;
+    //             padding: 0.75rem 1.15rem;
+    //             font-family: $font-second;
+    //             font-size: 0.9375rem;
+    //             color: $color-heading;
+    //             background-color: #F8FAFC;
+    //             border: 1.5px solid #E2E8F0;
+    //             border-radius: 12px;
+    //             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    //             transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 
-                &::placeholder {
-                    color: #94A3B8;
-                    font-size: 0.9375rem;
-                }
+    //             &::placeholder {
+    //                 color: #94A3B8;
+    //                 font-size: 0.9375rem;
+    //             }
 
-                &:focus {
-                    outline: none;
-                    border-color: $color-primary;
-                    box-shadow: 0 0 0 4px rgba($color-primary, 0.12);
-                    background-color: #FFFFFF;
-                }
-            }
+    //             &:focus {
+    //                 outline: none;
+    //                 border-color: $color-primary;
+    //                 box-shadow: 0 0 0 4px rgba($color-primary, 0.12);
+    //                 background-color: #FFFFFF;
+    //             }
+    //         }
 
-            textarea {
-                width: 100%;
-                min-height: 130px;
-                padding: 0.85rem 1.15rem;
-                font-family: $font-second;
-                font-size: 0.9375rem;
-                color: $color-heading;
-                background-color: #F8FAFC;
-                border: 1.5px solid #E2E8F0;
-                border-radius: 12px;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-                resize: vertical;
-                transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    //         textarea {
+    //             width: 100%;
+    //             min-height: 130px;
+    //             padding: 0.85rem 1.15rem;
+    //             font-family: $font-second;
+    //             font-size: 0.9375rem;
+    //             color: $color-heading;
+    //             background-color: #F8FAFC;
+    //             border: 1.5px solid #E2E8F0;
+    //             border-radius: 12px;
+    //             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    //             resize: vertical;
+    //             transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 
-                &::placeholder {
-                    color: #94A3B8;
-                    font-size: 0.9375rem;
-                }
+    //             &::placeholder {
+    //                 color: #94A3B8;
+    //                 font-size: 0.9375rem;
+    //             }
 
-                &:focus {
-                    outline: none;
-                    border-color: $color-primary;
-                    box-shadow: 0 0 0 4px rgba($color-primary, 0.12);
-                    background-color: #FFFFFF;
-                }
-            }
+    //             &:focus {
+    //                 outline: none;
+    //                 border-color: $color-primary;
+    //                 box-shadow: 0 0 0 4px rgba($color-primary, 0.12);
+    //                 background-color: #FFFFFF;
+    //             }
+    //         }
 
-            // Action Button (Primary CTA Accent Color)
-            input[type="button"],
-            input[type="submit"],
-            .ninja-forms-field[type="button"] {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: auto;
-                min-width: 190px;
-                height: 52px;
-                padding: 0.85rem 2.5rem;
-                background-color: $color-secondary;
-                color: $color-heading;
-                font-family: $font-primary;
-                font-size: 1rem;
-                font-weight: 700;
-                letter-spacing: 0.015em;
-                border: none;
-                border-radius: 999px;
-                cursor: pointer;
-                box-shadow: 0 10px 20px -3px rgba(223, 161, 40, 0.35), 0 4px 6px -4px rgba(223, 161, 40, 0.2);
-                transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-                margin-top: 0.5rem;
+    //         // Action Button (Primary CTA Accent Color)
+    //         input[type="button"],
+    //         input[type="submit"],
+    //         .ninja-forms-field[type="button"] {
+    //             display: inline-flex;
+    //             align-items: center;
+    //             justify-content: center;
+    //             width: auto;
+    //             min-width: 190px;
+    //             height: 52px;
+    //             padding: 0.85rem 2.5rem;
+    //             background-color: $color-secondary;
+    //             color: $color-heading;
+    //             font-family: $font-primary;
+    //             font-size: 1rem;
+    //             font-weight: 700;
+    //             letter-spacing: 0.015em;
+    //             border: none;
+    //             border-radius: 999px;
+    //             cursor: pointer;
+    //             box-shadow: 0 10px 20px -3px rgba(223, 161, 40, 0.35), 0 4px 6px -4px rgba(223, 161, 40, 0.2);
+    //             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    //             margin-top: 0.5rem;
 
-                @include media-breakpoint-down(sm) {
-                    width: 100%;
-                }
+    //             @include media-breakpoint-down(sm) {
+    //                 width: 100%;
+    //             }
 
-                &:hover {
-                    background-color: #FBBF24;
-                    color: $color-heading;
-                    box-shadow: 0 14px 25px -3px rgba(223, 161, 40, 0.45), 0 6px 10px -4px rgba(223, 161, 40, 0.25);
-                    transform: translateY(-3px);
-                }
+    //             &:hover {
+    //                 background-color: #FBBF24;
+    //                 color: $color-heading;
+    //                 box-shadow: 0 14px 25px -3px rgba(223, 161, 40, 0.45), 0 6px 10px -4px rgba(223, 161, 40, 0.25);
+    //                 transform: translateY(-3px);
+    //             }
 
-                &:active {
-                    transform: translateY(-1px);
-                    box-shadow: 0 6px 12px -3px rgba(223, 161, 40, 0.3);
-                }
-            }
-        }
+    //             &:active {
+    //                 transform: translateY(-1px);
+    //                 box-shadow: 0 6px 12px -3px rgba(223, 161, 40, 0.3);
+    //             }
+    //         }
+    //     }
 
-        // Ninja Forms Validation & Feedback
-        .nf-error-wrap {
-            .nf-error-msg {
-                font-size: 0.8125rem;
-                color: #EF4444;
-                margin-top: 0.35rem;
-                font-weight: 500;
-            }
-        }
+    //     // Ninja Forms Validation & Feedback
+    //     .nf-error-wrap {
+    //         .nf-error-msg {
+    //             font-size: 0.8125rem;
+    //             color: #EF4444;
+    //             margin-top: 0.35rem;
+    //             font-weight: 500;
+    //         }
+    //     }
 
-        .nf-field-container.nf-error input,
-        .nf-field-container.nf-error textarea {
-            border-color: #EF4444 !important;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
-        }
+    //     .nf-field-container.nf-error input,
+    //     .nf-field-container.nf-error textarea {
+    //         border-color: #EF4444 !important;
+    //         box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+    //     }
 
-        .nf-response-msg {
-            background-color: #ECFDF5;
-            border: 1px solid #A7F3D0;
-            border-radius: 12px;
-            padding: 1.25rem 1.5rem;
-            color: #065F46;
-            font-size: 0.9375rem;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            line-height: 1.5;
+    //     .nf-response-msg {
+    //         background-color: #ECFDF5;
+    //         border: 1px solid #A7F3D0;
+    //         border-radius: 12px;
+    //         padding: 1.25rem 1.5rem;
+    //         color: #065F46;
+    //         font-size: 0.9375rem;
+    //         margin-bottom: 1.5rem;
+    //         font-weight: 500;
+    //         line-height: 1.5;
 
-            p {
-                margin: 0;
-            }
-        }
+    //         p {
+    //             margin: 0;
+    //         }
+    //     }
 
-        .nf-loading-spinner {
-            border: 3px solid rgba($color-primary, 0.2);
-            border-top-color: $color-primary;
-        }
-    }
+    //     .nf-loading-spinner {
+    //         border: 3px solid rgba($color-primary, 0.2);
+    //         border-top-color: $color-primary;
+    //     }
+    // }
 }
 
 // --------------------------------------------------------------------------
@@ -825,9 +887,11 @@ $font-serif: 'Cormorant Garamond', Georgia, serif !default;
     0% {
         box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
     }
+
     70% {
         box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
     }
+
     100% {
         box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
     }
