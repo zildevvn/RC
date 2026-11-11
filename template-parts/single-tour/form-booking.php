@@ -9,38 +9,34 @@ $formatted_price = rc_format_price($price_tour);
 ?>
 <div id="form-booking-tour" class="rc-form-booking">
     <div class="rc-form-booking__header">
-        <div class="price">
+        <div class="rc-form-booking__price price">
             <?php if ($formatted_price !== ''): ?>
-                <span class="label">FROM</span>
-                <span class="value">
+                <span class="rc-form-booking__price-label label">FROM</span>
+                <span class="rc-form-booking__price-value value">
                     <?php if (!empty($currency)): ?>
-                        <span class="mb-0"><?= esc_html($currency) ?></span>
+                        <span class="rc-form-booking__price-currency mb-0"><?= esc_html($currency) ?></span>
                     <?php endif; ?>
                     <?= esc_html($formatted_price) ?>
                 </span>
-                <?php
-                $is_car_tour = has_term('Car Tours', 'tour_cats', get_the_ID());
-                if (!$is_car_tour):
-                    ?>
-                    <span class="unit">/ person</span>
-                <?php endif; ?>
+
+                <span class="rc-form-booking__price-unit unit">/ car</span>
+
             <?php endif; ?>
         </div>
-        <div class="rating">
+        <div class="rc-form-booking__rating rating">
             <?php if (function_exists('kk_star_ratings')): ?>
-                <span class="text">
+                <span class="rc-form-booking__rating-text text">
                     <?php echo kk_star_ratings(); ?>
                 </span>
             <?php else: ?>
-                <span class="stars">★★★★★</span>
+                <span class="rc-form-booking__rating-stars stars">★★★★★</span>
                 <?php
                 $post_id = get_the_ID();
                 $views = function_exists('rc_get_post_views') ? rc_get_post_views($post_id) : 0;
                 $display_views = $views > 0 ? number_format($views) : 128;
                 ?>
-                <span class="text">4.9 (
-                    <?php echo esc_html($display_views); ?> reviews)
-                </span>
+                <span class="rc-form-booking__rating-text text">4.9 <span
+                        class="rc-form-booking__rating-count count">(<?= esc_html($display_views); ?> reviews)</span></span>
             <?php endif; ?>
         </div>
     </div>
@@ -75,7 +71,8 @@ $formatted_price = rc_format_price($price_tour);
         <div class="rc-form-error"
             style="display: none; color: #dc3545; font-size: 13px; font-weight: 500; margin-bottom: 15px; padding: 10px; background-color: #f8d7da; border-radius: 6px; border: 1px solid #f5c6cb;">
         </div>
-        <button id="rc-btn-check-availability" class="rc-button rc-btn-check-availability d-flex align-items-center justify-content-center">
+        <button id="rc-btn-check-availability"
+            class="rc-button rc-btn-check-availability d-flex align-items-center justify-content-center">
             Check Availability
 
             <?php echo rc_svg_icon('button_arrow'); ?>

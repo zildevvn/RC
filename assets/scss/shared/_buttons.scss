@@ -1,5 +1,4 @@
 .rc-button {
-    &,
     &--secondary {
         display: inline-flex;
         align-items: center;
@@ -68,7 +67,8 @@
 
     background-color: $color-secondary;
     color: $color-heading;
-    box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2), 0 4px 6px -4px rgba(245, 158, 11, 0.2);
+    box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2),
+    0 4px 6px -4px rgba(245, 158, 11, 0.2);
 
     &:hover {
         background-color: #fbbf24;

@@ -442,6 +442,8 @@
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
+        box-shadow: none;
+        border: none;
 
         svg {
             width: 18px;
@@ -498,6 +500,7 @@
 
     // Checked state: highlight star and preceding stars
     &:not(:hover) {
+
         .star-picker__label:has(~ .star-picker__label input:checked),
         .star-picker__label:has(input:checked) {
             color: #f59e0b;
@@ -545,4 +548,3 @@
         }
     }
 }
-
