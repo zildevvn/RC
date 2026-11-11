@@ -420,7 +420,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "50",
                         "class": "",
                         "id": ""
                     },
@@ -445,28 +445,6 @@
                     "key": "field_6af02d993b184",
                     "label": "Name",
                     "name": "name",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "50",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 0,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_6af02d813b183"
-                },
-                {
-                    "key": "field_6af02dfd3b186",
-                    "label": "Pax",
-                    "name": "pax",
                     "aria-label": "",
                     "type": "text",
                     "instructions": "",
@@ -621,5 +599,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1794406944
+    "modified": 1794408742
 }

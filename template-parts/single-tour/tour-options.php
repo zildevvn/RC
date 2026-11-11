@@ -50,13 +50,15 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
                 <div class="empty-icon">
                     <?php echo rc_svg_icon('alert_circle'); ?>
                 </div>
-                <h3>Không có option phù hợp</h3>
+                <h3>No Suitable Options Available</h3>
                 <p>
                     <?php if ($total_pax > 0): ?>
-                        Không tìm thấy phương tiện hoặc gói dịch vụ phù hợp cho <strong><?= esc_html($total_pax) ?>
-                            khách</strong>. Vui lòng giảm số lượng khách hoặc liên hệ trực tiếp với chúng tôi để được hỗ trợ.
+                        No suitable transportation or service packages were found for
+                        <strong><?= esc_html($total_pax) ?> guests</strong>.
+                        Please reduce the number of guests or contact us directly for assistance.
                     <?php else: ?>
-                        Không có tour option nào phù hợp. Vui lòng thử lại với ngày hoặc số lượng khách khác.
+                        No suitable tour options are available.
+                        Please try again with a different date or number of guests.
                     <?php endif; ?>
                 </p>
             </div>
@@ -84,15 +86,18 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
                     <?php
                     $name = $option['name'] ?? '';
                     $starting_time = $option['starting_time'] ?? '';
-                    $pax = $option['pax'] ?? ($option['maximum'] ?? '');
                     $description = isset($option['description']) ? $option['description'] : '';
                     $is_first = ($key === $first_key);
                     $is_selected_class = $is_first ? 'is-selected' : '';
                     $type = $option['type'] ?? '';
-                    // 4 : 4 seat
-                    // 7 : 7 seat
-                    // 16 : 16 seat
-            
+
+                    $pax_ranges = [
+                        4 => '1 - 4 pax',
+                        7 => '5 - 7 pax',
+                        16 => '8 - 16 pax',
+                    ];
+                    $pax = $pax_ranges[(int) $type] ?? '';
+
                     // Price logic for Book Car: fixed single price from $option['price']
                     $raw_price = $option['price'] ?? '';
                     $formatted_price = rc_format_price($raw_price);
@@ -126,7 +131,7 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
                                 <li class="maximum">
                                     <?php echo rc_svg_icon('users'); ?>
                                     <span>
-                                        <?= esc_html($pax) ?> pax
+                                        <?= esc_html($pax) ?>
                                     </span>
                                 </li>
                             <?php endif; ?>
@@ -154,7 +159,7 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
                         <!-- Pricing -->
                         <div class="option-item__pricing">
                             <?php if (!$is_price_available): ?>
-                                <div class="option-item__price-total">Liên hệ để biết giá</div>
+                                <div class="option-item__price-total">Contact Us </div>
                             <?php else: ?>
                                 <h4 class="option-item__price-total h5">
                                     <?php if (!empty($currency)): ?>

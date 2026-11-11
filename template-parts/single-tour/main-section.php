@@ -125,7 +125,7 @@ $faqs_tour = get_field('faqs_list_tour');
                     <?php
                     get_template_part('template-parts/single-tour/itinerary-section');
                     get_template_part('template-parts/single-tour/review-section');
-                    // get_template_part('template-parts/single-tour/faqs-section');
+                    get_template_part('template-parts/single-tour/faqs-section');
                     ?>
                 </div>
             </div>

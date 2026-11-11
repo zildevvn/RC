@@ -203,7 +203,7 @@ import AOS from 'aos';
     };
 
     const rcFaqs = () => {
-        const $containers = $('.rc-faqs');
+        const $containers = $('.rc-faqs, .faqs-list');
         if (!$containers.length) {
             return;
         }
@@ -216,19 +216,23 @@ import AOS from 'aos';
 
             $container.data('rcFaqsInit', true);
 
-            $container.on('click.rcFaqs', '.rc-faqs__question', function (e) {
+            $container.on('click.rcFaqs', '.rc-faqs__question, .faqs-list__question, .faq-item__question', function (e) {
                 e.preventDefault();
                 const $btn = $(this);
-                const $item = $btn.closest('.rc-faqs__item');
-                const isActive = $item.hasClass('is-active') || $item.hasClass('rc-faqs__item--active');
+                const $item = $btn.closest('.rc-faqs__item, .faqs-list__item, .faq-item');
+                if (!$item.length) {
+                    return;
+                }
+
+                const isActive = $item.hasClass('is-active') || $item.hasClass('rc-faqs__item--active') || $item.hasClass('faqs-list__item--active');
 
                 if (isActive) {
-                    $item.removeClass('is-active rc-faqs__item--active');
+                    $item.removeClass('is-active rc-faqs__item--active faqs-list__item--active');
                     $btn.attr('aria-expanded', 'false');
                 } else {
-                    const $siblings = $container.find('.rc-faqs__item.is-active, .rc-faqs__item.rc-faqs__item--active').not($item);
-                    $siblings.removeClass('is-active rc-faqs__item--active');
-                    $siblings.find('.rc-faqs__question').attr('aria-expanded', 'false');
+                    const $siblings = $container.find('.rc-faqs__item, .faqs-list__item, .faq-item').filter('.is-active, .rc-faqs__item--active, .faqs-list__item--active').not($item);
+                    $siblings.removeClass('is-active rc-faqs__item--active faqs-list__item--active');
+                    $siblings.find('.rc-faqs__question, .faqs-list__question, .faq-item__question').attr('aria-expanded', 'false');
 
                     $item.addClass('is-active');
                     $btn.attr('aria-expanded', 'true');
