@@ -53,7 +53,8 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
                 <h3>Không có option phù hợp</h3>
                 <p>
                     <?php if ($total_pax > 0): ?>
-                        Không tìm thấy phương tiện hoặc gói dịch vụ phù hợp cho <strong><?= esc_html($total_pax) ?> khách</strong>. Vui lòng giảm số lượng khách hoặc liên hệ trực tiếp với chúng tôi để được hỗ trợ.
+                        Không tìm thấy phương tiện hoặc gói dịch vụ phù hợp cho <strong><?= esc_html($total_pax) ?>
+                            khách</strong>. Vui lòng giảm số lượng khách hoặc liên hệ trực tiếp với chúng tôi để được hỗ trợ.
                     <?php else: ?>
                         Không có tour option nào phù hợp. Vui lòng thử lại với ngày hoặc số lượng khách khác.
                     <?php endif; ?>
@@ -125,7 +126,7 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
                                 <li class="maximum">
                                     <?php echo rc_svg_icon('users'); ?>
                                     <span>
-                                        <?= esc_html($pax) ?>
+                                        <?= esc_html($pax) ?> pax
                                     </span>
                                 </li>
                             <?php endif; ?>
