@@ -698,3 +698,74 @@ function rc_ajax_filter_tours()
         ),
     ]);
 }
+
+/**
+ * AJAX handler for filtering blog posts
+ */
+add_action('wp_ajax_rc_ajax_filter_posts', 'rc_ajax_filter_posts');
+add_action('wp_ajax_nopriv_rc_ajax_filter_posts', 'rc_ajax_filter_posts');
+function rc_ajax_filter_posts()
+{
+    $nonce = $_POST['nonce'] ?? '';
+    if (!wp_verify_nonce($nonce, 'rc_filter_posts_nonce') && !wp_verify_nonce($nonce, 'rc_filter_posts')) {
+        wp_send_json_error(['message' => __('Security verification failed. Please refresh the page.', 'rc')]);
+    }
+
+    $paged = isset($_POST['paged']) ? max(1, intval($_POST['paged'])) : 1;
+    $search = isset($_POST['search']) ? sanitize_text_field(wp_unslash($_POST['search'])) : '';
+    $category = isset($_POST['category']) ? sanitize_text_field(wp_unslash($_POST['category'])) : '';
+
+    $args = [
+        'post_type'      => 'post',
+        'post_status'    => 'publish',
+        'posts_per_page' => 9,
+        'paged'          => $paged,
+        'orderby'        => 'date',
+        'order'          => 'DESC',
+    ];
+
+    if (!empty($search)) {
+        $args['s'] = $search;
+    }
+
+    if (!empty($category) && $category !== 'all') {
+        $field = is_numeric($category) ? 'term_id' : 'slug';
+        $term_val = is_numeric($category) ? intval($category) : $category;
+        $args['tax_query'] = [
+            [
+                'taxonomy'         => 'category',
+                'field'            => $field,
+                'terms'            => $term_val,
+                'include_children' => true,
+            ],
+        ];
+    }
+
+    $query = new WP_Query($args);
+
+    ob_start();
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            rc_post_item(get_the_ID());
+        }
+        wp_reset_postdata();
+    }
+    $html = ob_get_clean();
+
+    $pagination_html = function_exists('rc_get_ajax_pagination') 
+        ? rc_get_ajax_pagination($paged, $query->max_num_pages) 
+        : '';
+
+    wp_send_json_success([
+        'html'          => $html,
+        'pagination'    => $pagination_html,
+        'found_posts'   => $query->found_posts,
+        'max_num_pages' => $query->max_num_pages,
+        'current_page'  => $paged,
+        'count_text'    => sprintf(
+            _n('%d article found', '%d articles found', $query->found_posts, 'rc'),
+            $query->found_posts
+        ),
+    ]);
+}

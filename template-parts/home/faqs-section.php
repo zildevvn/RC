@@ -14,6 +14,13 @@ $front_page_id = (int) get_option('page_on_front');
 // 1. Resolve FAQs List
 $faqs = $args['faqs'] ?? null;
 if (empty($faqs)) {
+    // Try page-specific Blog repeater field (from group_6a867c00e93c5.json)
+    $faqs_blog = get_field('faqs_blog_tpl', $page_id);
+    if (!empty($faqs_blog) && is_array($faqs_blog)) {
+        $faqs = $faqs_blog;
+    }
+}
+if (empty($faqs)) {
     // Try page-specific Cars repeater field (from group_6a5f227085a70.json)
     $faqs_car = get_field('faqs_ab_car_tpl', $page_id);
     if (!empty($faqs_car) && is_array($faqs_car)) {

@@ -124,6 +124,24 @@ function rc_item_tour($post_id = null, $extra_class = '')
     ]);
 }
 
+if (!function_exists('rc_post_item')) {
+    function rc_post_item($post_id = null, $extra_class = '')
+    {
+        $post_id = $post_id ? (int) $post_id : get_the_ID();
+        get_template_part('template-parts/shared/post-item', null, [
+            'post_id'     => $post_id,
+            'extra_class' => $extra_class,
+        ]);
+    }
+}
+
+if (!function_exists('vm_post_item')) {
+    function vm_post_item($post_id = null, $extra_class = '')
+    {
+        rc_post_item($post_id, $extra_class);
+    }
+}
+
 
 function rc_hero_section_shared($title = '', $image = '', $desc = '', $args = [])
 {

@@ -41,6 +41,7 @@ add_action('wp_enqueue_scripts', function () {
 		'rest_url' => get_rest_url(),
 		'tour_options_nonce' => wp_create_nonce('tour_options_nonce'),
 		'filter_tours_nonce' => wp_create_nonce('rc_filter_tours_nonce'),
+		'filter_posts_nonce' => wp_create_nonce('rc_filter_posts_nonce'),
 		'paypal_client_id' => function_exists('rc_paypal_get_client_id') ? rc_paypal_get_client_id() : '',
 		'paypal_currency' => $paypal_currency,
 		'paypal_is_sandbox' => function_exists('rc_paypal_is_sandbox') ? rc_paypal_is_sandbox() : true,
