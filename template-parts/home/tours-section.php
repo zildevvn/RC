@@ -19,14 +19,14 @@ $args = array(
 $query = new WP_Query($args);
 ?>
 <?php if ($query->have_posts()): ?>
-    <section class="ui-section tours-section" data-purpose="popular-tours-transfers">
-        <div aria-hidden="true" class="ui-section__bg tours-section__bg">
+    <section class="ui-section tours-section relative overflow-hidden" data-purpose="popular-tours-transfers">
+        <div aria-hidden="true" class="ui-section__bg tours-section__bg absolute inset-0 z-0 pointer-events-none select-none">
             <div class="tours-section__bg-dots"></div>
             <?php echo rc_svg_icon('tours_bg'); ?>
         </div>
-        <div class="container">
+        <div class="container relative z-10">
             <!-- 1. Section Header -->
-            <div class="tours-section__header text-center mx-auto" data-aos="fade-up">
+            <div class="tours-section__header max-w-2xl mb-10 text-center mx-auto" data-aos="fade-up">
                 <?php if (!empty($badge)): ?>
                     <p class="ui-badge">
                         <?= $badge ?>
@@ -44,7 +44,7 @@ $query = new WP_Query($args);
                 <?php endif; ?>
             </div>
             <!-- 3. 6 Tour Cards Grid -->
-            <div class="tours-section__grid" data-aos="fade-up">
+            <div class="tours-section__grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up">
                 <?php
                 while ($query->have_posts()):
                     $query->the_post();
@@ -54,7 +54,7 @@ $query = new WP_Query($args);
                 ?>
             </div>
 
-            <div class="tours-section__footer d-flex justify-content-center">
+            <div class="tours-section__footer mt-6 md:mt-8 lg:mt-12 flex justify-center">
                 <a href="<?php echo home_url('/da-nang-travel-car/') ?>" class="ui-button"
                     label=" View All  da nang travel car">
                     View All

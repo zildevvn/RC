@@ -13,7 +13,7 @@ $query = new WP_Query($args);
     <section class="ui-section posts-section" data-purpose="blog-section">
         <div class="container">
             <!-- Section Header -->
-            <div class="posts-section__header d-flex flex-column flex-md-row align-items-md-end justify-content-between"
+            <div class="posts-section__header flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12"
                 data-aos="fade-up">
                 <div>
                     <?php if (!empty($badge)): ?>
@@ -36,7 +36,7 @@ $query = new WP_Query($args);
                 </a>
             </div>
             <!-- 3-Card Article Grid -->
-            <div class="posts-section__grid" data-aos="fade-up">
+            <div class="posts-section__grid grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
                 <?php
                 $badge_modifiers = array(
                     '',
@@ -69,41 +69,41 @@ $query = new WP_Query($args);
                     $excerpt = trim(wp_strip_all_tags(get_the_excerpt($post_id)));
                     $card_index++;
                     ?>
-                    <a href="<?= esc_url($permalink) ?>" class="posts-section__card d-flex flex-column text-decoration-none">
-                        <div class="posts-section__thumb position-relative overflow-hidden">
+                    <a href="<?= esc_url($permalink) ?>" class="posts-section__card bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 cursor-pointer transition-all duration-300 hover:shadow-xl flex flex-col group text-decoration-none">
+                        <div class="posts-section__thumb aspect-[16/10] relative overflow-hidden">
                             <?php if (!empty($thumb_url)): ?>
-                                <img alt="<?= esc_attr($thumb_alt) ?>" src="<?= esc_url($thumb_url) ?>">
+                                <img class="w-full h-full object-cover rounded-none transition-transform duration-500 group-hover:scale-105" alt="<?= esc_attr($thumb_alt) ?>" src="<?= esc_url($thumb_url) ?>">
                             <?php endif; ?>
                             <?php if (!empty($cat_name)): ?>
-                                <span class="posts-section__badge<?= esc_attr($badge_modifier) ?>">
+                                <span class="posts-section__badge absolute top-4 left-4 font-semibold px-3 py-1 rounded-full shadow-sm<?= esc_attr($badge_modifier) ?>">
                                     <?= esc_html($cat_name) ?>
                                 </span>
                             <?php endif; ?>
                         </div>
-                        <div class="posts-section__meta d-flex align-items-center gap-4">
+                        <div class="posts-section__meta text-xs mt-5 px-6 flex items-center gap-4">
                             <?php if (!empty($post_date)): ?>
-                                <span class="d-inline-flex align-items-center gap-1">
+                                <span class="inline-flex items-center gap-1">
                                     <?php echo rc_svg_icon('calendar'); ?>
                                     <?= esc_html($post_date) ?>
                                 </span>
                             <?php endif; ?>
-                            <span class="d-inline-flex align-items-center gap-1">
+                            <span class="inline-flex items-center gap-1">
                                 <?php echo rc_svg_icon('clock'); ?>
                                 <?= esc_html($reading_time) ?>
                             </span>
                         </div>
                         <?php if (!empty($title)): ?>
-                            <h3 class="posts-section__title fw-bold mt-2 mb-0">
+                            <h3 class="posts-section__title px-6 mt-2 mb-0 line-clamp-2">
                                 <?= esc_html($title) ?>
                             </h3>
                         <?php endif; ?>
                         <?php if (!empty($excerpt)): ?>
-                            <p class="posts-section__excerpt mt-3 mb-0">
+                            <p class="posts-section__excerpt px-6 mt-3 mb-0 line-clamp-2">
                                 <?= esc_html($excerpt) ?>
                             </p>
                         <?php endif; ?>
                         <div class="mt-auto">
-                            <span class="posts-section__link d-inline-flex align-items-center gap-1">
+                            <span class="posts-section__link px-6 mt-5 mb-6 inline-flex items-center gap-1">
                                 Read Full Article ➔
                             </span>
                         </div>

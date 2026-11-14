@@ -1,37 +1,13 @@
 body.home {
+    // ==============================================================================
+    // 1. Hero Section
+    // ==============================================================================
     .hero-section {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        padding-bottom: 150px;
-
-        @include media-breakpoint-down(md) {
-            padding-bottom: calc(18% + 24px);
-        }
-
-        &__bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 0;
-            user-select: none;
-            pointer-events: none;
-        }
-
         &__overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 10;
             background-image: linear-gradient(to right,
                     rgba(0, 0, 0, 0.9),
                     rgba(0, 0, 0, 0.55),
                     transparent);
-            pointer-events: none;
 
             @include media-breakpoint-down(lg) {
                 background-image: linear-gradient(180deg,
@@ -40,46 +16,7 @@ body.home {
             }
         }
 
-        .container {
-            position: relative;
-            z-index: 20;
-        }
-
-        &__grid {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 2.5rem;
-            align-items: center;
-            width: 100%;
-
-            @include media-breakpoint-up(lg) {
-                grid-template-columns: repeat(12, minmax(0, 1fr));
-                gap: 3rem;
-            }
-
-            @include media-breakpoint-down(md) {
-                gap: 2rem;
-            }
-
-            @include media-breakpoint-down(sm) {
-                gap: 1.75rem;
-            }
-        }
-
-        &__left {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-
-            @include media-breakpoint-up(lg) {
-                grid-column: span 7 / span 7;
-            }
-        }
-
         &__title {
-            margin-top: 0;
-            margin-bottom: 1.5rem;
             color: #ffffff;
 
             span {
@@ -88,12 +25,10 @@ body.home {
 
             @include media-breakpoint-down(lg) {
                 font-size: 3rem;
-                margin-bottom: 1.25rem;
             }
 
             @include media-breakpoint-down(md) {
                 font-size: 2.5rem;
-                margin-bottom: 1rem;
             }
 
             @include media-breakpoint-down(sm) {
@@ -103,43 +38,20 @@ body.home {
         }
 
         &__desc {
-            color: #fff;
-            max-width: 36rem;
-            margin-top: 0;
-            margin-bottom: 2rem;
+            color: #ffffff;
 
             @include media-breakpoint-down(md) {
                 font-size: 0.9375rem;
                 line-height: 1.6;
-                margin-bottom: 1.5rem;
             }
 
             @include media-breakpoint-down(sm) {
                 font-size: 0.875rem;
-                margin-bottom: 1.25rem;
             }
         }
 
         &__actions {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-            width: 100%;
-
-            @include media-breakpoint-up(sm) {
-                width: auto;
-            }
-
-            @include media-breakpoint-down(md) {
-                margin-bottom: 1.75rem;
-            }
-
             @include media-breakpoint-down(sm) {
-                gap: 0.75rem;
-                margin-bottom: 1.5rem;
-
                 .ui-button,
                 .ui-button--secondary {
                     width: 100%;
@@ -150,37 +62,12 @@ body.home {
         }
 
         &__trust {
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            width: 100%;
-            max-width: 36rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            font-size: 0.75rem;
-            line-height: 1rem;
             color: #cbd5e1;
             font-weight: 500;
-
-            @include media-breakpoint-up(sm) {
-                flex-direction: row;
-                align-items: center;
-                font-size: 0.875rem;
-                line-height: 1.25rem;
-            }
-
-            @include media-breakpoint-down(sm) {
-                padding-top: 1rem;
-            }
         }
 
         &__rating {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.375rem;
             color: #fbbf24;
-            flex-shrink: 0;
-            flex-wrap: wrap;
         }
 
         &__stars {
@@ -209,47 +96,11 @@ body.home {
             }
         }
 
-
-        &__right {
-            width: 100%;
-
-            @include media-breakpoint-up(lg) {
-                grid-column: span 5 / span 5;
-            }
-        }
-
-        &__cards {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1rem;
-
-            @include media-breakpoint-up(lg) {
-                gap: 1.25rem;
-            }
-
-            @include media-breakpoint-down(sm) {
-                gap: 0.75rem;
-            }
-        }
-
         &__card {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             background-color: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
                 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            @include media-breakpoint-down(sm) {
-                padding: 1rem;
-                border-radius: 0.875rem;
-            }
 
             &:hover {
                 background-color: rgba(255, 255, 255, 0.15);
@@ -261,56 +112,26 @@ body.home {
             }
 
             &-icon {
-                width: 3rem;
-                height: 3rem;
-                border-radius: 0.75rem;
                 background-color: rgba(245, 158, 11, 0.15);
                 border: 1px solid rgba(245, 158, 11, 0.3);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-bottom: 1rem;
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-                @include media-breakpoint-down(sm) {
-                    width: 2.5rem;
-                    height: 2.5rem;
-                    border-radius: 0.625rem;
-                    margin-bottom: 0.75rem;
-                }
 
                 img {
-                    width: 100%;
-                    height: auto;
-                    max-width: 24px;
-                    border-radius: 0;
                     filter: brightness(0) invert(1);
-
-                    @include media-breakpoint-down(sm) {
-                        max-width: 20px;
-                    }
                 }
             }
 
             &-title {
-                color: #fff;
+                color: #ffffff;
                 font-family: $font-second;
                 font-weight: 600;
 
                 @include media-breakpoint-down(sm) {
                     font-size: 1rem;
-                    margin-bottom: 0.25rem;
                 }
             }
 
             &-text {
                 color: #e2e8f0;
-                margin: 0;
-                font-size: 0.75rem;
-
-                @include media-breakpoint-up(lg) {
-                    font-size: 0.875rem;
-                }
 
                 @include media-breakpoint-down(sm) {
                     line-height: 1.35;
@@ -319,82 +140,18 @@ body.home {
         }
     }
 
+    // ==============================================================================
+    // 2. Service Section
+    // ==============================================================================
     .service-section {
-        padding: 0;
         background-color: $color-white;
-        z-index: 30;
-
-        .container {
-            position: relative;
-            z-index: 30;
-            transform: translateY(-50%);
-
-            @include media-breakpoint-down(md) {
-                transform: translateY(-30%);
-
-            }
-
-            @include media-breakpoint-down(sm) {
-                transform: translateY(-25%);
-
-            }
-        }
 
         &__box {
             background-color: $color-primary;
             color: $color-white;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            padding: 2rem 1.5rem;
-
-            @include media-breakpoint-up(sm) {
-                padding-left: 2.5rem;
-                padding-right: 2.5rem;
-            }
-
-            @include media-breakpoint-up(lg) {
-                padding-left: 3rem;
-                padding-right: 3rem;
-            }
-
-            @include media-breakpoint-between(md, lg) {
-                padding: 1.5rem;
-            }
-
-            @include media-breakpoint-down(md) {
-                padding: 1.5rem;
-            }
-
-            @include media-breakpoint-down(sm) {
-                padding: 1.25rem 1rem;
-                border-radius: 0.875rem;
-            }
-        }
-
-        &__grid {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 2rem;
-
-            @include media-breakpoint-up(md) {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 0;
-            }
-
-            @include media-breakpoint-down(md) {
-                gap: 1.25rem;
-            }
-
-            @include media-breakpoint-down(sm) {
-                gap: 1rem;
-            }
         }
 
         &__item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-
             @include media-breakpoint-up(md) {
                 &:first-child {
                     padding-right: 2rem;
@@ -415,8 +172,6 @@ body.home {
             }
 
             @include media-breakpoint-between(md, lg) {
-                gap: 0.75rem;
-
                 &:first-child {
                     padding-right: 1rem;
                 }
@@ -439,8 +194,6 @@ body.home {
             }
 
             @include media-breakpoint-down(sm) {
-                gap: 0.875rem;
-
                 &:not(:last-child) {
                     padding-bottom: 1rem;
                 }
@@ -448,34 +201,11 @@ body.home {
         }
 
         &__icon {
-            width: 3rem;
-            height: 3rem;
-            flex-shrink: 0;
-            padding: 0.75rem;
-            border-radius: 0.75rem;
             background-color: rgba($color-white, 0.1);
             color: $color-white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            @include media-breakpoint-down(sm) {
-                width: 2.625rem;
-                height: 2.625rem;
-                padding: 0.625rem;
-                border-radius: 0.625rem;
-            }
 
             img {
-                width: 100%;
-                height: auto;
-                max-width: 24px;
-                border-radius: 0;
                 filter: brightness(0) invert(1);
-
-                @include media-breakpoint-down(sm) {
-                    max-width: 20px;
-                }
             }
         }
 
@@ -485,8 +215,6 @@ body.home {
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: $color-white;
-            margin-top: 0;
-            margin-bottom: 0.375rem;
 
             @include media-breakpoint-down(lg) {
                 font-size: 0.9375rem;
@@ -494,13 +222,11 @@ body.home {
 
             @include media-breakpoint-down(sm) {
                 font-size: 0.9375rem;
-                margin-bottom: 0.25rem;
             }
         }
 
         &__desc {
             color: #d1e0ee;
-            margin: 0;
 
             @include media-breakpoint-down(lg) {
                 font-size: 0.8125rem;
@@ -509,20 +235,13 @@ body.home {
         }
     }
 
+    // ==============================================================================
+    // 3. Why Choose Us Section
+    // ==============================================================================
     .wc-section {
         background-color: $color-bg;
-        overflow: hidden;
-
-        .container {
-            position: relative;
-            z-index: 10;
-        }
 
         &__bg {
-            pointer-events: none;
-            user-select: none;
-            z-index: 0;
-
             svg {
                 width: 100%;
                 height: 100%;
@@ -531,33 +250,10 @@ body.home {
             }
         }
 
-        &__grid {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 1.5rem;
-            margin-top: 24px;
-
-            @include media-breakpoint-up(md) {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                margin-top: 32px;
-            }
-
-            @include media-breakpoint-up(lg) {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-                margin-top: 48px;
-            }
-        }
-
         &__card {
             background-color: $color-white;
             border: 1px solid #f1f5f9;
-            border-radius: 1rem;
-            padding: 1.5rem;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
 
             &:hover {
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
@@ -565,16 +261,8 @@ body.home {
         }
 
         &__card-icon {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 0.75rem;
             background-color: #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             color: $color-primary;
-            margin-bottom: 1.25rem;
-            flex-shrink: 0;
 
             svg,
             img {
@@ -589,167 +277,52 @@ body.home {
         }
 
         &__card-desc {
-            // color: #475569;
             font-size: 0.9rem;
-            // line-height: 1.625;
         }
     }
 
+    // ==============================================================================
+    // 4. Destinations Section
+    // ==============================================================================
     .destinations-section {
         background-color: $color-white;
 
-        &__header {
-            margin-bottom: 3rem;
-        }
-
-        &__list {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 1.5rem;
-
-            @include media-breakpoint-up(md) {
-                grid-template-columns: repeat(12, minmax(0, 1fr));
-            }
-
-            .destinations-section__card {
-                height: 260px;
-
-                @include media-breakpoint-up(sm) {
-                    height: 280px;
-                }
-
-                @include media-breakpoint-up(md) {
-                    grid-column: span 4 / span 4;
-                }
-
-                &:nth-child(1),
-                &:nth-child(2) {
-                    height: 280px;
-
-                    @include media-breakpoint-up(sm) {
-                        height: 320px;
-                    }
-                }
-
-                &:nth-child(1),
-                &--col-7 {
-                    @include media-breakpoint-up(md) {
-                        grid-column: span 7 / span 7;
-                    }
-                }
-
-                &:nth-child(2),
-                &--col-5 {
-                    @include media-breakpoint-up(md) {
-                        grid-column: span 5 / span 5;
-                    }
-                }
-
-                &:nth-child(n+3) {
-                    .destinations-section__card-title {
-                        font-size: 1.25rem;
-                        line-height: 1.75rem;
-
-                        @include media-breakpoint-up(md) {
-                            font-size: 1.5rem;
-                            line-height: 2rem;
-                        }
-                    }
-                }
-            }
-        }
-
-        &__row {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 1.5rem;
-
-            &--top {
-                margin-bottom: 1.5rem;
-
-                @include media-breakpoint-up(md) {
-                    grid-template-columns: repeat(12, minmax(0, 1fr));
-                }
-
-                .destinations-section__card {
-                    height: 280px;
-
-                    @include media-breakpoint-up(sm) {
-                        height: 320px;
-                    }
-                }
-            }
-        }
-
         &__card {
-            display: block;
-            position: relative;
-            border-radius: 1rem;
-            overflow: hidden;
-            cursor: pointer;
-            text-decoration: none;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 
-            &--col-7 {
-                @include media-breakpoint-up(md) {
-                    grid-column: span 7 / span 7;
-                }
-            }
-
-            &--col-5 {
-                @include media-breakpoint-up(md) {
-                    grid-column: span 5 / span 5;
-                }
-            }
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 0;
-                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-
-            &:hover img {
-                transform: scale(1.05);
-            }
-
             &-overlay {
-                position: absolute;
-                inset: 0;
                 background-image: linear-gradient(to top,
                         rgba(0, 0, 0, 0.8),
                         rgba(0, 0, 0, 0.2),
                         transparent);
-                pointer-events: none;
             }
 
             &-title {
-                position: absolute;
-                bottom: 1.5rem;
-                left: 0;
-                right: 0;
-                text-align: center;
                 color: $color-white;
                 filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07)) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.06));
+            }
+
+            &:nth-child(n+3) {
+                .destinations-section__card-title {
+                    font-size: 1.25rem;
+                    line-height: 1.75rem;
+
+                    @include media-breakpoint-up(md) {
+                        font-size: 1.5rem;
+                        line-height: 2rem;
+                    }
+                }
             }
         }
     }
 
+    // ==============================================================================
+    // 5. Tours Section
+    // ==============================================================================
     .tours-section {
         background-color: #f8fafc;
-        overflow: hidden;
-
-        .container {
-            position: relative;
-            z-index: 10;
-        }
 
         &__bg {
-            pointer-events: none;
-            user-select: none;
-            z-index: 0;
-
             &-dots {
                 position: absolute;
                 inset: 0;
@@ -765,246 +338,15 @@ body.home {
                 height: 100%;
             }
         }
-
-        &__header {
-            max-width: 42rem;
-            margin-bottom: 2.5rem;
-        }
-
-        &__grid {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 2rem;
-
-            @include media-breakpoint-up(md) {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            @include media-breakpoint-up(lg) {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
-
-        &__footer {
-            margin-top: 24px;
-
-            @include media-breakpoint-up(md) {
-                margin-top: 32px;
-            }
-
-            @include media-breakpoint-up(lg) {
-                margin-top: 48px;
-            }
-        }
-
-        // &__card {
-        //     background-color: $color-white;
-        //     border-radius: 1rem;
-        //     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        //     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        //     overflow: hidden;
-        //     border: 1px solid #f1f5f9;
-        //     display: flex;
-        //     flex-direction: column;
-
-        //     &:hover {
-        //         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-
-        //         .tours-section__card-thumb img {
-        //             transform: scale(1.05);
-        //         }
-
-        //         .tours-section__card-title {
-        //             color: $color-primary;
-        //         }
-        //     }
-
-        //     &-thumb {
-        //         position: relative;
-        //         overflow: hidden;
-        //         height: 13rem;
-        //         width: 100%;
-
-        //         img {
-        //             width: 100%;
-        //             height: 100%;
-        //             object-fit: cover;
-        //             border-radius: 0;
-        //             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        //         }
-        //     }
-
-        //     &-badge {
-        //         position: absolute;
-        //         top: 1rem;
-        //         left: 1rem;
-        //         background-color: $color-primary;
-        //         color: $color-white;
-        //         font-size: 0.75rem;
-        //         line-height: 1rem;
-        //         font-weight: 600;
-        //         padding: 0.25rem 0.75rem;
-        //         border-radius: 9999px;
-        //         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        //     }
-
-        //     &-body {
-        //         padding: 1.5rem;
-        //         display: flex;
-        //         flex-direction: column;
-        //         flex: 1 1 0%;
-        //     }
-
-        //     &-meta {
-        //         display: inline-flex;
-        //         align-items: center;
-        //         align-self: flex-start;
-        //         width: fit-content;
-        //         gap: 0.375rem;
-        //         padding: 0.25rem 0.625rem;
-        //         border-radius: 9999px;
-        //         background-color: #fffbeb;
-        //         border: 1px solid rgba(253, 230, 138, 0.8);
-        //         margin-bottom: 0.625rem;
-        //         font-size: 0.75rem;
-        //         line-height: 1rem;
-        //         font-weight: 600;
-        //         color: #44403c;
-        //         letter-spacing: 0.025em;
-
-        //         svg {
-        //             width: 13px;
-        //             height: 13px;
-        //             color: $color-secondary;
-        //             stroke: currentColor;
-        //             flex-shrink: 0;
-        //         }
-        //     }
-
-        //     &-title {
-        //         font-family: $font-primary;
-        //         font-size: 1.125rem;
-        //         font-weight: 700;
-        //         color: $color-heading;
-        //         letter-spacing: -0.025em;
-        //         line-height: 1.375;
-        //         margin: 0;
-        //         display: -webkit-box;
-        //         -webkit-line-clamp: 2;
-        //         -webkit-box-orient: vertical;
-        //         overflow: hidden;
-        //         min-height: 50px;
-        //         transition: color 0.2s ease;
-        //     }
-
-        //     &-features {
-        //         margin-top: 0.875rem;
-        //         padding-top: 0.875rem;
-        //         margin-bottom: 1.25rem;
-        //         border-top: 1px solid #f5f5f4;
-        //         display: flex;
-        //         flex-direction: column;
-        //         gap: 0.5rem;
-
-        //         li {
-        //             font-size: 0.8125rem;
-        //             font-weight: 400;
-        //             color: $color-body;
-        //             line-height: 1.625;
-        //             display: flex;
-        //             align-items: center;
-        //             gap: 0.625rem;
-        //             overflow: visible;
-        //             white-space: normal;
-        //         }
-        //     }
-
-        //     &-feature-icon {
-        //         width: 1rem;
-        //         height: 1rem;
-        //         border-radius: 9999px;
-        //         background-color: #fffbeb;
-        //         color: $color-secondary;
-        //         display: inline-flex;
-        //         align-items: center;
-        //         justify-content: center;
-        //         flex-shrink: 0;
-
-        //         svg {
-        //             width: 10px;
-        //             height: 10px;
-        //             stroke: currentColor;
-        //         }
-        //     }
-
-        //     &-feature-text {
-        //         flex: 1 1 auto;
-        //         min-width: 0;
-        //         overflow: visible;
-        //         white-space: normal;
-        //         word-break: break-word;
-        //     }
-
-        //     &-footer {
-        //         border-top: 1px solid #f1f5f9;
-        //         padding-top: 1rem;
-        //     }
-
-        //     &-price-label {
-        //         font-size: 0.75rem;
-        //         line-height: 1rem;
-        //         color: #94a3b8;
-        //     }
-
-        //     &-price {
-        //         color: #d97706;
-        //         font-weight: 700;
-        //         font-size: 1.25rem;
-        //         line-height: 1.75rem;
-
-        //         span {
-        //             font-size: 0.75rem;
-        //             line-height: 1rem;
-        //             font-weight: 400;
-        //             color: #64748b;
-        //         }
-        //     }
-
-        //     .ui-button {
-        //         // background-color: $color-primary;
-        //         // color: $color-white;
-        //         font-size: 0.75rem;
-        //         line-height: 1rem;
-        //         // font-weight: 600;
-        //         padding: 0.5rem 1rem;
-        //         // border-radius: 0.5rem;
-        //         // text-decoration: none;
-        //         // transition: background-color 0.15s ease;
-        //         // display: inline-flex;
-        //         // align-items: center;
-        //         gap: 0.25rem;
-
-        //         svg {
-        //             max-width: 15px;
-        //         }
-        //     }
-        // }
     }
 
+    // ==============================================================================
+    // 6. Steps Booking Section
+    // ==============================================================================
     .steps-booking-section {
         background-color: $color-white;
-        overflow: hidden;
-
-        .container {
-            position: relative;
-            z-index: 10;
-        }
 
         &__bg {
-            pointer-events: none;
-            user-select: none;
-            z-index: 0;
-
             svg {
                 width: 100%;
                 height: 100%;
@@ -1013,20 +355,7 @@ body.home {
             }
         }
 
-        &__header {
-            max-width: 40rem;
-            margin-bottom: 4rem;
-        }
-
         &__line {
-            position: absolute;
-            top: 1.75rem;
-            left: 12%;
-            right: 12%;
-            height: 0.25rem;
-            z-index: 0;
-            pointer-events: none;
-
             &-bar {
                 width: 100%;
                 height: 100%;
@@ -1049,23 +378,6 @@ body.home {
             }
         }
 
-        &__grid {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 2rem;
-            position: relative;
-            z-index: 10;
-
-            @include media-breakpoint-up(sm) {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            @include media-breakpoint-up(lg) {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-                gap: 1.5rem;
-            }
-        }
-
         &__step {
             &:hover {
                 .steps-booking-section__icon {
@@ -1078,8 +390,6 @@ body.home {
                 line-height: 1.75rem;
                 font-weight: 700;
                 color: #1e293b;
-                margin-top: 1.25rem;
-                margin-bottom: 0;
             }
 
             &-desc {
@@ -1090,18 +400,9 @@ body.home {
         }
 
         &__icon {
-            width: 3.5rem;
-            height: 3.5rem;
-            border-radius: 1rem;
             background-color: #eff6ff;
             color: $color-primary;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            border: 1px solid #dbeafe;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-color: #dbeafe;
 
             &--amber {
                 background-color: #fffbeb;
@@ -1123,21 +424,7 @@ body.home {
         }
 
         &__num {
-            position: absolute;
-            top: -0.625rem;
-            right: -0.625rem;
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 9999px;
             background-color: $color-primary;
-            color: $color-white;
-            font-size: 0.75rem;
-            line-height: 1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
 
             &--amber {
                 background-color: #f59e0b;
@@ -1149,37 +436,17 @@ body.home {
         }
 
         &__cta {
-            margin-top: 4rem;
             background-color: #f8fafc;
             border: 1px solid rgba(226, 232, 240, 0.8);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            gap: 1rem;
-            max-width: 42rem;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
             &-text {
                 font-weight: 500;
                 color: #334155;
-                font-size: 0.875rem;
-                line-height: 1.25rem;
-
-                @include media-breakpoint-up(sm) {
-                    font-size: 1rem;
-                    line-height: 1.5rem;
-                }
             }
 
             &-btn {
                 background-color: #059669;
                 color: $color-white;
-                font-weight: 500;
-                font-size: 0.875rem;
-                line-height: 1.25rem;
-                padding: 0.625rem 1.5rem;
-                border-radius: 9999px;
-                gap: 0.5rem;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
                 text-decoration: none;
                 transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1), color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -1191,21 +458,11 @@ body.home {
         }
     }
 
+    // ==============================================================================
+    // 7. Testimonials Section
+    // ==============================================================================
     .testimonials-section {
         background-color: $color-bg;
-
-        &__header {
-            max-width: 42rem;
-            margin-bottom: 24px;
-
-            @include media-breakpoint-up(md) {
-                margin-bottom: 24px;
-            }
-
-            @include media-breakpoint-up(lg) {
-                margin-bottom: 32px;
-            }
-        }
 
         &__stars {
             color: $color-secondary;
@@ -1225,33 +482,10 @@ body.home {
             }
         }
 
-        &__grid {
-            padding: 0.25rem 0.125rem;
-            margin-bottom: 24px;
-
-            @include media-breakpoint-up(md) {
-                margin-bottom: 24px;
-            }
-
-            @include media-breakpoint-up(lg) {
-                margin-bottom: 32px;
-            }
-
-            .swiper-slide {
-                height: auto;
-                display: flex;
-            }
-        }
-
         &__card {
-            width: 100%;
-            height: 100%;
             background-color: $color-white;
-            padding: 2rem;
-            border-radius: 1rem;
             border: 1px solid #f1f5f9;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
             &:hover {
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
@@ -1269,21 +503,11 @@ body.home {
                     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
                 }
             }
-
-            &-top {
-                margin-bottom: 1.25rem;
-            }
         }
 
         &__badge {
-            gap: 0.375rem;
             background-color: #ecfdf5;
             color: #047857;
-            padding: 0.25rem 0.625rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            line-height: 1rem;
-            font-weight: 600;
 
             svg {
                 width: 0.875rem;
@@ -1292,7 +516,6 @@ body.home {
             }
 
             &--verified {
-                gap: 0.25rem;
                 border: 1px solid rgba(167, 243, 208, 0.8);
                 font-weight: 700;
                 letter-spacing: 0.025em;
@@ -1305,12 +528,7 @@ body.home {
         }
 
         &__source {
-            margin-bottom: 1rem;
-            gap: 0.375rem;
-            font-size: 0.75rem;
-            line-height: 1rem;
             color: #2563eb;
-            font-weight: 600;
 
             svg {
                 width: 0.875rem;
@@ -1323,7 +541,6 @@ body.home {
             color: #334155;
             font-size: 0.875rem;
             line-height: 1.625;
-            margin-bottom: 2rem;
 
             @include media-breakpoint-up(md) {
                 font-size: 1rem;
@@ -1335,20 +552,9 @@ body.home {
             }
         }
 
-        &__author {
-            gap: 0.875rem;
-            padding-top: 1.25rem;
-            border-top: 1px solid #f1f5f9;
-        }
-
         &__avatar {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 9999px;
-            object-fit: cover;
             border: 1px solid #e2e8f0;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            flex-shrink: 0;
 
             &--featured {
                 border: 2px solid rgba(59, 130, 246, 0.3);
@@ -1372,46 +578,16 @@ body.home {
             color: #94a3b8;
             font-weight: 500;
         }
-
-        &__controls {
-            gap: 1.25rem;
-        }
     }
 
+    // ==============================================================================
+    // 8. Posts Section
+    // ==============================================================================
     .posts-section {
         background-color: $color-bg;
 
-        &__header {
-            margin-bottom: 3rem;
-            gap: 1.5rem;
-
-            .ui-badge {
-                margin-left: 0;
-            }
-        }
-
-        &__grid {
-            display: grid;
-            grid-template-columns: repeat(1, minmax(0, 1fr));
-            gap: 2rem;
-
-            @include media-breakpoint-up(md) {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
-
         &__card {
-            background-color: $color-white;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            border: 1px solid #f1f5f9;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
             &:hover {
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-
                 .posts-section__thumb img {
                     transform: scale(1.05);
                 }
@@ -1426,30 +602,9 @@ body.home {
             }
         }
 
-        &__thumb {
-            aspect-ratio: 16 / 10;
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 0;
-                transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-        }
-
         &__badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
             background-color: $color-primary;
             color: $color-white;
-            font-size: 0.75rem;
-            line-height: 1rem;
-            font-weight: 600;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
             &--amber {
                 background-color: #f59e0b;
@@ -1461,12 +616,7 @@ body.home {
         }
 
         &__meta {
-            font-size: 0.75rem;
-            line-height: 1rem;
             color: #94a3b8;
-            margin-top: 1.25rem;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
 
             svg {
                 width: 0.875rem;
@@ -1478,39 +628,16 @@ body.home {
         }
 
         &__title {
-            font-size: 1.25rem;
-            line-height: 1.75rem;
             color: #0f172a;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
             transition: color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         &__excerpt {
             color: #64748b;
-            font-size: 0.875rem;
-            line-height: 1.625;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
 
         &__link {
             color: #2563eb;
-            font-weight: 600;
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            margin-top: 1.25rem;
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
             transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
     }

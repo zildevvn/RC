@@ -15,7 +15,7 @@ $terms = get_terms([
     <section class="ui-section destinations-section" data-purpose="destinations-section">
         <div class="container">
             <!-- Section Header -->
-            <div class="destinations-section__header text-center" data-aos="fade-up">
+            <div class="destinations-section__header text-center mb-12" data-aos="fade-up">
                 <?php if (!empty($badge)): ?>
                     <p class="ui-badge">
                         <?= $badge ?>
@@ -32,17 +32,13 @@ $terms = get_terms([
                     </p>
                 <?php endif; ?>
             </div>
-            <div class="destinations-section__list" data-aos="fade-up">
+            <div class="destinations-section__list grid grid-cols-1 md:grid-cols-12 gap-6" data-aos="fade-up">
                 <?php foreach ($terms as $index => $term): ?>
                     <?php
                     if (!($term instanceof WP_Term)) {
                         continue;
                     }
 
-                    // echo "<pre>";
-                    // echo print_r($term);
-                    // echo "</pre>";
-            
                     $image = get_field('image', $term);
                     $image_url = '';
                     $image_alt = $term->name;
@@ -67,19 +63,21 @@ $terms = get_terms([
 
                     $card_modifier = '';
                     if ($index === 0) {
-                        $card_modifier = ' destinations-section__card--col-7';
+                        $card_modifier = ' destinations-section__card--col-7 md:col-span-7 h-[280px] sm:h-[320px]';
                     } elseif ($index === 1) {
-                        $card_modifier = ' destinations-section__card--col-5';
+                        $card_modifier = ' destinations-section__card--col-5 md:col-span-5 h-[280px] sm:h-[320px]';
+                    } else {
+                        $card_modifier = ' md:col-span-4 h-[260px] sm:h-[280px]';
                     }
                     ?>
-                    <a href="<?= esc_url($term_url) ?>" class="destinations-section__card<?= esc_attr($card_modifier) ?>">
+                    <a href="<?= esc_url($term_url) ?>" class="destinations-section__card block relative rounded-2xl overflow-hidden cursor-pointer shadow-md group<?= esc_attr($card_modifier) ?>">
                         <?php if (!empty($image_url)): ?>
-                            <img alt="<?= esc_attr($image_alt) ?>" src="<?= esc_url($image_url) ?>">
+                            <img class="w-full h-full object-cover rounded-none transition-transform duration-500 group-hover:scale-105" alt="<?= esc_attr($image_alt) ?>" src="<?= esc_url($image_url) ?>">
                         <?php endif; ?>
-                        <div class="destinations-section__card-overlay"></div>
+                        <div class="destinations-section__card-overlay absolute inset-0 pointer-events-none"></div>
                         <span class="destinations-section__card-badge"><?= esc_html($term->count) ?>
                             tours</span>
-                        <h3 class="destinations-section__card-title h4 mb-0">
+                        <h3 class="destinations-section__card-title h4 mb-0 absolute bottom-6 inset-x-0 text-center">
                             <?= esc_html($term->name) ?>
                         </h3>
                     </a>
