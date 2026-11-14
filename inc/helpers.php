@@ -395,3 +395,70 @@ if (!function_exists('rc_whatsapp_url')) {
 		return 'https://wa.me/' . $digits;
 	}
 }
+
+if (!function_exists('rc_get_ajax_pagination')) {
+	/**
+	 * Generate accessible AJAX pagination HTML.
+	 *
+	 * @param int $current_page Current active page number.
+	 * @param int $total_pages Total number of pages.
+	 * @return string HTML pagination markup.
+	 */
+	function rc_get_ajax_pagination($current_page = 1, $total_pages = 1)
+	{
+		$current_page = max(1, intval($current_page));
+		$total_pages = intval($total_pages);
+
+		if ($total_pages <= 1) {
+			return '';
+		}
+
+		$output = '<nav class="rc-pagination rc-ajax-pagination" aria-label="' . esc_attr__('Tours Pagination', 'rc') . '">';
+		$output .= '<ul class="page-numbers">';
+
+		// Previous page button
+		if ($current_page > 1) {
+			$prev_page = $current_page - 1;
+			$prev_icon = function_exists('rc_svg_icon') && rc_svg_icon('arrow_prev') ? rc_svg_icon('arrow_prev') : '&laquo;';
+			$output .= '<li><a href="#" class="prev page-numbers" data-page="' . esc_attr($prev_page) . '" aria-label="' . esc_attr__('Previous page', 'rc') . '">' . $prev_icon . '</a></li>';
+		}
+
+		// Page numbers calculation with sliding window
+		$start_page = max(1, $current_page - 2);
+		$end_page = min($total_pages, $current_page + 2);
+
+		if ($start_page > 1) {
+			$output .= '<li><a href="#" class="page-numbers" data-page="1">1</a></li>';
+			if ($start_page > 2) {
+				$output .= '<li><span class="page-numbers dots">&hellip;</span></li>';
+			}
+		}
+
+		for ($i = $start_page; $i <= $end_page; $i++) {
+			if ($i === $current_page) {
+				$output .= '<li><span aria-current="page" class="page-numbers current">' . esc_html($i) . '</span></li>';
+			} else {
+				$output .= '<li><a href="#" class="page-numbers" data-page="' . esc_attr($i) . '">' . esc_html($i) . '</a></li>';
+			}
+		}
+
+		if ($end_page < $total_pages) {
+			if ($end_page < $total_pages - 1) {
+				$output .= '<li><span class="page-numbers dots">&hellip;</span></li>';
+			}
+			$output .= '<li><a href="#" class="page-numbers" data-page="' . esc_attr($total_pages) . '">' . esc_html($total_pages) . '</a></li>';
+		}
+
+		// Next page button
+		if ($current_page < $total_pages) {
+			$next_page = $current_page + 1;
+			$next_icon = function_exists('rc_svg_icon') && rc_svg_icon('arrow_next') ? rc_svg_icon('arrow_next') : '&raquo;';
+			$output .= '<li><a href="#" class="next page-numbers" data-page="' . esc_attr($next_page) . '" aria-label="' . esc_attr__('Next page', 'rc') . '">' . $next_icon . '</a></li>';
+		}
+
+		$output .= '</ul>';
+		$output .= '</nav>';
+
+		return $output;
+	}
+}

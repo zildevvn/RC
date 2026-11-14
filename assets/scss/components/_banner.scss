@@ -1,0 +1,184 @@
+// ==============================================================================
+// GLOBAL BANNER / FINAL CTA COMPONENT (.banner-section)
+// Shared across Homepage, Cars Template, etc.
+// ==============================================================================
+.banner-section {
+    background-color: $color-white;
+
+    &__card {
+        border-radius: 1.5rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        padding: 4rem 2rem;
+        background: linear-gradient(135deg, #0A3258 0%, #0F4C81 100%);
+
+        @include media-breakpoint-up(md) {
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
+    }
+
+    &__waves {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        user-select: none;
+        z-index: 0;
+        overflow: hidden;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            color: #a5f3fc;
+            opacity: 0.25;
+        }
+    }
+
+    &__glow {
+        position: absolute;
+        border-radius: 9999px;
+        pointer-events: none;
+
+        &--amber {
+            right: -0.625rem;
+            top: -0.625rem;
+            width: 18rem;
+            height: 18rem;
+            background-color: rgba(245, 158, 11, 0.15);
+            filter: blur(60px);
+        }
+
+        &--blue {
+            left: -2.5rem;
+            bottom: -2.5rem;
+            width: 16rem;
+            height: 16rem;
+            background-color: rgba(96, 165, 250, 0.1);
+            filter: blur(50px);
+        }
+    }
+
+    &__grid {
+        z-index: 10;
+        display: grid;
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 2rem;
+
+        @include media-breakpoint-up(lg) {
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+    }
+
+    &__content {
+        @include media-breakpoint-up(lg) {
+            grid-column: span 7 / span 7;
+        }
+    }
+
+    &__badge {
+        color: #fbbf24;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+
+        &-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            background-color: #fbbf24;
+            animation: bannerPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    }
+
+    &__title {
+        color: $color-white;
+        letter-spacing: -0.025em;
+        margin-bottom: 0;
+    }
+
+    &__desc {
+        color: #e2e8f0;
+        font-size: 1rem;
+        line-height: 1.625;
+        max-width: 36rem;
+        margin-bottom: 0;
+    }
+
+    &__trust {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        margin-top: 1.5rem;
+        column-gap: 1.5rem;
+        row-gap: 0.5rem;
+
+        &-item {
+            gap: 0.375rem;
+        }
+
+        &-check {
+            color: #fbbf24;
+            font-size: 1rem;
+        }
+    }
+
+    &__action-col {
+        @include media-breakpoint-up(lg) {
+            grid-column: span 5 / span 5;
+        }
+    }
+
+    &__actions {
+        max-width: 28rem;
+
+        @include media-breakpoint-up(lg) {
+            margin-right: 0;
+        }
+
+        .rc-button,
+        .rc-button--secondary {
+            width: 100%;
+            justify-content: center;
+            font-size: 1rem;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+        }
+    }
+
+    &__helpline {
+        font-size: 0.75rem;
+        line-height: 1rem;
+        color: #cbd5e1;
+        gap: 0.375rem;
+
+        &-link {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.15s ease;
+
+            &:hover {
+                color: #fbbf24;
+            }
+
+            svg {
+                width: 0.875rem;
+                height: 0.875rem;
+                stroke: currentColor;
+                color: #fbbf24;
+                flex-shrink: 0;
+            }
+        }
+    }
+}
+
+@keyframes bannerPulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+

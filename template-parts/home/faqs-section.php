@@ -1,8 +1,74 @@
 <?php
-$heading = get_field('heading_faq_home');
-$badge = get_field('badge_faq_home');
-$sub_heading = get_field('desc_faq_home');
-$faqs = get_field('faqs_home');
+/**
+ * Shared FAQ Section Component
+ *
+ * Reused across Homepage, Tour Listing (Cars) page, etc.
+ * Retrieves content dynamically from passed $args, page-specific ACF fields, or Homepage ACF fallback.
+ *
+ * @package rc
+ */
+
+$page_id = !empty($args['post_id']) ? (int) $args['post_id'] : get_the_ID();
+$front_page_id = (int) get_option('page_on_front');
+
+// 1. Resolve FAQs List
+$faqs = $args['faqs'] ?? null;
+if (empty($faqs)) {
+    // Try page-specific Cars repeater field (from group_6a5f227085a70.json)
+    $faqs_car = get_field('faqs_ab_car_tpl', $page_id);
+    if (!empty($faqs_car) && is_array($faqs_car)) {
+        $faqs = $faqs_car;
+    }
+}
+if (empty($faqs)) {
+    // Try current page's faqs_home field
+    $faqs_page = get_field('faqs_home', $page_id);
+    if (!empty($faqs_page) && is_array($faqs_page)) {
+        $faqs = $faqs_page;
+    }
+}
+if (empty($faqs) && $front_page_id && $front_page_id !== $page_id) {
+    // Fall back to Homepage FAQs
+    $faqs_home = get_field('faqs_home', $front_page_id);
+    if (!empty($faqs_home) && is_array($faqs_home)) {
+        $faqs = $faqs_home;
+    }
+}
+
+// 2. Resolve Heading
+$heading = $args['heading'] ?? '';
+if (empty($heading)) {
+    $heading = get_field('heading_faq_home', $page_id);
+}
+if (empty($heading) && $front_page_id && $front_page_id !== $page_id) {
+    $heading = get_field('heading_faq_home', $front_page_id);
+}
+if (empty($heading)) {
+    $heading = __('Find Answers for Questions You Have.', 'rc');
+}
+
+// 3. Resolve Badge
+$badge = $args['badge'] ?? '';
+if (empty($badge)) {
+    $badge = get_field('badge_faq_home', $page_id);
+}
+if (empty($badge) && $front_page_id && $front_page_id !== $page_id) {
+    $badge = get_field('badge_faq_home', $front_page_id);
+}
+if (empty($badge)) {
+    $badge = __('FAQs', 'rc');
+}
+
+// 4. Resolve Sub-heading / Description
+$sub_heading = $args['sub_heading'] ?? '';
+if (empty($sub_heading)) {
+    $sub_heading = get_field('desc_faq_home', $page_id);
+}
+if (empty($sub_heading) && $front_page_id && $front_page_id !== $page_id) {
+    $sub_heading = get_field('desc_faq_home', $front_page_id);
+}
+
+// 5. Contact info
 $phone = function_exists('get_field') ? get_field('phone', 'option') : '';
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>

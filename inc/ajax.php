@@ -528,3 +528,173 @@ function rc_ajax_capture_paypal_order()
         'country' => get_post_meta($booking_post_id, 'customer_country', true),
     ]);
 }
+
+/**
+ * AJAX handler for filtering tours on Cars Template and elsewhere.
+ * Single source of truth for tour price filtering and sorting.
+ */
+add_action('wp_ajax_rc_ajax_filter_tours', 'rc_ajax_filter_tours');
+add_action('wp_ajax_nopriv_rc_ajax_filter_tours', 'rc_ajax_filter_tours');
+function rc_ajax_filter_tours()
+{
+    if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'rc_filter_tours_nonce')) {
+        wp_send_json_error(['message' => __('Security verification failed. Please refresh the page.', 'rc')]);
+    }
+
+    $paged = isset($_POST['paged']) ? max(1, intval($_POST['paged'])) : 1;
+    $search = isset($_POST['search']) ? sanitize_text_field(wp_unslash($_POST['search'])) : '';
+    $sort = isset($_POST['sort']) ? sanitize_key($_POST['sort']) : 'recommended';
+
+    // Parse location taxonomy terms
+    $locations = [];
+    if (isset($_POST['locations'])) {
+        if (is_array($_POST['locations'])) {
+            $locations = array_filter(array_map('intval', $_POST['locations']));
+        } elseif (is_numeric($_POST['locations'])) {
+            $locations = [intval($_POST['locations'])];
+        }
+    }
+
+    // Parse numeric price boundaries safely
+    $min_price = (isset($_POST['min_price']) && $_POST['min_price'] !== '' && is_numeric($_POST['min_price']))
+        ? floatval($_POST['min_price'])
+        : null;
+    $max_price = (isset($_POST['max_price']) && $_POST['max_price'] !== '' && is_numeric($_POST['max_price']))
+        ? floatval($_POST['max_price'])
+        : null;
+
+    if ($min_price !== null && $max_price !== null && $min_price > $max_price) {
+        $temp = $min_price;
+        $min_price = $max_price;
+        $max_price = $temp;
+    }
+
+    $args = [
+        'post_type'      => 'tours',
+        'post_status'    => 'publish',
+        'posts_per_page' => 9,
+        'paged'          => $paged,
+    ];
+
+    if (!empty($search)) {
+        $args['s'] = $search;
+    }
+
+    if (!empty($locations)) {
+        $args['tax_query'] = [
+            [
+                'taxonomy'         => 'tour_locations',
+                'field'            => 'term_id',
+                'terms'            => $locations,
+                'operator'         => 'IN',
+                'include_children' => true,
+            ],
+        ];
+    }
+
+    $meta_query = [];
+
+    if ($min_price !== null && $max_price !== null) {
+        $meta_query['price_clause'] = [
+            'key'     => 'price_tour',
+            'value'   => [$min_price, $max_price],
+            'type'    => 'NUMERIC',
+            'compare' => 'BETWEEN',
+        ];
+    } elseif ($min_price !== null) {
+        $meta_query['price_clause'] = [
+            'key'     => 'price_tour',
+            'value'   => $min_price,
+            'type'    => 'NUMERIC',
+            'compare' => '>=',
+        ];
+    } elseif ($max_price !== null) {
+        $meta_query['price_clause'] = [
+            'key'     => 'price_tour',
+            'value'   => $max_price,
+            'type'    => 'NUMERIC',
+            'compare' => '<=',
+        ];
+    }
+
+    // Apply sorting
+    switch ($sort) {
+        case 'price_low':
+            if (!isset($meta_query['price_clause'])) {
+                $meta_query['price_clause'] = [
+                    'key'     => 'price_tour',
+                    'compare' => 'EXISTS',
+                    'type'    => 'NUMERIC',
+                ];
+            }
+            $args['orderby'] = [
+                'price_clause' => 'ASC',
+                'date'         => 'DESC',
+            ];
+            break;
+
+        case 'price_high':
+            if (!isset($meta_query['price_clause'])) {
+                $meta_query['price_clause'] = [
+                    'key'     => 'price_tour',
+                    'compare' => 'EXISTS',
+                    'type'    => 'NUMERIC',
+                ];
+            }
+            $args['orderby'] = [
+                'price_clause' => 'DESC',
+                'date'         => 'DESC',
+            ];
+            break;
+
+        case 'newest':
+            $args['orderby'] = 'date';
+            $args['order']   = 'DESC';
+            break;
+
+        case 'oldest':
+            $args['orderby'] = 'date';
+            $args['order']   = 'ASC';
+            break;
+
+        case 'recommended':
+        default:
+            $args['orderby'] = [
+                'menu_order' => 'ASC',
+                'date'       => 'DESC',
+            ];
+            break;
+    }
+
+    if (!empty($meta_query)) {
+        $args['meta_query'] = $meta_query;
+    }
+
+    $query = new WP_Query($args);
+
+    ob_start();
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            rc_item_tour(get_the_ID());
+        }
+        wp_reset_postdata();
+    }
+    $html = ob_get_clean();
+
+    $pagination_html = function_exists('rc_get_ajax_pagination') 
+        ? rc_get_ajax_pagination($paged, $query->max_num_pages) 
+        : '';
+
+    wp_send_json_success([
+        'html'          => $html,
+        'pagination'    => $pagination_html,
+        'found_posts'   => $query->found_posts,
+        'max_num_pages' => $query->max_num_pages,
+        'current_page'  => $paged,
+        'count_text'    => sprintf(
+            _n('%d tour found', '%d tours found', $query->found_posts, 'rc'),
+            $query->found_posts
+        ),
+    ]);
+}

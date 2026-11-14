@@ -1,8 +1,19 @@
 <?php
+/**
+ * Shared Banner / Final CTA Section Component
+ *
+ * Reused across Homepage, Tour Listing (Cars) page, etc.
+ *
+ * @package rc
+ */
+
+$badge = !empty($args['badge']) ? $args['badge'] : 'READY FOR A HASSLE-FREE TRIP?';
+$title = !empty($args['title']) ? $args['title'] : 'Book Your Private Da Nang Ride in Just a Few Clicks';
+$desc = !empty($args['desc']) ? $args['desc'] : 'No prepayment required • Free cancellation up to 24 hours • Professional English-speaking drivers waiting at your arrival.';
 $phone = function_exists('get_field') ? get_field('phone', 'option') : '';
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
-<section class="rc-section banner-section bg-white" data-purpose="final-cta-section">
+<section class="rc-section banner-section" data-purpose="final-cta-section">
     <div class="container">
         <div class="banner-section__card position-relative overflow-hidden" data-aos="fade-up">
             <div aria-hidden="true" class="banner-section__waves">
@@ -34,14 +45,13 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                 <div class="banner-section__content d-flex flex-column align-items-start">
                     <div class="banner-section__badge d-flex align-items-center gap-2 mb-3 fw-semibold">
                         <span class="banner-section__badge-dot"></span>
-                        <span>READY FOR A HASSLE-FREE TRIP?</span>
+                        <span><?= esc_html($badge) ?></span>
                     </div>
                     <h2 class="banner-section__title h3">
-                        Book Your Private Da Nang Ride in Just a Few Clicks
+                        <?= esc_html($title) ?>
                     </h2>
                     <p class="banner-section__desc mt-4">
-                        No prepayment required • Free cancellation up to 24 hours • Professional English-speaking
-                        drivers waiting at your arrival.
+                        <?= esc_html($desc) ?>
                     </p>
                     <!-- Trust Badges Row -->
                     <div class="banner-section__trust d-flex flex-wrap">

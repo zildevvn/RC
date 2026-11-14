@@ -77,6 +77,10 @@
             padding: 4.5rem 0 3.5rem;
         }
 
+        h1 {
+            color: #fff;
+        }
+
         &__bg {
             position: absolute;
             inset: 0;
@@ -157,12 +161,16 @@
         }
 
         &__desc {
-            color: #E2E8F0;
-            font-size: clamp(1rem, 1.2vw, 1.15rem);
-            font-weight: 400;
-            line-height: 1.7;
             max-width: 680px;
             margin-bottom: 2.25rem;
+            margin-top: 20px;
+            display: inline-block;
+
+            p {
+                color: #E2E8F0;
+                margin-bottom: 0;
+                font-size: clamp(1rem, 1.2vw, 1.15rem);
+            }
         }
 
         &__actions {
@@ -296,15 +304,6 @@
         &__content {
             display: flex;
             flex-direction: column;
-        }
-
-        &__title {
-
-            font-size: clamp(2rem, 3.2vw, 2.75rem);
-            font-weight: 700;
-            color: #0F4C81;
-            line-height: 1.2;
-            margin-bottom: 1.25rem;
         }
 
         &__lead {

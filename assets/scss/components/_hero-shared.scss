@@ -64,24 +64,20 @@
         inset: 0;
         z-index: 1;
         // Primary deep navy gradient with high legibility vignette
-        background: linear-gradient(
-            135deg,
-            rgba(10, 28, 48, 0.92) 0%,
-            rgba(15, 76, 129, 0.78) 50%,
-            rgba(10, 24, 40, 0.88) 100%
-        );
+        background: linear-gradient(135deg,
+                rgba(10, 28, 48, 0.92) 0%,
+                rgba(15, 76, 129, 0.78) 50%,
+                rgba(10, 24, 40, 0.88) 100%);
 
         // Bottom ambient upward shadow
         &::after {
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                to top,
-                rgba(10, 20, 32, 0.95) 0%,
-                rgba(10, 20, 32, 0.3) 55%,
-                transparent 100%
-            );
+            background: linear-gradient(to top,
+                    rgba(10, 20, 32, 0.95) 0%,
+                    rgba(10, 20, 32, 0.3) 55%,
+                    transparent 100%);
         }
     }
 
@@ -93,12 +89,10 @@
         width: 60%;
         height: 120%;
         z-index: 1;
-        background: radial-gradient(
-            circle at 75% 30%,
-            rgba($color-secondary, 0.22) 0%,
-            rgba(15, 76, 129, 0.1) 45%,
-            transparent 70%
-        );
+        background: radial-gradient(circle at 75% 30%,
+                rgba($color-secondary, 0.22) 0%,
+                rgba(15, 76, 129, 0.1) 45%,
+                transparent 70%);
         pointer-events: none;
         filter: blur(40px);
     }
@@ -139,19 +133,17 @@
             position: absolute;
             inset: 0;
             z-index: 1;
-            background: linear-gradient(
-                135deg,
-                rgba(10, 28, 48, 0.92) 0%,
-                rgba(15, 76, 129, 0.78) 50%,
-                rgba(10, 24, 40, 0.88) 100%
-            );
+            background: linear-gradient(135deg,
+                    rgba(10, 28, 48, 0.92) 0%,
+                    rgba(15, 76, 129, 0.78) 50%,
+                    rgba(10, 24, 40, 0.88) 100%);
         }
     }
 
     // No-image state: Pure Luxury Sapphire & Amber Background
     &--no-image {
         background: radial-gradient(circle at 85% 20%, rgba(223, 161, 40, 0.16) 0%, transparent 45%),
-                    linear-gradient(135deg, #091a2e 0%, #0F4C81 50%, #081626 100%);
+            linear-gradient(135deg, #091a2e 0%, #0F4C81 50%, #081626 100%);
 
         .hero-section-shared__motif {
             color: rgba(255, 255, 255, 0.12);
@@ -162,7 +154,7 @@
     // Container & Content Box
     // ----------------------------------------------------------------------
     &__container,
-    > .container {
+    >.container {
         position: relative;
         z-index: 2;
         width: 100%;
@@ -315,12 +307,10 @@
             &:last-child {
                 margin-bottom: 0;
             }
-        }
 
-        @include media-breakpoint-down(md) {
-            font-size: 0.9375rem;
-            line-height: 1.6;
-            margin-bottom: 1.25rem;
+            a {
+                color: inherit;
+            }
         }
     }
 
@@ -381,13 +371,11 @@
         width: 100%;
         height: 3px;
         z-index: 3;
-        background: linear-gradient(
-            90deg,
-            rgba(223, 161, 40, 0.85) 0%,
-            rgba(15, 76, 129, 0.6) 35%,
-            rgba(255, 255, 255, 0.15) 70%,
-            transparent 100%
-        );
+        background: linear-gradient(90deg,
+                rgba(223, 161, 40, 0.85) 0%,
+                rgba(15, 76, 129, 0.6) 35%,
+                rgba(255, 255, 255, 0.15) 70%,
+                transparent 100%);
         box-shadow: 0 -1px 8px rgba(223, 161, 40, 0.35);
     }
 
@@ -489,4 +477,3 @@
         }
     }
 }
-
