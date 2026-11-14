@@ -625,6 +625,141 @@ import AOS from 'aos';
         });
     };
 
+    const singlePostToc = () => {
+        const $content = $('.single-post-content');
+        if (!$content.length) {
+            return;
+        }
+
+        const $desktopToc = $('#ui-post-toc-desktop');
+        const $mobileToc = $('#ui-post-toc-mobile');
+        const $desktopList = $desktopToc.find('.ui-post-toc__list');
+        const $mobileList = $mobileToc.find('.ui-post-toc__list');
+
+        const $headings = $content.find('h2, h3');
+        if ($headings.length < 2) {
+            $desktopToc.hide();
+            $mobileToc.hide();
+            return;
+        }
+
+        let desktopHtml = '';
+        let mobileHtml = '';
+
+        $headings.each(function (index) {
+            const $heading = $(this);
+            let headingId = $heading.attr('id');
+
+            if (!headingId) {
+                const text = $heading.text().trim();
+                const slug = text
+                    .toLowerCase()
+                    .replace(/[^\w\s-]/g, '')
+                    .replace(/[\s_-]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+                headingId = slug || `section-${index + 1}`;
+                $heading.attr('id', headingId);
+            }
+
+            const tagName = $heading.prop('tagName').toLowerCase();
+            const text = $heading.text().trim();
+            const isH3 = tagName === 'h3';
+            const itemClass = isH3 ? 'ui-toc__item ui-toc__item--h3' : 'ui-toc__item ui-toc__item--h2';
+
+            desktopHtml += `<li class="${itemClass}"><a href="#${headingId}" class="ui-toc__link" data-target="${headingId}">${text}</a></li>`;
+            mobileHtml += `<li class="${itemClass}"><a href="#${headingId}" class="ui-toc__link" data-target="${headingId}">${text}</a></li>`;
+        });
+
+        $desktopList.html(desktopHtml);
+        $mobileList.html(mobileHtml);
+        $desktopToc.show();
+        $mobileToc.show();
+
+        // Smooth scroll on TOC link click
+        $(document).on('click', '.ui-post-toc a.ui-toc__link', function (e) {
+            e.preventDefault();
+            const targetId = $(this).attr('data-target');
+            const $target = $('#' + targetId);
+
+            if ($target.length) {
+                const headerHeight = 90;
+                const targetOffset = $target.offset().top - headerHeight;
+
+                $('html, body').animate({
+                    scrollTop: targetOffset
+                }, 400);
+
+                // If mobile, close the mobile TOC
+                const $mobileNav = $('#ui-toc-mobile-list');
+                const $mobileBtn = $mobileToc.find('.ui-post-toc__toggle');
+                if ($mobileNav.is(':visible')) {
+                    $mobileNav.slideUp(200);
+                    $mobileBtn.attr('aria-expanded', 'false');
+                }
+            }
+        });
+
+        // Mobile toggle
+        $mobileToc.find('.ui-post-toc__toggle').on('click', function () {
+            const $btn = $(this);
+            const $nav = $('#ui-toc-mobile-list');
+            const isExpanded = $btn.attr('aria-expanded') === 'true';
+
+            if (isExpanded) {
+                $nav.slideUp(200);
+                $btn.attr('aria-expanded', 'false');
+            } else {
+                $nav.slideDown(250);
+                $btn.attr('aria-expanded', 'true');
+            }
+        });
+
+        // Scrollspy to highlight active TOC item
+        const updateActiveHeading = () => {
+            const scrollPos = $(window).scrollTop() + 140;
+            let currentId = null;
+
+            $headings.each(function () {
+                const $el = $(this);
+                if ($el.offset().top <= scrollPos) {
+                    currentId = $el.attr('id');
+                }
+            });
+
+            if (currentId) {
+                $desktopToc.find('.ui-toc__link').removeClass('is-active');
+                $desktopToc.find(`.ui-toc__link[data-target="${currentId}"]`).addClass('is-active');
+                $mobileToc.find('.ui-toc__link').removeClass('is-active');
+                $mobileToc.find(`.ui-toc__link[data-target="${currentId}"]`).addClass('is-active');
+            }
+        };
+
+        $(window).on('scroll.rcPostToc', updateActiveHeading);
+        updateActiveHeading();
+    };
+
+    const singlePostShare = () => {
+        $(document).on('click', '.ui-share-btn--copy', function (e) {
+            e.preventDefault();
+            const $btn = $(this);
+            const url = $btn.attr('data-url') || window.location.href;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(function () {
+                    const $label = $btn.find('.ui-share-btn__label');
+                    const origText = $label.text();
+                    $btn.addClass('is-copied');
+                    $label.text('Copied!');
+
+                    setTimeout(function () {
+                        $btn.removeClass('is-copied');
+                        $label.text(origText);
+                    }, 2000);
+                });
+            }
+        });
+    };
+
     $(document).ready(function () {
         modalSearch();
         modalBookCar();
@@ -634,6 +769,8 @@ import AOS from 'aos';
         initAOS();
         backToTop();
         tourGallery();
+        singlePostToc();
+        singlePostShare();
     });
 
     $(window).on('load', function () {
