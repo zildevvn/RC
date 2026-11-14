@@ -7110,7 +7110,8 @@ p + :is(.single-post, .single-tours, .single-tour, .single) .site-main :is(.main
   }
 }
 
-.ui-text-hidden {
+.ui-text-hidden,
+.rc-text-hidden {
   display: none !important;
 }
 
@@ -10894,6 +10895,14 @@ body.mobile-menu-open {
   min-height: 50px;
   transition: color 0.2s ease;
 }
+.tour-item-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.tour-item-title a:hover {
+  color: #0F4C81;
+}
 .tour-item-features {
   margin-top: 0.875rem;
   padding-top: 0.875rem;
@@ -11002,6 +11011,499 @@ body.mobile-menu-open {
 .related-tour-section .ui-related-nav,
 .related-post-section .ui-related-nav {
   gap: 0.625rem;
+}
+
+.grid-tour-section {
+  position: relative;
+  padding: clamp(3.5rem, 5.5vw, 6rem) 0;
+  background-color: #F8FAFC;
+}
+.grid-tour-section .container {
+  position: relative;
+}
+.grid-tour-section__header {
+  max-width: 46rem;
+  margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+}
+.grid-tour-section__header .ui-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(15, 76, 129, 0.08);
+  color: #0F4C81;
+  border: 1px solid rgba(15, 76, 129, 0.15);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 0.875rem;
+}
+.grid-tour-section__header .ui-heading {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  color: #19232B;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.875rem;
+}
+.grid-tour-section__header .ui-heading span {
+  color: #0F4C81;
+}
+.grid-tour-section__header .ui-sub-heading {
+  font-size: clamp(0.9375rem, 1.25vw, 1.0625rem);
+  line-height: 1.65;
+  color: #64748B;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.grid-tour-section__grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+@media (min-width: 768px) {
+  .grid-tour-section__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+@media (min-width: 992px) {
+  .grid-tour-section__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+.grid-tour-section .tour-item {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+}
+.grid-tour-section .tour-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(15, 76, 129, 0.1), 0 8px 10px -6px rgba(15, 76, 129, 0.06);
+  border-color: rgba(15, 76, 129, 0.25);
+}
+.grid-tour-section .tour-item:hover .tour-item-thumb img {
+  transform: scale(1.05);
+}
+.grid-tour-section .tour-item:hover .tour-item-title,
+.grid-tour-section .tour-item:hover .tour-item-title a {
+  color: #0F4C81;
+}
+.grid-tour-section .tour-item-thumb {
+  aspect-ratio: 16/10;
+  height: auto;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+  background-color: #E2E8F0;
+}
+.grid-tour-section .tour-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.grid-tour-section .tour-item-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 1.5rem;
+}
+.grid-tour-section .tour-item-title {
+  font-size: 1.15rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  min-height: auto;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.grid-tour-section .tour-item-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.grid-tour-section .tour-item-title a:hover {
+  color: #0F4C81;
+}
+.grid-tour-section .tour-item-features {
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  margin-bottom: 1.25rem;
+  border-top: 1px solid #F1F5F9;
+  gap: 0.5rem;
+}
+.grid-tour-section .tour-item-features li {
+  font-size: 0.8125rem;
+  color: #475569;
+  line-height: 1.5;
+}
+.grid-tour-section .tour-item-footer {
+  margin-top: auto;
+  padding-top: 1.15rem;
+  border-top: 1px solid #F1F5F9;
+}
+.grid-tour-section__pagination,
+.grid-tour-section #ui-grid-tours-pagination {
+  margin-top: clamp(2.5rem, 4vw, 4rem);
+}
+.grid-tour-section__pagination .ui-pagination,
+.grid-tour-section #ui-grid-tours-pagination .ui-pagination {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.best-time-section {
+  position: relative;
+  padding: clamp(3.5rem, 5.5vw, 6rem) 0;
+  background-color: #FFFFFF;
+}
+.best-time-section .container {
+  position: relative;
+}
+.best-time-section__header {
+  max-width: 48rem;
+  margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+}
+.best-time-section__header .ui-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(15, 76, 129, 0.08);
+  color: #0F4C81;
+  border: 1px solid rgba(15, 76, 129, 0.15);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 0.875rem;
+}
+.best-time-section__header .ui-heading {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  color: #19232B;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.875rem;
+}
+.best-time-section__header .ui-heading span {
+  color: #0F4C81;
+}
+.best-time-section__header .ui-sub-heading {
+  font-size: clamp(0.9375rem, 1.25vw, 1.0625rem);
+  line-height: 1.65;
+  color: #64748B;
+  max-width: 38rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.best-time-section__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+  align-items: center;
+}
+@media (min-width: 992px) {
+  .best-time-section__grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+}
+.best-time-section__content {
+  min-width: 0;
+}
+.best-time-section__prose {
+  color: #334155;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.best-time-section__prose > *:first-child {
+  margin-top: 0;
+}
+.best-time-section__prose > *:last-child {
+  margin-bottom: 0;
+}
+.best-time-section__prose h2, .best-time-section__prose .h2,
+.best-time-section__prose h3,
+.best-time-section__prose .h3,
+.best-time-section__prose h4,
+.best-time-section__prose .h4 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: #19232B;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.best-time-section__prose h2, .best-time-section__prose .h2 {
+  font-size: clamp(1.35rem, 2vw, 1.65rem);
+}
+.best-time-section__prose h3, .best-time-section__prose .h3 {
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+}
+.best-time-section__prose h4, .best-time-section__prose .h4 {
+  font-size: 1.05rem;
+}
+.best-time-section__prose p {
+  margin-bottom: 1.15rem;
+}
+.best-time-section__prose ul,
+.best-time-section__prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+.best-time-section__prose ul li,
+.best-time-section__prose ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+.best-time-section__prose ul li::marker,
+.best-time-section__prose ol li::marker {
+  color: #0F4C81;
+}
+.best-time-section__prose blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background-color: #F8FAFC;
+  border-left: 4px solid #0F4C81;
+  border-radius: 0 10px 10px 0;
+  color: #475569;
+  font-style: italic;
+}
+.best-time-section__prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+.best-time-section__prose a {
+  color: #0F4C81;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.best-time-section__prose a:hover {
+  color: #0A355C;
+}
+.best-time-section .best-time-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.best-time-section .best-time-card {
+  display: flex;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 2vw, 1.65rem);
+  border-radius: 16px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 16px -4px rgba(15, 76, 129, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.best-time-section .best-time-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(15, 76, 129, 0.3);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 12px 24px -4px rgba(15, 76, 129, 0.1);
+}
+.best-time-section .best-time-card__icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: rgba(15, 76, 129, 0.08);
+  color: #0F4C81;
+}
+.best-time-section .best-time-card__icon--emerald {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+.best-time-section .best-time-card__body {
+  flex: 1;
+  min-width: 0;
+}
+.best-time-section .best-time-card__title {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: #19232B;
+  line-height: 1.35;
+}
+.best-time-section .best-time-card__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background-color: rgba(15, 76, 129, 0.08);
+  color: #0F4C81;
+  white-space: nowrap;
+}
+.best-time-section .best-time-card__badge--emerald {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+.best-time-section .best-time-card__desc {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: #475569;
+  margin-top: 0.5rem;
+}
+.best-time-section .best-time-tip {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(15, 76, 129, 0.04) 0%, rgba(223, 161, 40, 0.07) 100%);
+  border: 1px dashed rgba(15, 76, 129, 0.25);
+  margin-top: 0.25rem;
+}
+.best-time-section .best-time-tip__icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: #0F4C81;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(15, 76, 129, 0.2);
+}
+.best-time-section .best-time-tip__text {
+  flex: 1;
+  font-size: 0.84375rem;
+  line-height: 1.6;
+  color: #475569;
+}
+.best-time-section .best-time-tip__text strong {
+  color: #19232B;
+  font-weight: 700;
+}
+.best-time-section__map-col {
+  min-width: 0;
+}
+.best-time-section .best-time-map-wrapper {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 16px 32px -4px rgba(15, 76, 129, 0.08);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+@media (min-width: 992px) {
+  .best-time-section .best-time-map-wrapper {
+    position: sticky;
+    top: 6rem;
+  }
+}
+.best-time-section .best-time-map-header {
+  padding: 1rem 1.25rem;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #F1F5F9;
+}
+.best-time-section .best-time-map-header__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0F4C81;
+}
+.best-time-section .best-time-map-header__title {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.9375rem;
+  color: #19232B;
+  letter-spacing: -0.01em;
+}
+.best-time-section .best-time-map-header__live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+.best-time-section .best-time-map-header__live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+.best-time-section .best-time-map-frame {
+  position: relative;
+  width: 100%;
+  min-height: 340px;
+  background-color: #F1F5F9;
+  aspect-ratio: 16/11;
+}
+@media (min-width: 768px) {
+  .best-time-section .best-time-map-frame {
+    aspect-ratio: 4/3;
+    min-height: 380px;
+  }
+}
+.best-time-section .best-time-map-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block;
+}
+.best-time-section .best-time-map-footer {
+  padding: 0.875rem 1.25rem;
+  background-color: #FAFCFE;
+  border-top: 1px solid #F1F5F9;
+}
+.best-time-section .best-time-map-footer__note {
+  font-size: 0.8125rem;
+  color: #64748B;
+  font-weight: 500;
+}
+.best-time-section .best-time-map-footer__note svg {
+  color: #DFA128;
+}
+.best-time-section .best-time-map-footer__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94A3B8;
+  letter-spacing: 0.02em;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+body.tax-tour_locations .faqs-section {
+  background-color: #F8FAFC;
 }
 
 body.home .hero-section {
@@ -17230,49 +17732,57 @@ body.page-template-contact-template .map-section__embed iframe {
   color: #FBBF24;
 }
 
-body.page-template-blog-template .blog-about-section {
+body.page-template-blog-template .blog-about-section,
+body.tax-tour_locations .blog-about-section {
   position: relative;
   padding: clamp(3.5rem, 5.5vw, 6rem) 0;
   background: linear-gradient(180deg, #FFFFFF 0%, #F9FBFC 55%, #FFFFFF 100%);
   color: #555555;
   overflow: hidden;
 }
-body.page-template-blog-template .blog-about-section ul {
+body.page-template-blog-template .blog-about-section ul,
+body.tax-tour_locations .blog-about-section ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-body.page-template-blog-template .blog-about-section__grid {
+body.page-template-blog-template .blog-about-section__grid,
+body.tax-tour_locations .blog-about-section__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
   align-items: center;
 }
 @media (min-width: 992px) {
-  body.page-template-blog-template .blog-about-section__grid {
+  body.page-template-blog-template .blog-about-section__grid,
+  body.tax-tour_locations .blog-about-section__grid {
     grid-template-columns: minmax(420px, 1.05fr) minmax(460px, 1.2fr);
     gap: clamp(2.5rem, 4.5vw, 4.75rem);
   }
 }
-body.page-template-blog-template .blog-about-section__visual {
+body.page-template-blog-template .blog-about-section__visual,
+body.tax-tour_locations .blog-about-section__visual {
   position: relative;
   width: 100%;
   max-width: 580px;
   margin: 0 auto;
 }
 @media (min-width: 992px) {
-  body.page-template-blog-template .blog-about-section__visual {
+  body.page-template-blog-template .blog-about-section__visual,
+  body.tax-tour_locations .blog-about-section__visual {
     max-width: 100%;
     margin: 0;
     padding-bottom: 2.5rem;
     padding-right: 1.5rem;
   }
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual {
+body.page-template-blog-template .blog-about-section .blog-about-visual,
+body.tax-tour_locations .blog-about-section .blog-about-visual {
   position: relative;
   isolation: isolate;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual__primary-frame {
+body.page-template-blog-template .blog-about-section .blog-about-visual__primary-frame,
+body.tax-tour_locations .blog-about-section .blog-about-visual__primary-frame {
   position: relative;
   border-radius: 1.5rem;
   overflow: hidden;
@@ -17281,11 +17791,13 @@ body.page-template-blog-template .blog-about-section .blog-about-visual__primary
   aspect-ratio: 4/3;
 }
 @media (min-width: 768px) {
-  body.page-template-blog-template .blog-about-section .blog-about-visual__primary-frame {
+  body.page-template-blog-template .blog-about-section .blog-about-visual__primary-frame,
+  body.tax-tour_locations .blog-about-section .blog-about-visual__primary-frame {
     aspect-ratio: 16/11;
   }
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual__img {
+body.page-template-blog-template .blog-about-section .blog-about-visual__img,
+body.tax-tour_locations .blog-about-section .blog-about-visual__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -17293,16 +17805,21 @@ body.page-template-blog-template .blog-about-section .blog-about-visual__img {
   display: block;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual:hover body.page-template-blog-template .blog-about-section .blog-about-visual__img {
+body.page-template-blog-template .blog-about-section .blog-about-visual:hover body.page-template-blog-template .blog-about-section .blog-about-visual__img,
+body.page-template-blog-template .blog-about-section .blog-about-visual:hover body.tax-tour_locations .blog-about-section .blog-about-visual__img,
+body.tax-tour_locations .blog-about-section .blog-about-visual:hover body.page-template-blog-template .blog-about-section .blog-about-visual__img,
+body.tax-tour_locations .blog-about-section .blog-about-visual:hover body.tax-tour_locations .blog-about-section .blog-about-visual__img {
   transform: scale(1.03);
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual__scrim {
+body.page-template-blog-template .blog-about-section .blog-about-visual__scrim,
+body.tax-tour_locations .blog-about-section .blog-about-visual__scrim {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(15, 76, 129, 0.15) 0%, rgba(15, 76, 129, 0.02) 40%, rgba(0, 0, 0, 0.3) 100%);
   pointer-events: none;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill {
   position: absolute;
   top: 1.25rem;
   left: 1.25rem;
@@ -17318,7 +17835,8 @@ body.page-template-blog-template .blog-about-section .blog-about-visual .blog-ab
   border: 1px solid rgba(255, 255, 255, 0.8);
   z-index: 2;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__icon {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__icon,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill__icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17329,28 +17847,33 @@ body.page-template-blog-template .blog-about-section .blog-about-visual .blog-ab
   border-radius: 50%;
   flex-shrink: 0;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__icon svg {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__icon svg,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill__icon svg {
   width: 16px;
   height: 16px;
   fill: currentColor;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__text {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__text,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill__text {
   display: flex;
   flex-direction: column;
   line-height: 1.2;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__title {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__title,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill__title {
   font-size: 0.825rem;
   font-weight: 700;
   color: #19232B;
   font-family: "Plus Jakarta Sans", sans-serif;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__subtitle {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__subtitle,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill__subtitle {
   font-size: 0.725rem;
   color: #555555;
   font-weight: 500;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-trust-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -17363,14 +17886,16 @@ body.page-template-blog-template .blog-about-section .blog-about-visual .blog-ab
   z-index: 3;
 }
 @media (min-width: 992px) {
-  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill {
+  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill,
+  body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-trust-pill {
     position: absolute;
     bottom: 1.5rem;
     left: -1rem;
     margin-top: 0;
   }
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__icon {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__icon,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-trust-pill__icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17381,34 +17906,41 @@ body.page-template-blog-template .blog-about-section .blog-about-visual .blog-ab
   color: #0F4C81;
   flex-shrink: 0;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__icon svg {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__icon svg,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-trust-pill__icon svg {
   width: 18px;
   height: 18px;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__info {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__info,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-trust-pill__info {
   display: flex;
   flex-direction: column;
   line-height: 1.25;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__title {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__title,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-trust-pill__title {
   font-size: 0.825rem;
   font-weight: 700;
   color: #19232B;
   font-family: "Plus Jakarta Sans", sans-serif;
 }
-body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__desc {
+body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill__desc,
+body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-trust-pill__desc {
   font-size: 0.725rem;
   color: #555555;
 }
-body.page-template-blog-template .blog-about-section__content {
+body.page-template-blog-template .blog-about-section__content,
+body.tax-tour_locations .blog-about-section__content {
   position: relative;
   display: flex;
   flex-direction: column;
 }
-body.page-template-blog-template .blog-about-section .blog-about-header {
+body.page-template-blog-template .blog-about-section .blog-about-header,
+body.tax-tour_locations .blog-about-section .blog-about-header {
   margin-bottom: 1.5rem;
 }
-body.page-template-blog-template .blog-about-section .blog-about-header__badge {
+body.page-template-blog-template .blog-about-section .blog-about-header__badge,
+body.tax-tour_locations .blog-about-section .blog-about-header__badge {
   margin-left: 0;
   margin-bottom: 0.875rem;
   background-color: rgba(15, 76, 129, 0.08);
@@ -17419,7 +17951,8 @@ body.page-template-blog-template .blog-about-section .blog-about-header__badge {
   text-transform: uppercase;
   font-weight: 700;
 }
-body.page-template-blog-template .blog-about-section .blog-about-header__title {
+body.page-template-blog-template .blog-about-section .blog-about-header__title,
+body.tax-tour_locations .blog-about-section .blog-about-header__title {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-weight: 700;
   font-size: clamp(1.75rem, 2.75vw, 2.35rem);
@@ -17428,10 +17961,12 @@ body.page-template-blog-template .blog-about-section .blog-about-header__title {
   margin: 0;
   letter-spacing: -0.015em;
 }
-body.page-template-blog-template .blog-about-section .blog-about-body__prose {
+body.page-template-blog-template .blog-about-section .blog-about-body__prose,
+body.tax-tour_locations .blog-about-section .blog-about-body__prose {
   margin-bottom: 2rem;
 }
-body.page-template-blog-template .blog-about-section .blog-about-body__prose .blog-about-body__lead {
+body.page-template-blog-template .blog-about-section .blog-about-body__prose .blog-about-body__lead,
+body.tax-tour_locations .blog-about-section .blog-about-body__prose .blog-about-body__lead {
   font-size: 1.05rem;
   line-height: 1.6;
   color: #19232B;
@@ -17439,22 +17974,28 @@ body.page-template-blog-template .blog-about-section .blog-about-body__prose .bl
   margin-bottom: 0.875rem;
 }
 body.page-template-blog-template .blog-about-section .blog-about-body__prose .blog-about-body__text,
-body.page-template-blog-template .blog-about-section .blog-about-body__prose p {
+body.page-template-blog-template .blog-about-section .blog-about-body__prose p,
+body.tax-tour_locations .blog-about-section .blog-about-body__prose .blog-about-body__text,
+body.tax-tour_locations .blog-about-section .blog-about-body__prose p {
   font-size: 0.95rem;
   line-height: 1.65;
   color: #555555;
   margin-bottom: 0.875rem;
 }
 body.page-template-blog-template .blog-about-section .blog-about-body__prose .blog-about-body__text:last-child,
-body.page-template-blog-template .blog-about-section .blog-about-body__prose p:last-child {
+body.page-template-blog-template .blog-about-section .blog-about-body__prose p:last-child,
+body.tax-tour_locations .blog-about-section .blog-about-body__prose .blog-about-body__text:last-child,
+body.tax-tour_locations .blog-about-section .blog-about-body__prose p:last-child {
   margin-bottom: 0;
 }
 @media (max-width: 991.98px) {
-  body.page-template-blog-template .blog-about-section .blog-about-visual {
+  body.page-template-blog-template .blog-about-section .blog-about-visual,
+  body.tax-tour_locations .blog-about-section .blog-about-visual {
     max-width: 580px;
     margin: 0 auto;
   }
-  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill {
+  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-trust-pill,
+  body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-trust-pill {
     position: static;
     margin-top: 0.875rem;
     display: flex;
@@ -17462,28 +18003,36 @@ body.page-template-blog-template .blog-about-section .blog-about-body__prose p:l
   }
 }
 @media (max-width: 575.98px) {
-  body.page-template-blog-template .blog-about-section {
+  body.page-template-blog-template .blog-about-section,
+  body.tax-tour_locations .blog-about-section {
     padding: 3rem 0;
   }
-  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill {
+  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill,
+  body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill {
     top: 0.875rem;
     left: 0.875rem;
     padding: 0.45rem 0.85rem;
   }
-  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__title {
+  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__title,
+  body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill__title {
     font-size: 0.775rem;
   }
-  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__subtitle {
+  body.page-template-blog-template .blog-about-section .blog-about-visual .blog-about-pill__subtitle,
+  body.tax-tour_locations .blog-about-section .blog-about-visual .blog-about-pill__subtitle {
     font-size: 0.675rem;
   }
-  body.page-template-blog-template .blog-about-section .blog-about-header__title {
+  body.page-template-blog-template .blog-about-section .blog-about-header__title,
+  body.tax-tour_locations .blog-about-section .blog-about-header__title {
     font-size: 1.6rem;
   }
-  body.page-template-blog-template .blog-about-section .blog-about-cta {
+  body.page-template-blog-template .blog-about-section .blog-about-cta,
+  body.tax-tour_locations .blog-about-section .blog-about-cta {
     flex-direction: column;
     align-items: stretch;
   }
-  body.page-template-blog-template .blog-about-section .blog-about-cta__primary, body.page-template-blog-template .blog-about-section .blog-about-cta__whatsapp {
+  body.page-template-blog-template .blog-about-section .blog-about-cta__primary, body.page-template-blog-template .blog-about-section .blog-about-cta__whatsapp,
+  body.tax-tour_locations .blog-about-section .blog-about-cta__primary,
+  body.tax-tour_locations .blog-about-section .blog-about-cta__whatsapp {
     width: 100%;
     justify-content: center;
     text-align: center;
@@ -17493,11 +18042,16 @@ body.page-template-blog-template .blog-about-section .blog-about-body__prose p:l
   body.page-template-blog-template .blog-about-section .blog-about-visual__img,
   body.page-template-blog-template .blog-about-section .blog-about-feature__icon,
   body.page-template-blog-template .blog-about-section .blog-about-cta__whatsapp,
-  body.page-template-blog-template .blog-about-section .ui-button {
+  body.page-template-blog-template .blog-about-section .ui-button,
+  body.tax-tour_locations .blog-about-section .blog-about-visual__img,
+  body.tax-tour_locations .blog-about-section .blog-about-feature__icon,
+  body.tax-tour_locations .blog-about-section .blog-about-cta__whatsapp,
+  body.tax-tour_locations .blog-about-section .ui-button {
     transition: none !important;
     transform: none !important;
   }
 }
+
 body.page-template-blog-template .blog-main-section {
   position: relative;
   padding: clamp(3.5rem, 5.5vw, 6rem) 0;

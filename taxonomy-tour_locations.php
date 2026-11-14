@@ -16,7 +16,6 @@ get_header();
     <?php get_template_part('template-parts/tour-locations/hero-section'); ?>
     <?php get_template_part('template-parts/tour-locations/about-section'); ?>
     <?php get_template_part('template-parts/tour-locations/grid-tour-section'); ?>
-    <?php get_template_part('template-parts/shared/steps-booking-section'); ?>
     <?php get_template_part('template-parts/tour-locations/best-time-section'); ?>
     <?php get_template_part('template-parts/tour-locations/faqs-section'); ?>
 </main><!-- #main -->

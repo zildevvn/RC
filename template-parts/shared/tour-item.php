@@ -34,7 +34,9 @@ $formatted_price = function_exists('rc_format_price') ? rc_format_price($price_t
 <div class="tour-item<?= !empty($extra_class) ? ' ' . esc_attr($extra_class) : '' ?>">
     <div class="tour-item-thumb">
         <?php if (!empty($thumb_url)): ?>
-            <img alt="<?= esc_attr($thumb_alt) ?>" src="<?= esc_url($thumb_url) ?>" loading="lazy">
+            <a href="<?= esc_url($permalink) ?>" class="d-block w-100 h-100" tabindex="-1" aria-hidden="true">
+                <img alt="<?= esc_attr($thumb_alt) ?>" src="<?= esc_url($thumb_url) ?>" loading="lazy">
+            </a>
         <?php endif; ?>
         <?php if (!empty($card_badge)): ?>
             <span class="tour-item-badge"><?= esc_html($card_badge) ?></span>
@@ -47,7 +49,11 @@ $formatted_price = function_exists('rc_format_price') ? rc_format_price($price_t
                 <span><?= esc_html($time_tour) ?></span>
             </div>
         <?php endif; ?>
-        <h3 class="tour-item-title"><?= esc_html($title) ?></h3>
+        <h3 class="tour-item-title">
+            <a href="<?= esc_url($permalink) ?>">
+                <?= esc_html($title) ?>
+            </a>
+        </h3>
         <?php if (!empty($features_tour) && is_array($features_tour)): ?>
             <ul class="tour-item-features list-unstyled">
                 <?php foreach ($features_tour as $feature):

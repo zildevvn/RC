@@ -1,7 +1,8 @@
-body.page-template-blog-template {
+body.page-template-blog-template,
+body.tax-tour_locations {
     // ==============================================================================
-    // Blog Page Styles (_blog.scss)
-    // Dedicated styling for Blog Template & About Section
+    // Blog & Tour Locations About Section Styles (_blog.scss)
+    // Shared styling for the Editorial About Section
     // ==============================================================================
 
     .blog-about-section {
@@ -331,8 +332,9 @@ body.page-template-blog-template {
 
         }
     }
+}
 
-
+body.page-template-blog-template {
     // ==============================================================================
     // Blog Main Section & Post Listing Styles
     // ==============================================================================

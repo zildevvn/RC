@@ -1,81 +1,70 @@
 <?php
+/**
+ * Tour Locations Taxonomy - FAQs Section
+ *
+ * Standardizes the FAQs section in `taxonomy-tour_locations.php` by reusing
+ * the project-standard FAQ component (`template-parts/home/faqs-section`).
+ *
+ * Guarantees 100% component structure, layout, typography, accordion styling,
+ * ARIA accessibility, and interaction behavior consistency with the rest of the site.
+ *
+ * Content is strictly derived from the current taxonomy term's ACF repeater `faqs_list_location`.
+ *
+ * @package rc
+ */
+
 $term = get_queried_object();
-$heading = get_field('hd_faq_location', $term);
-$sub_hd = get_field('sub_hd_faq_location', $term);
-$img = get_field('img_faq_location', $term);
-$hd_img = get_field('hd_img_faq_location', $term);
+if (!$term || !isset($term->term_id)) {
+    return;
+}
+
+// 1. Retrieve taxonomy-specific FAQs from ACF field `faqs_list_location`
 $faqs = get_field('faqs_list_location', $term);
-?>
-<?php if (!empty($faqs)): ?>
-    <section class="vm-section faqs-section">
-        <div class="faqs-section__graphic">
-            <img src="<?= get_template_directory_uri(); ?>/assets/images/img-graphic-001.png"
-                alt="image graphic for FAQs phu quoc island tours" />
-        </div>
 
-        <div class="container">
-            <div class="faqs-section-inner d-flex">
-                <div class="faqs-section__left">
-                    <?php vm_icon_heading() ?>
+// 2. Validate: preserve existing conditional rendering (only output when valid FAQs exist)
+if (empty($faqs) || !is_array($faqs)) {
+    return;
+}
 
-                    <?php if (!empty($heading)): ?>
-                        <h2 class="vm-heading">
-                            <?= $heading ?>
-                        </h2>
-                    <?php endif; ?>
+$valid_faqs = array_filter($faqs, function ($item) {
+    $q = isset($item['question']) ? trim((string) $item['question']) : '';
+    $a = isset($item['answer']) ? trim((string) $item['answer']) : (isset($item['anwer']) ? trim((string) $item['anwer']) : '');
+    return ($q !== '' && $a !== '');
+});
 
-                    <?php if (!empty($sub_hd)): ?>
-                        <p class="vm-sub-heading">
-                            <?= $sub_hd ?>
-                        </p>
-                    <?php endif; ?>
+if (empty($valid_faqs)) {
+    return;
+}
 
-                    <?php if (!empty($img)): ?>
-                        <div class="faqs-section__img">
-                            <img src="<?= $img ?>" alt="image for <?= $heading ?>" />
-                            <?php if (!empty($hd_img)): ?>
-                                <p class="mb-0 h5">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        class="lucide lucide-quote-icon lucide-quote">
-                                        <path
-                                            d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z">
-                                        </path>
-                                        <path
-                                            d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z">
-                                        </path>
-                                    </svg>
-                                    <?= $hd_img ?>
-                                </p>
-                            <?php endif; ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
+// 3. Resolve Taxonomy-Specific Headings & Badge
+$term_name = !empty($term->name) ? $term->name : '';
 
-                <div class="faqs-section__right">
-                    <div class="faqs-section__list faqs-list">
-                        <?php foreach ($faqs as $key => $item): ?>
-                            <?php $classActive = $key == 0 ? 'is-active' : '' ?>
-                            <div class="faq-item <?= $classActive ?>">
-                                <div class="faq-item__question d-flex justify-content-between gap-2">
-                                    <h3 class="h6 mb-0">
-                                        0<?= $key + 1 ?> - <?= $item['question'] ?>
-                                    </h3>
+$badge = get_field('badge_faq_location', $term);
+if (empty($badge)) {
+    $badge = !empty($term_name)
+        ? sprintf(__('FAQs • %s', 'rc'), $term_name)
+        : __('Frequently Asked Questions', 'rc');
+}
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down">
-                                        <path d="m6 9 6 6 6-6" />
-                                    </svg>
-                                </div>
-                                <div class="faq-item__answer">
-                                    <?= $item['answer'] ?>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-<?php endif; ?>
+$heading = get_field('heading_faq_location', $term);
+if (empty($heading)) {
+    $heading = !empty($term_name)
+        ? sprintf(__('Frequently Asked Questions', 'rc'), '')
+        : __('Find Answers for Questions You Have.', 'rc');
+}
+
+$sub_heading = get_field('desc_faq_location', $term);
+if (empty($sub_heading)) {
+    $sub_heading = !empty($term_name)
+        ? sprintf(__('Find quick answers regarding travel itineraries, private car transfers, and sightseeing advice in %s.', 'rc'), $term_name)
+        : __('Find quick answers regarding travel itineraries, private car transfers, and sightseeing advice.', 'rc');
+}
+
+// 4. Delegate rendering to the project-wide standard FAQ component
+get_template_part('template-parts/home/faqs-section', null, [
+    'faqs' => $valid_faqs,
+    'badge' => $badge,
+    'heading' => $heading,
+    'sub_heading' => $sub_heading,
+    'post_id' => 0, // Ensure term FAQs are not overridden by post/homepage fallbacks
+]);

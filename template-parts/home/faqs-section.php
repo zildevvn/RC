@@ -79,7 +79,7 @@ if (empty($sub_heading) && $front_page_id && $front_page_id !== $page_id) {
 $phone = function_exists('get_field') ? get_field('phone', 'option') : '';
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
-<section class="ui-section faqs-section bg-white" data-purpose="faq-section">
+<section class="ui-section faqs-section" data-purpose="faq-section">
     <div aria-hidden="true" class="ui-section__bg faqs-section__bg d-flex align-items-center justify-content-end">
         <?php echo rc_svg_icon('faqs_bg'); ?>
     </div>
