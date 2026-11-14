@@ -1,9 +1,9 @@
 // ==========================================================================
-// Component: Breadcrumbs (.rc-breadcrumbs)
+// Component: Breadcrumbs (.ui-breadcrumbs)
 // Global navigation breadcrumb component
 // ==========================================================================
 
-.rc-breadcrumbs {
+.ui-breadcrumbs {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -40,7 +40,7 @@
 
     // Separator
     &__separator,
-    >span:not(.rc-breadcrumbs__current) {
+    >span:not(.ui-breadcrumbs__current) {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -76,7 +76,7 @@
         color: rgba($color-white, 0.85);
 
         a,
-        .rc-breadcrumbs__link {
+        .ui-breadcrumbs__link {
             color: rgba($color-white, 0.75);
 
             &:hover {
@@ -88,12 +88,12 @@
             }
         }
 
-        .rc-breadcrumbs__separator,
-        >span:not(.rc-breadcrumbs__current) {
+        .ui-breadcrumbs__separator,
+        >span:not(.ui-breadcrumbs__current) {
             color: rgba($color-white, 0.5);
         }
 
-        .rc-breadcrumbs__current {
+        .ui-breadcrumbs__current {
             color: $color-white;
         }
     }
@@ -104,7 +104,7 @@
         margin-bottom: 0.75rem;
 
         &__separator,
-        >span:not(.rc-breadcrumbs__current) {
+        >span:not(.ui-breadcrumbs__current) {
             margin: 0 0.35rem;
 
             svg {

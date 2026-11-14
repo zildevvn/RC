@@ -41,7 +41,7 @@
     }
 
     &__left {
-        .rc-badge {
+        .ui-badge {
             margin-left: 0;
         }
 
@@ -125,7 +125,7 @@
     }
 }
 
-.rc-faqs {
+.ui-faqs {
     &__item {
         border-radius: 1rem;
         border: 1px solid #e2e8f0;
@@ -156,26 +156,26 @@
                 border-color: rgba(96, 165, 250, 0.8);
             }
 
-            .rc-faqs__question-text {
+            .ui-faqs__question-text {
                 color: $color-primary;
             }
 
-            .rc-faqs__toggle {
+            .ui-faqs__toggle {
                 background-color: $color-primary;
                 color: $color-white;
             }
 
-            .rc-faqs__icon-plus {
+            .ui-faqs__icon-plus {
                 opacity: 0;
                 transform: rotate(90deg) scale(0.75);
             }
 
-            .rc-faqs__icon-minus {
+            .ui-faqs__icon-minus {
                 opacity: 1;
                 transform: rotate(0deg) scale(1);
             }
 
-            .rc-faqs__answer {
+            .ui-faqs__answer {
                 grid-template-rows: 1fr;
                 opacity: 1;
                 visibility: visible;
@@ -185,7 +185,7 @@
                     visibility 0s linear 0s;
             }
 
-            .rc-faqs__answer-inner::before {
+            .ui-faqs__answer-inner::before {
                 border-top-color: rgba(219, 234, 254, 0.6);
             }
         }

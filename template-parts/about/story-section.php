@@ -5,13 +5,13 @@
  */
 $main_image = content_url('/uploads/2026/11/img-Da-Nang-Airport-to-Hotel-1536x1152.webp');
 ?>
-<section class="about-story-section rc-section">
+<section class="about-story-section ui-section">
     <div class="container">
         <div class="about-story-grid">
             <!-- Left Column: Editorial Brand Story -->
             <div class="about-story-content">
                 <div class="about-story-header">
-                    <span class="rc-badge about-badge">Our Heritage & Vision</span>
+                    <span class="ui-badge about-badge">Our Heritage & Vision</span>
                     <h2 class="about-story-title">Crafting First-Class Road Travel in Central Vietnam</h2>
                     <p class="about-story-lead">
                         Founded as an executive mobility division under <strong>VM Travel</strong> — a respected hospitality and destination leader — <strong>Rent Car Da Nang</strong> was created to deliver an uncompromising standard of private road transportation.

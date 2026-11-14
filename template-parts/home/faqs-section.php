@@ -79,8 +79,8 @@ if (empty($sub_heading) && $front_page_id && $front_page_id !== $page_id) {
 $phone = function_exists('get_field') ? get_field('phone', 'option') : '';
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
-<section class="rc-section faqs-section bg-white" data-purpose="faq-section">
-    <div aria-hidden="true" class="rc-section__bg faqs-section__bg d-flex align-items-center justify-content-end">
+<section class="ui-section faqs-section bg-white" data-purpose="faq-section">
+    <div aria-hidden="true" class="ui-section__bg faqs-section__bg d-flex align-items-center justify-content-end">
         <?php echo rc_svg_icon('faqs_bg'); ?>
     </div>
     <div class="container">
@@ -88,7 +88,7 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
             <!-- Left Column: Sticky/Prominent Info & Help Card -->
             <div class="faqs-section__left" data-aos="fade-up">
                 <?php if (!empty($badge)): ?>
-                    <p class="rc-badge">
+                    <p class="ui-badge">
                         <?= $badge ?>
                     </p>
                 <?php endif; ?>
@@ -125,7 +125,7 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                             <span>Response time: <strong>&lt; 5 mins</strong></span>
                         </div>
                     </div>
-                    <a class="rc-button" href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                    <a class="ui-button" href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
                         rel="noopener noreferrer" target="_blank" aria-label="Chat with us on WhatsApp">
                         Chat with Us on WhatsApp
                         <?php echo rc_svg_icon('arrow_next'); ?>
@@ -134,7 +134,7 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
             </div>
             <!-- Right Column: Accordion List -->
             <?php if (!empty($faqs) && is_array($faqs)): ?>
-                <div class="faqs-section__right rc-faqs d-flex flex-column w-100" data-aos="fade-up">
+                <div class="faqs-section__right ui-faqs d-flex flex-column w-100" data-aos="fade-up">
                     <?php
                     $faq_index = 0;
                     foreach ($faqs as $key => $value):
@@ -149,21 +149,21 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                         $is_active = ($faq_index === 0);
                         $faq_index++;
                         ?>
-                        <div class="rc-faqs__item<?= $is_active ? ' is-active' : '' ?>">
+                        <div class="ui-faqs__item<?= $is_active ? ' is-active' : '' ?>">
                             <button aria-expanded="<?= $is_active ? 'true' : 'false' ?>"
-                                class="rc-faqs__question w-100 text-start d-flex align-items-center justify-content-between"
+                                class="ui-faqs__question w-100 text-start d-flex align-items-center justify-content-between"
                                 type="button">
-                                <span class="rc-faqs__question-text">
+                                <span class="ui-faqs__question-text">
                                     <?= esc_html($question) ?>
                                 </span>
                                 <span aria-hidden="true"
-                                    class="rc-faqs__toggle d-flex align-items-center justify-content-center flex-shrink-0">
+                                    class="ui-faqs__toggle d-flex align-items-center justify-content-center flex-shrink-0">
                                     <?php echo rc_svg_icon('faq_plus'); ?>
                                     <?php echo rc_svg_icon('faq_minus'); ?>
                                 </span>
                             </button>
-                            <div class="rc-faqs__answer">
-                                <div class="rc-faqs__answer-inner">
+                            <div class="ui-faqs__answer">
+                                <div class="ui-faqs__answer-inner">
                                     <?= wp_kses_post(wpautop($answer)) ?>
                                 </div>
                             </div>

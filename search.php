@@ -35,8 +35,8 @@ if (!empty($bg_banner)) {
 	}
 }
 ?>
-<section class="rc-section hero-section-shared search-hero-section<?= !empty($bg_banner_url) ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?>">
-	<div class="hero-section-shared__bg rc-section__bg">
+<section class="ui-section hero-section-shared search-hero-section<?= !empty($bg_banner_url) ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?>">
+	<div class="hero-section-shared__bg ui-section__bg">
 		<?php if (!empty($bg_banner_url)): ?>
 			<img src="<?= esc_url($bg_banner_url) ?>" alt="<?= esc_attr($bg_banner_alt) ?>" class="hero-section-shared__img" loading="eager" />
 		<?php endif; ?>
@@ -70,7 +70,7 @@ if (!empty($bg_banner)) {
 					</p>
 				<?php endif; ?>
 			<?php else: ?>
-				<h1 class="rc-heading-animation search-title hero-section-shared__title">Search Our Site</h1>
+				<h1 class="ui-heading-animation search-title hero-section-shared__title">Search Our Site</h1>
 				<p class="search-subtitle hero-section-shared__desc">Enter a keyword below to find tours, cars, and articles.</p>
 			<?php endif; ?>
 
@@ -83,7 +83,7 @@ if (!empty($bg_banner)) {
 						</span>
 						<input type="search" name="s" placeholder="What are you looking for?"
 							value="<?php echo esc_attr($search_query); ?>" required />
-						<button type="submit" class="rc-button rc-button--primary search-submit">Search</button>
+						<button type="submit" class="ui-button ui-button--primary search-submit">Search</button>
 					</div>
 				</form>
 			</div>
@@ -94,7 +94,7 @@ if (!empty($bg_banner)) {
 </section>
 
 <div class="search-results" id="search-results">
-	<div class="rc-results-search-section">
+	<div class="ui-results-search-section">
 		<div class="container">
 			<?php if (have_posts() && !empty($search_query)): ?>
 				<?php
@@ -109,7 +109,7 @@ if (!empty($bg_banner)) {
 
 				$search_query = get_search_query();
 
-				echo '<h4 class="rc-results-search-section__total">';
+				echo '<h4 class="ui-results-search-section__total">';
 
 				if ($total_results > 10) {
 					echo 'Showing ' . esc_html($start) . ' – ' . esc_html($end) . ' of ' . esc_html($total_results) . ' results for: “' . esc_html($search_query) . '”';
@@ -120,7 +120,7 @@ if (!empty($bg_banner)) {
 				echo '</h4>';
 				?>
 
-				<div class="rc-results-search-section__list">
+				<div class="ui-results-search-section__list">
 					<?php while (have_posts()):
 						the_post();
 						$post_type = get_post_type();
@@ -163,7 +163,7 @@ if (!empty($bg_banner)) {
 							<?php endif; ?>
 
 							<div class="search-empty-state__actions">
-								<a href="<?php echo esc_url(home_url('/hue-experience-all-tour/')); ?>" class="rc-button">
+								<a href="<?php echo esc_url(home_url('/hue-experience-all-tour/')); ?>" class="ui-button">
 									<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
 										stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 										<circle cx="12" cy="12" r="10"></circle>
@@ -171,7 +171,7 @@ if (!empty($bg_banner)) {
 									</svg>
 									Explore Tours
 								</a>
-								<a href="<?php echo esc_url(home_url('/')); ?>" class="rc-button rc-button--outline">
+								<a href="<?php echo esc_url(home_url('/')); ?>" class="ui-button ui-button--outline">
 									<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
 										stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 										<line x1="19" y1="12" x2="5" y2="12"></line>
@@ -225,8 +225,8 @@ if (!empty($bg_banner)) {
 					if ($popular_tours->have_posts()):
 						?>
 						<div class="search-recommendations">
-							<h3 class="rc-heading search-recommendations__title">You Might Also Like</h3>
-							<div class="rc-results-search-section__list">
+							<h3 class="ui-heading search-recommendations__title">You Might Also Like</h3>
+							<div class="ui-results-search-section__list">
 								<?php while ($popular_tours->have_posts()):
 									$popular_tours->the_post();
 									if (function_exists('rc_item_tour')) {

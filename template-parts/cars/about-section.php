@@ -53,7 +53,7 @@ if (empty($image_alt)) {
 $badge = !empty($badge) ? $badge : __('Private Fleet & Chauffeur Service', 'rc');
 $heading = !empty($heading) ? $heading : __('Your Trusted Private Car & Driver Service in Central Vietnam', 'rc');
 ?>
-<section class="rc-section cars-about-section" id="about-car-section" aria-labelledby="cars-about-title">
+<section class="ui-section cars-about-section" id="about-car-section" aria-labelledby="cars-about-title">
     <div class="container">
         <div class="cars-about-section__grid">
 
@@ -124,7 +124,7 @@ $heading = !empty($heading) ? $heading : __('Your Trusted Private Car & Driver S
             <!-- Content Column (Story, Highlights & CTAs) -->
             <div class="cars-about-section__content">
                 <div class="cars-about-header">
-                    <span class="rc-badge cars-about-header__badge">
+                    <span class="ui-badge cars-about-header__badge">
                         <?php echo esc_html($badge); ?>
                     </span>
                     <h2 id="cars-about-title" class="cars-about-header__title">

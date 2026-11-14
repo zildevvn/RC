@@ -4,12 +4,12 @@ $badge = get_field('badge_tes_home');
 $testimonials = get_field('testimonials_home');
 ?>
 
-<section class="rc-section testimonials-section" data-purpose="testimonials-section">
+<section class="ui-section testimonials-section" data-purpose="testimonials-section">
     <div class="container">
         <!-- Section Header -->
         <div class="testimonials-section__header text-center mx-auto" data-aos="fade-up">
             <?php if (!empty($badge)): ?>
-                <p class="rc-badge">
+                <p class="ui-badge">
                     <?= $badge ?>
                 </p>
             <?php endif; ?>

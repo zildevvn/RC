@@ -44,9 +44,9 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
 ?>
 
 <?php if (empty($tour_options)): ?>
-    <section class="rc-section rc-tour-options vm-tour-options rc-tour-options--empty">
+    <section class="ui-section ui-tour-options vm-tour-options ui-tour-options--empty">
         <div class="container">
-            <div class="rc-tour-options-empty vm-tour-options-empty">
+            <div class="ui-tour-options-empty vm-tour-options-empty">
                 <div class="empty-icon">
                     <?php echo rc_svg_icon('alert_circle'); ?>
                 </div>
@@ -69,9 +69,9 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
     $first_key = array_key_first($tour_options);
     $options_count = count($tour_options);
     ?>
-    <section class="rc-section rc-tour-options vm-tour-options">
+    <section class="ui-section ui-tour-options vm-tour-options">
         <div class="container">
-            <h2 class="rc-heading rc-tour-options__title">
+            <h2 class="ui-heading ui-tour-options__title">
                 <?php
                 if ($options_count === 1) {
                     esc_html_e('Choose from 1 available option', 'rc');
@@ -81,7 +81,7 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
                 ?>
             </h2>
 
-            <div class="rc-tour-options__grid vm-tour-options__grid">
+            <div class="ui-tour-options__grid vm-tour-options__grid">
                 <?php foreach ($tour_options as $key => $option): ?>
                     <?php
                     $name = $option['name'] ?? '';

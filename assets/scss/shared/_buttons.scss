@@ -1,11 +1,11 @@
 // ==============================================================================
-// BUTTON COMPONENTS (.rc-button)
+// BUTTON COMPONENTS (.ui-button)
 // ==============================================================================
 
 // Base Button shared structure and animation
-.rc-button,
-.rc-button--secondary,
-.rc-button--primary {
+.ui-button,
+.ui-button--secondary,
+.ui-button--primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -80,10 +80,10 @@
 }
 
 // ------------------------------------------------------------------------------
-// Default / Primary Variant (.rc-button, .rc-button--primary)
+// Default / Primary Variant (.ui-button, .ui-button--primary)
 // ------------------------------------------------------------------------------
-.rc-button,
-.rc-button--primary {
+.ui-button,
+.ui-button--primary {
     background-color: $color-secondary;
     color: $color-primary;
     box-shadow:
@@ -103,9 +103,9 @@
 }
 
 // ------------------------------------------------------------------------------
-// Secondary Variant (.rc-button--secondary)
+// Secondary Variant (.ui-button--secondary)
 // ------------------------------------------------------------------------------
-.rc-button--secondary {
+.ui-button--secondary {
     background-color: rgba(255, 255, 255, 0.1);
     color: $color-white;
     border: 1px solid rgba(255, 255, 255, 0.2);

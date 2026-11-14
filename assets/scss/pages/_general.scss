@@ -172,7 +172,7 @@
         }
     }
 
-    .rc-button {
+    .ui-button {
         // background-color: $color-primary;
         // color: $color-white;
         font-size: 0.75rem;
@@ -194,10 +194,10 @@
 }
 
 // ==========================================================================
-// Reusable Related Carousel (.rc-related-carousel)
+// Reusable Related Carousel (.ui-related-carousel)
 // Supports related tours, related posts, etc.
 // ==========================================================================
-.rc-related-carousel {
+.ui-related-carousel {
     &.swiper {
         width: 100%;
         overflow: hidden;
@@ -228,13 +228,13 @@
 
     &__header {
 
-        .rc-heading,
+        .ui-heading,
         .vm-heading {
             margin-bottom: 0.375rem;
         }
     }
 
-    .rc-related-nav {
+    .ui-related-nav {
         gap: 0.625rem;
     }
 }

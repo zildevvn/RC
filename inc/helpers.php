@@ -71,7 +71,7 @@ if (!function_exists('rc_pagination')) {
 		]);
 
 		if ($links) {
-			echo '<nav class="rc-pagination" aria-label="Pagination">';
+			echo '<nav class="ui-pagination" aria-label="Pagination">';
 			echo $links;
 			echo '</nav>';
 		}
@@ -115,7 +115,7 @@ if (!function_exists('rc_split_words_preserve_html')) {
 if (!function_exists('rc_load_button')) {
 	function rc_load_button($btn_url, $btn_text, $btn_target = '_blank', $aria_label = '')
 	{ ?>
-		<a href="<?= $btn_url ?>" class="rc-button d-flex align-items-center justify-content-center" target="<?= $btn_target ?>"
+		<a href="<?= $btn_url ?>" class="ui-button d-flex align-items-center justify-content-center" target="<?= $btn_target ?>"
 			role="button" rel="noopener noreferrer" aria-label="<?= $aria_label ?>">
 			<?= $btn_text ?>
 			<?= rc_svg_icon('arrow_btn'); ?>
@@ -413,7 +413,7 @@ if (!function_exists('rc_get_ajax_pagination')) {
 			return '';
 		}
 
-		$output = '<nav class="rc-pagination rc-ajax-pagination" aria-label="' . esc_attr__('Tours Pagination', 'rc') . '">';
+		$output = '<nav class="ui-pagination ui-ajax-pagination" aria-label="' . esc_attr__('Tours Pagination', 'rc') . '">';
 		$output .= '<ul class="page-numbers">';
 
 		// Previous page button

@@ -4,7 +4,7 @@ $faqs = get_field('faqs_list_tour');
 
 <?php if (!empty($faqs) && is_array($faqs)): ?>
     <div id="tour-faqs" class="tour-faqs">
-        <h2 class="rc-heading">Frequently Asked Questions</h2>
+        <h2 class="ui-heading">Frequently Asked Questions</h2>
         <div class="faqs-list" data-purpose="tour-faqs">
             <?php foreach ($faqs as $key => $item): ?>
                 <?php

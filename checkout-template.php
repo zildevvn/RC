@@ -55,24 +55,24 @@ if (!$booking_data) {
     }
 }
 ?>
-<main id="primary" class="site-main rc-checkout-page">
-    <div class="rc-checkout-banner">
+<main id="primary" class="site-main ui-checkout-page">
+    <div class="ui-checkout-banner">
         <div class="container">
-            <h1 class="rc-checkout-banner__title">Complete Your Booking</h1>
-            <p class="rc-checkout-banner__subtitle">Please review your tour itinerary and enter your details to finalize your reservation.</p>
+            <h1 class="ui-checkout-banner__title">Complete Your Booking</h1>
+            <p class="ui-checkout-banner__subtitle">Please review your tour itinerary and enter your details to finalize your reservation.</p>
         </div>
     </div>
 
-    <div class="rc-checkout-wrap">
+    <div class="ui-checkout-wrap">
         <div class="container">
             <?php if (!empty($error_msg)): ?>
-                <div class="rc-checkout-error">
-                    <div class="rc-checkout-error__icon">
+                <div class="ui-checkout-error">
+                    <div class="ui-checkout-error__icon">
                         <?php echo rc_svg_icon('alert_circle'); ?>
                     </div>
                     <h3>Session Expired or Tour Not Found</h3>
                     <p><?= esc_html($error_msg) ?></p>
-                    <a href="<?= site_url('/phu-quoc-tours') ?>" class="rc-button">
+                    <a href="<?= site_url('/phu-quoc-tours') ?>" class="ui-button">
                         <span>Return to Tours</span>
                         <?php echo rc_svg_icon('button_arrow'); ?>
                     </a>
@@ -112,7 +112,7 @@ if (!$booking_data) {
                             </div>
 
                             <div class="success-actions">
-                                <a href="<?= site_url('/phu-quoc-tours') ?>" class="rc-button">
+                                <a href="<?= site_url('/phu-quoc-tours') ?>" class="ui-button">
                                     <span>Browse More Tours</span>
                                     <?php echo rc_svg_icon('button_arrow'); ?>
                                 </a>
@@ -125,7 +125,7 @@ if (!$booking_data) {
                                 <h2>Customer Details</h2>
                             </div>
 
-                            <form id="rc-checkout-form" class="rc-form-booking" novalidate>
+                            <form id="rc-checkout-form" class="ui-form-booking" novalidate>
                                 <input type="hidden" name="booking_token" value="<?= esc_attr($token) ?>">
 
                                 <div class="row g-3">
@@ -219,7 +219,7 @@ if (!$booking_data) {
                                 </div>
 
                                 <div id="rc-standard-submit-wrap">
-                                    <button type="submit" class="btn-submit-booking rc-button">
+                                    <button type="submit" class="btn-submit-booking ui-button">
                                         <span>CONFIRM BOOKING</span>
                                         <?php echo rc_svg_icon('button_arrow'); ?>
                                     </button>

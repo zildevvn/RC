@@ -26,17 +26,17 @@ $the_query = new WP_Query($args);
                     </h2>
                     <p class="vm-sub-heading mb-0">Explore our Phu Quoc Island Tours to discover the best beaches and attractions.</p>
                 </div>
-                <div class="rc-related-nav d-none d-md-flex align-items-center gap-2 flex-shrink-0">
-                    <button type="button" class="rc-swiper-prev swiper-prev" aria-label="Previous articles">
+                <div class="ui-related-nav d-none d-md-flex align-items-center gap-2 flex-shrink-0">
+                    <button type="button" class="ui-swiper-prev swiper-prev" aria-label="Previous articles">
                         <?php echo rc_svg_icon('lightbox_prev'); ?>
                     </button>
-                    <button type="button" class="rc-swiper-next swiper-next" aria-label="Next articles">
+                    <button type="button" class="ui-swiper-next swiper-next" aria-label="Next articles">
                         <?php echo rc_svg_icon('lightbox_next'); ?>
                     </button>
                 </div>
             </div>
 
-            <div class="related-post-section__list rc-related-carousel swiper">
+            <div class="related-post-section__list ui-related-carousel swiper">
                 <div class="swiper-wrapper">
                     <?php
                     while ($the_query->have_posts()):
@@ -51,7 +51,7 @@ $the_query = new WP_Query($args);
                     wp_reset_postdata();
                     ?>
                 </div>
-                <div class="swiper-pagination rc-related-pagination d-md-none mt-3"></div>
+                <div class="swiper-pagination ui-related-pagination d-md-none mt-3"></div>
             </div>
 
         </div>

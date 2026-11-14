@@ -10,14 +10,14 @@ $args = array(
 $query = new WP_Query($args);
 ?>
 <?php if ($query->have_posts()): ?>
-    <section class="rc-section posts-section" data-purpose="blog-section">
+    <section class="ui-section posts-section" data-purpose="blog-section">
         <div class="container">
             <!-- Section Header -->
             <div class="posts-section__header d-flex flex-column flex-md-row align-items-md-end justify-content-between"
                 data-aos="fade-up">
                 <div>
                     <?php if (!empty($badge)): ?>
-                        <p class="rc-badge"> <?= $badge ?> </p>
+                        <p class="ui-badge"> <?= $badge ?> </p>
                     <?php endif; ?>
 
                     <?php if (!empty($heading)): ?>
@@ -30,7 +30,7 @@ $query = new WP_Query($args);
                         <p class="ha-desc"> <?= $desc ?> </p>
                     <?php endif; ?>
                 </div>
-                <a class="rc-button" href="<?php echo home_url('/da-nang-travel-guide') ?>">
+                <a class="ui-button" href="<?php echo home_url('/da-nang-travel-guide') ?>">
                     View All Articles
                     <?php echo rc_svg_icon('arrow_next'); ?>
                 </a>

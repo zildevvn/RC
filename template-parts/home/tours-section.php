@@ -19,8 +19,8 @@ $args = array(
 $query = new WP_Query($args);
 ?>
 <?php if ($query->have_posts()): ?>
-    <section class="rc-section tours-section" data-purpose="popular-tours-transfers">
-        <div aria-hidden="true" class="rc-section__bg tours-section__bg">
+    <section class="ui-section tours-section" data-purpose="popular-tours-transfers">
+        <div aria-hidden="true" class="ui-section__bg tours-section__bg">
             <div class="tours-section__bg-dots"></div>
             <?php echo rc_svg_icon('tours_bg'); ?>
         </div>
@@ -28,7 +28,7 @@ $query = new WP_Query($args);
             <!-- 1. Section Header -->
             <div class="tours-section__header text-center mx-auto" data-aos="fade-up">
                 <?php if (!empty($badge)): ?>
-                    <p class="rc-badge">
+                    <p class="ui-badge">
                         <?= $badge ?>
                     </p>
                 <?php endif; ?>
@@ -55,7 +55,7 @@ $query = new WP_Query($args);
             </div>
 
             <div class="tours-section__footer d-flex justify-content-center">
-                <a href="<?php echo home_url('/da-nang-travel-car/') ?>" class="rc-button"
+                <a href="<?php echo home_url('/da-nang-travel-car/') ?>" class="ui-button"
                     label=" View All  da nang travel car">
                     View All
                     <?php echo rc_svg_icon('arrow_next'); ?>

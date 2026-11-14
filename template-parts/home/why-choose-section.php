@@ -4,15 +4,15 @@ $badge = get_field('badge_wc_home');
 $desc = get_field('desc_wc_home');
 $items = get_field('list_items_wc_home');
 ?>
-<section class="rc-section wc-section">
-    <div aria-hidden="true" class="rc-section__bg wc-section__bg">
+<section class="ui-section wc-section">
+    <div aria-hidden="true" class="ui-section__bg wc-section__bg">
         <?php echo rc_svg_icon('wc_bg'); ?>
     </div>
     <div class="container">
         <!-- Section Header -->
         <div class="wc-section__header text-center mx-auto" data-aos="fade-up">
             <?php if (!empty($badge)): ?>
-                <p class="rc-badge"> <?= $badge ?> </p>
+                <p class="ui-badge"> <?= $badge ?> </p>
             <?php endif; ?>
 
             <?php if (!empty($heading)): ?>

@@ -74,7 +74,7 @@ $formatted_price = function_exists('rc_format_price') ? rc_format_price($price_t
                         <span>/ car</span></span>
                 <?php endif; ?>
             </div>
-            <a class="rc-button" href="<?= esc_url($permalink) ?>">
+            <a class="ui-button" href="<?= esc_url($permalink) ?>">
                 <?php esc_html_e('Book Ride', 'rc'); ?>
                 <?php echo function_exists('rc_svg_icon') ? rc_svg_icon('arrow_next') : ''; ?>
             </a>

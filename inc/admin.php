@@ -115,14 +115,14 @@ function rc_booking_meta_box_html($post)
 
     // Simple inline CSS for the table
     echo '<style>
-        .rc-booking-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .rc-booking-table th { text-align: left; padding: 12px 15px; border: 1px solid #e2e4e7; width: 25%; background: #f8f9fa; font-weight: 600; color: #1d2327; }
-        .rc-booking-table td { padding: 12px 15px; border: 1px solid #e2e4e7; color: #3c434a; }
-        .rc-booking-section-title { margin-top: 24px; margin-bottom: 12px; font-size: 16px; font-weight: 600; color: #1d2327; }
+        .ui-booking-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .ui-booking-table th { text-align: left; padding: 12px 15px; border: 1px solid #e2e4e7; width: 25%; background: #f8f9fa; font-weight: 600; color: #1d2327; }
+        .ui-booking-table td { padding: 12px 15px; border: 1px solid #e2e4e7; color: #3c434a; }
+        .ui-booking-section-title { margin-top: 24px; margin-bottom: 12px; font-size: 16px; font-weight: 600; color: #1d2327; }
     </style>';
 
-    echo '<h3 class="rc-booking-section-title">Customer Information</h3>';
-    echo '<table class="rc-booking-table"><tbody>';
+    echo '<h3 class="ui-booking-section-title">Customer Information</h3>';
+    echo '<table class="ui-booking-table"><tbody>';
     echo '<tr><th>Name</th><td>' . esc_html($customer_name) . '</td></tr>';
     echo '<tr><th>Email</th><td><a href="mailto:' . esc_attr($customer_email) . '">' . esc_html($customer_email) . '</a></td></tr>';
     echo '<tr><th>Phone</th><td>' . esc_html($customer_phone) . '</td></tr>';
@@ -164,8 +164,8 @@ function rc_booking_meta_box_html($post)
     }
     echo '</tbody></table>';
 
-    echo '<h3 class="rc-booking-section-title">Service Details</h3>';
-    echo '<table class="rc-booking-table"><tbody>';
+    echo '<h3 class="ui-booking-section-title">Service Details</h3>';
+    echo '<table class="ui-booking-table"><tbody>';
     echo '<tr><th>Service Name</th><td><a href="' . get_edit_post_link($tour_id) . '"><strong>' . esc_html(get_the_title($tour_id)) . '</strong></a></td></tr>';
     echo '<tr><th>Option</th><td>' . esc_html($option_name) . '</td></tr>';
     echo '<tr><th>Date</th><td>' . esc_html($date) . '</td></tr>';

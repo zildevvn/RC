@@ -74,10 +74,10 @@ $total_pages = $total_reviews > 0 ? ceil($total_reviews / $reviews_per_page) : 1
 if (!function_exists('rc_render_stars')) {
     function rc_render_stars(float $rating, string $size = '18'): string
     {
-        $out = '<div class="rc-stars" style="--star-size: ' . esc_attr($size) . 'px;">';
+        $out = '<div class="ui-stars" style="--star-size: ' . esc_attr($size) . 'px;">';
         for ($i = 1; $i <= 5; $i++) {
             $is_active = ($rating >= $i || $rating >= $i - 0.5);
-            $class = $is_active ? 'rc-star rc-star--filled' : 'rc-star rc-star--empty';
+            $class = $is_active ? 'ui-star ui-star--filled' : 'ui-star ui-star--empty';
             $out .= '<span class="' . $class . '">' . rc_svg_icon('star') . '</span>';
         }
         $out .= '</div>';
@@ -91,43 +91,43 @@ $section_id = ($post_type === 'cars') ? 'car-review' : 'tour-review';
 $empty_message = ($post_type === 'cars') ? 'Be the first to leave a review for this car!' : 'Be the first to leave a review for this tour!';
 ?>
 
-<div id="<?php echo esc_attr($section_id); ?>" class="rc-reviews">
-    <h2 class="rc-heading rc-reviews__title">
+<div id="<?php echo esc_attr($section_id); ?>" class="ui-reviews">
+    <h2 class="ui-heading ui-reviews__title">
         <?php esc_html_e('Guest Reviews', 'rc'); ?>
     </h2>
 
     <?php if ($total_reviews > 0 || $unapproved_comment): ?>
-        <div class="rc-reviews__container">
-            <div class="rc-reviews__list-wrapper">
-                <div class="rc-reviews__list">
+        <div class="ui-reviews__container">
+            <div class="ui-reviews__list-wrapper">
+                <div class="ui-reviews__list">
                     <?php foreach ($paginated as $review):
                         $reviewer_rating = intval(get_comment_meta($review->comment_ID, 'rating', true));
                         $initials = strtoupper(mb_substr($review->comment_author, 0, 1));
                         ?>
-                        <div class="rc-reviews__card" id="comment-<?php echo esc_attr($review->comment_ID); ?>">
-                            <div class="rc-reviews__card-header">
-                                <div class="rc-reviews__avatar">
+                        <div class="ui-reviews__card" id="comment-<?php echo esc_attr($review->comment_ID); ?>">
+                            <div class="ui-reviews__card-header">
+                                <div class="ui-reviews__avatar">
                                     <?php echo esc_html($initials); ?>
                                 </div>
-                                <div class="rc-reviews__author-meta">
-                                    <h4 class="rc-reviews__author-name">
+                                <div class="ui-reviews__author-meta">
+                                    <h4 class="ui-reviews__author-name">
                                         <?php echo esc_html($review->comment_author); ?>
                                     </h4>
-                                    <span class="rc-reviews__date">
+                                    <span class="ui-reviews__date">
                                         <?php echo esc_html(date_i18n('F j, Y', strtotime($review->comment_date))); ?>
                                     </span>
                                 </div>
                                 <?php if ($reviewer_rating): ?>
-                                    <div class="rc-reviews__card-rating">
+                                    <div class="ui-reviews__card-rating">
                                         <?php echo rc_render_stars($reviewer_rating, '16'); ?>
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            <div class="rc-reviews__card-content">
+                            <div class="ui-reviews__card-content">
                                 <?php echo wp_kses_post(wpautop($review->comment_content)); ?>
                             </div>
                             <?php if ($review->comment_approved == '0'): ?>
-                                <div class="rc-reviews__card-pending">
+                                <div class="ui-reviews__card-pending">
                                     <?php echo rc_svg_icon('alert_circle'); ?>
                                     <em>
                                         <?php esc_html_e('Your review is awaiting moderation.', 'rc'); ?>
@@ -140,7 +140,7 @@ $empty_message = ($post_type === 'cars') ? 'Be the first to leave a review for t
 
                 <!-- Pagination -->
                 <?php if ($total_pages > 1): ?>
-                    <div class="rc-reviews__pagination">
+                    <div class="ui-reviews__pagination">
                         <?php
                         echo paginate_comments_links([
                             'base' => add_query_arg('cpage', '%#%'),
@@ -157,7 +157,7 @@ $empty_message = ($post_type === 'cars') ? 'Be the first to leave a review for t
             </div>
         </div>
     <?php else: ?>
-        <div class="rc-reviews__empty">
+        <div class="ui-reviews__empty">
             <?php echo rc_svg_icon('message_square'); ?>
             <p>
                 <?php echo esc_html($empty_message); ?>
@@ -167,70 +167,70 @@ $empty_message = ($post_type === 'cars') ? 'Be the first to leave a review for t
 
     <!-- Review Form -->
     <?php if (comments_open($post_id)): ?>
-        <div class="rc-reviews__form-container">
-            <h3 class="rc-reviews__form-title">
+        <div class="ui-reviews__form-container">
+            <h3 class="ui-reviews__form-title">
                 <?php esc_html_e('Write a Review', 'rc'); ?>
             </h3>
 
             <?php if (isset($_GET['unapproved'])): ?>
-                <div class="rc-reviews__notice rc-reviews__notice--pending">
+                <div class="ui-reviews__notice ui-reviews__notice--pending">
                     <?php echo rc_svg_icon('alert_circle'); ?>
                     <?php esc_html_e('Your review has been submitted and is awaiting moderation. Thank you!', 'rc'); ?>
                 </div>
             <?php elseif (isset($_GET['approved'])): ?>
-                <div class="rc-reviews__notice rc-reviews__notice--success">
+                <div class="ui-reviews__notice ui-reviews__notice--success">
                     <?php echo rc_svg_icon('check_circle'); ?>
                     <?php esc_html_e('Your review has been published. Thank you!', 'rc'); ?>
                 </div>
             <?php endif; ?>
 
             <form id="rc-review-form" action="<?php echo esc_url(site_url('/wp-comments-post.php')); ?>" method="post"
-                class="rc-reviews__form" novalidate>
+                class="ui-reviews__form" novalidate>
 
                 <!-- Row 1: Name and Email -->
-                <div class="rc-reviews__form-row">
+                <div class="ui-reviews__form-row">
                     <!-- Name -->
-                    <div class="rc-reviews__field">
-                        <label class="rc-reviews__label" for="rc-author">
+                    <div class="ui-reviews__field">
+                        <label class="ui-reviews__label" for="rc-author">
                             <?php esc_html_e('Name', 'rc'); ?> <span class="required">*</span>
                         </label>
-                        <input type="text" id="rc-author" name="author" class="rc-reviews__input"
+                        <input type="text" id="rc-author" name="author" class="ui-reviews__input"
                             placeholder="<?php esc_attr_e('Your full name', 'rc'); ?>" required maxlength="245"
                             value="<?php echo esc_attr(isset($_POST['author']) ? $_POST['author'] : ''); ?>">
                     </div>
                     <!-- Email -->
-                    <div class="rc-reviews__field">
-                        <label class="rc-reviews__label" for="rc-email">
+                    <div class="ui-reviews__field">
+                        <label class="ui-reviews__label" for="rc-email">
                             <?php esc_html_e('Email', 'rc'); ?> <span class="required">*</span>
                         </label>
-                        <input type="email" id="rc-email" name="email" class="rc-reviews__input"
+                        <input type="email" id="rc-email" name="email" class="ui-reviews__input"
                             placeholder="<?php esc_attr_e('your@email.com', 'rc'); ?>" required maxlength="100"
                             value="<?php echo esc_attr(isset($_POST['email']) ? $_POST['email'] : ''); ?>">
                     </div>
                 </div>
 
                 <!-- Row 2: Title -->
-                <div class="rc-reviews__field">
-                    <label class="rc-reviews__label" for="rc-title">
+                <div class="ui-reviews__field">
+                    <label class="ui-reviews__label" for="rc-title">
                         <?php esc_html_e('Title', 'rc'); ?>
                     </label>
-                    <input type="text" id="rc-title" name="title" class="rc-reviews__input"
+                    <input type="text" id="rc-title" name="title" class="ui-reviews__input"
                         placeholder="<?php esc_attr_e('Review Title', 'rc'); ?>" maxlength="245"
                         value="<?php echo esc_attr(isset($_POST['title']) ? $_POST['title'] : ''); ?>">
                 </div>
 
                 <!-- Row 3: Ratings and Content -->
-                <div class="rc-reviews__form-row">
+                <div class="ui-reviews__form-row">
                     <!-- Left: Ratings -->
-                    <div class="rc-reviews__ratings-col">
+                    <div class="ui-reviews__ratings-col">
 
                         <?php if ($post_type === 'tours'): ?>
                             <!-- Category Ratings -->
-                            <label class="rc-reviews__label">
+                            <label class="ui-reviews__label">
                                 <?php esc_html_e('Rating', 'rc'); ?> <span class="required">*</span>
                             </label>
 
-                            <div class="rc-reviews__field rc-reviews__field--rating">
+                            <div class="ui-reviews__field ui-reviews__field--rating">
 
                                 <?php
                                 $rating_categories = [
@@ -240,8 +240,8 @@ $empty_message = ($post_type === 'cars') ? 'Be the first to leave a review for t
                                 ];
                                 foreach ($rating_categories as $key => $label):
                                     ?>
-                                    <div class="rc-reviews__field--item">
-                                        <label class="rc-reviews__label"><?php echo esc_html($label); ?>:</label>
+                                    <div class="ui-reviews__field--item">
+                                        <label class="ui-reviews__label"><?php echo esc_html($label); ?>:</label>
                                         <div class="star-picker" id="star-picker-<?php echo esc_attr($key); ?>" role="radiogroup"
                                             aria-label="<?php echo esc_attr($label); ?> Rating">
                                             <?php for ($s = 1; $s <= 5; $s++): ?>
@@ -263,11 +263,11 @@ $empty_message = ($post_type === 'cars') ? 'Be the first to leave a review for t
                     </div>
 
                     <!-- Right: Content -->
-                    <div class="rc-reviews__field rc-reviews__field--comment">
-                        <label class="rc-reviews__label" for="rc-comment">
+                    <div class="ui-reviews__field ui-reviews__field--comment">
+                        <label class="ui-reviews__label" for="rc-comment">
                             <?php esc_html_e('Review', 'rc'); ?> <span class="required">*</span>
                         </label>
-                        <textarea id="rc-comment" name="comment" class="rc-reviews__textarea"
+                        <textarea id="rc-comment" name="comment" class="ui-reviews__textarea"
                             placeholder="<?php printf(esc_attr__('Share your experience with this %s...', 'rc'), $post_type_label); ?>"
                             required maxlength="65525"></textarea>
                     </div>
@@ -278,7 +278,7 @@ $empty_message = ($post_type === 'cars') ? 'Be the first to leave a review for t
                 <input type="hidden" name="comment_post_ID" value="<?php echo esc_attr($post_id); ?>">
                 <input type="hidden" name="comment_parent" value="0">
 
-                <button type="submit" class="rc-button rc-reviews__submit">
+                <button type="submit" class="ui-button ui-reviews__submit">
                     <?php esc_html_e('Submit Review', 'rc'); ?>
                     <?php echo rc_svg_icon('button_arrow'); ?>
                 </button>

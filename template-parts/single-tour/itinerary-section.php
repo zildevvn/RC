@@ -4,7 +4,7 @@ $time_line = $itinerary_tour['itinerary_list'];
 ?>
 
 <div id="tour-itinerary" class="tour-itinerary">
-    <h2 class="rc-heading ">Itinerary</h2>
+    <h2 class="ui-heading ">Itinerary</h2>
     <?php if (!empty($itinerary_tour['itinerary_desc'])): ?>
         <div class="tour-itinerary__desc">
             <?= $itinerary_tour['itinerary_desc']; ?>

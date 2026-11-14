@@ -5,16 +5,16 @@ $sub_heading = get_field('desc_stb_home');
 $phone = function_exists('get_field') ? get_field('phone', 'option') : '';
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
-<section class="rc-section steps-booking-section bg-white" data-purpose="easy-steps-booking">
+<section class="ui-section steps-booking-section bg-white" data-purpose="easy-steps-booking">
     <div aria-hidden="true"
-        class="rc-section__bg steps-booking-section__bg d-flex align-items-center justify-content-center">
+        class="ui-section__bg steps-booking-section__bg d-flex align-items-center justify-content-center">
         <?php echo rc_svg_icon('steps_bg'); ?>
     </div>
     <div class="container">
         <!-- 1. Section Header -->
         <div class="steps-booking-section__header text-center mx-auto" data-aos="fade-up">
             <?php if (!empty($badge)): ?>
-                <p class="rc-badge">
+                <p class="ui-badge">
                     <?= $badge ?>
                 </p>
             <?php endif; ?>

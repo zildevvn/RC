@@ -15,7 +15,7 @@ $kk_score = $kk_count > 0
     : 0;
 ?>
 
-<section class="rc-section hero-section" data-purpose="hero-section">
+<section class="ui-section hero-section" data-purpose="hero-section">
     <?php if (!empty($bg_image)): ?>
         <img class="hero-section__bg" src="<?php echo esc_url($bg_image['url']); ?>"
             alt="<?php echo esc_attr($bg_image['alt'] ?: $heading); ?>" />
@@ -39,12 +39,12 @@ $kk_score = $kk_count > 0
                 <?php endif; ?>
 
                 <div class="hero-section__actions">
-                    <a class="rc-button rc-book-car-trigger" data-purpose="primary-cta-button" href="#book"
+                    <a class="ui-button ui-book-car-trigger" data-purpose="primary-cta-button" href="#book"
                         aria-controls="book-car-modal" aria-expanded="false">
                         <span>Book Car Now</span>
                         <?php echo rc_svg_icon('arrow_next'); ?>
                     </a>
-                    <a class="rc-button--secondary" data-purpose="secondary-cta-button" href="#contact">
+                    <a class="ui-button--secondary" data-purpose="secondary-cta-button" href="#contact">
                         Contact Now
                     </a>
                 </div>

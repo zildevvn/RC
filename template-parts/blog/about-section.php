@@ -52,7 +52,7 @@ $badge = !empty($badge) ? $badge : __('About Rent Car Da Nang', 'rc');
 $heading = !empty($heading) ? $heading : __('Your Trusted Private Driver & Fleet Across Central Vietnam', 'rc');
 ?>
 
-<section class="rc-section blog-about-section" id="blog-about-section" aria-labelledby="blog-about-title">
+<section class="ui-section blog-about-section" id="blog-about-section" aria-labelledby="blog-about-title">
     <div class="container">
         <div class="blog-about-section__grid">
 
@@ -105,7 +105,7 @@ $heading = !empty($heading) ? $heading : __('Your Trusted Private Driver & Fleet
             <!-- Content Column (Story, Highlights & CTA) -->
             <div class="blog-about-section__content">
                 <div class="blog-about-header">
-                    <span class="rc-badge blog-about-header__badge">
+                    <span class="ui-badge blog-about-header__badge">
                         <?php echo esc_html($badge); ?>
                     </span>
                     <h2 id="blog-about-title" class="blog-about-header__title">

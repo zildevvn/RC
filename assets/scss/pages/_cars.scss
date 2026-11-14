@@ -445,7 +445,7 @@ body.page-template-cars-template {
             flex-wrap: wrap;
             margin-bottom: 1.75rem;
 
-            .rc-button {
+            .ui-button {
                 padding: 0.875rem 1.65rem;
                 font-size: 0.95rem;
             }
@@ -474,7 +474,7 @@ body.page-template-cars-template {
                 flex-direction: column;
                 align-items: stretch;
 
-                .rc-button {
+                .ui-button {
                     width: 100%;
                     justify-content: center;
                 }
@@ -518,7 +518,7 @@ body.page-template-cars-template {
             .cars-about-visual__img,
             .cars-about-visual__accent-card,
             .cars-about-feature,
-            .rc-button {
+            .ui-button {
                 transition: none !important;
                 transform: none !important;
             }
@@ -540,7 +540,7 @@ body.page-template-cars-template {
             margin: 0 auto clamp(2rem, 3.5vw, 3rem);
             text-align: center;
 
-            .rc-badge {
+            .ui-badge {
                 margin-bottom: 0.75rem;
             }
         }
@@ -1318,7 +1318,7 @@ body.page-template-cars-template {
         display: flex;
         justify-content: center;
 
-        .rc-pagination {
+        .ui-pagination {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1504,7 +1504,7 @@ body.page-template-cars-template {
             border-top: 1px solid #E2E8F0;
             background-color: #FFFFFF;
 
-            .rc-button {
+            .ui-button {
                 flex: 1;
                 padding: 0.75rem 1rem;
                 font-size: 0.875rem;

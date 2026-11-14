@@ -11,7 +11,7 @@ get_header();
 <main id="primary" class="site-main">
     <?php get_template_part('template-parts/single-tour/hero-section'); ?>
     <?php get_template_part('template-parts/single-tour/gallery-section'); ?>
-    <div id="rc-tour-options-container" class="rc-tour-options-container vm-tour-options-container"
+    <div id="rc-tour-options-container" class="ui-tour-options-container vm-tour-options-container"
         data-post-id="<?php echo get_the_ID(); ?>"></div>
     <?php get_template_part('template-parts/single-tour/main-section'); ?>
     <?php get_template_part('template-parts/single-tour/related-tour'); ?>

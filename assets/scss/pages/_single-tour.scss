@@ -45,7 +45,7 @@ body.single-tours {
         }
 
         // B. Breadcrumbs
-        // .rc-breadcrumbs {
+        // .ui-breadcrumbs {
 
         //     font-size: 0.8125rem;
         //     color: rgba(255, 255, 255, 0.7);
@@ -62,7 +62,7 @@ body.single-tours {
         //     }
 
         //     &__separator,
-        //     >span:not(.rc-breadcrumbs__current) {
+        //     >span:not(.ui-breadcrumbs__current) {
         //         color: rgba(255, 255, 255, 0.35);
 
         //         svg {
@@ -1005,7 +1005,7 @@ body.single-tours {
             margin-bottom: 2rem;
         }
 
-        .rc-heading {
+        .ui-heading {
             margin-bottom: 1.25rem;
         }
     }
@@ -1049,8 +1049,8 @@ body.single-tours {
         }
     }
 
-    // Section Headings (.rc-heading)
-    .main-section .rc-heading {
+    // Section Headings (.ui-heading)
+    .main-section .ui-heading {
         font-family: $font-second;
         font-size: clamp(1.4rem, 2vw, 1.75rem);
         font-weight: 700;
@@ -1487,7 +1487,7 @@ body.single-tours {
                 }
             }
 
-            .rc-button {
+            .ui-button {
                 padding: 0.65rem 1.25rem;
                 font-size: 0.9375rem;
                 border-radius: 9999px;
@@ -1505,9 +1505,9 @@ body.single-tours {
     }
 
     // ======================================================================
-    // Booking Form Sidebar Component (.rc-form-booking)
+    // Booking Form Sidebar Component (.ui-form-booking)
     // ======================================================================
-    .rc-form-booking {
+    .ui-form-booking {
         background: #ffffff;
         border-radius: 20px;
         border: 1px solid rgba(15, 76, 129, 0.1);
@@ -1820,7 +1820,7 @@ body.single-tours {
             }
 
             #rc-btn-check-availability,
-            .rc-button {
+            .ui-button {
                 width: 100%;
                 height: 50px;
                 background-color: $color-secondary;
@@ -1889,9 +1889,9 @@ body.single-tours {
     }
 
     // ======================================================================
-    // Tour Options Section (.rc-tour-options)
+    // Tour Options Section (.ui-tour-options)
     // ======================================================================
-    .rc-tour-options {
+    .ui-tour-options {
         padding-top: 2rem;
         padding-bottom: 3.5rem;
 
@@ -2212,7 +2212,7 @@ body.single-tours {
         }
 
         // Empty State
-        .rc-tour-options-empty,
+        .ui-tour-options-empty,
         .vm-tour-options-empty {
             background: #ffffff;
             border: 2px dashed #cbd5e1;

@@ -17,7 +17,7 @@ $price_tour = get_field('price_tour');
 $formatted_price = rc_format_price($price_tour);
 $faqs_tour = get_field('faqs_list_tour');
 ?>
-<section class="rc-section main-section">
+<section class="ui-section main-section">
     <div class="container">
         <div class="main-section-wrap">
             <div class="main-section-content">
@@ -53,7 +53,7 @@ $faqs_tour = get_field('faqs_list_tour');
 
                 <div class="main-section-content-wrapper">
                     <div id="tour-overview" class="tour-overview">
-                        <h2 class="rc-heading ">Overview Tour</h2>
+                        <h2 class="ui-heading ">Overview Tour</h2>
                         <div class="tour-overview__content">
                             <?php the_content() ?>
                         </div>
@@ -61,7 +61,7 @@ $faqs_tour = get_field('faqs_list_tour');
 
                     <?php if (!empty($highlights)): ?>
                         <div id="tour-highlights" class="tour-highlights">
-                            <h2 class="rc-heading ">Tour Highlights</h2>
+                            <h2 class="ui-heading ">Tour Highlights</h2>
                             <div class="tour-highlights__content">
                                 <?= !empty($highlights) ? $highlights : '' ?>
                             </div>
@@ -155,7 +155,7 @@ $faqs_tour = get_field('faqs_list_tour');
                         <?php endif; ?>
                     </div>
 
-                    <a href="#form-booking-tour" class="rc-button d-flex align-items-center justify-content-center"
+                    <a href="#form-booking-tour" class="ui-button d-flex align-items-center justify-content-center"
                         aria-label="button Check Availability">
                         Check Availability
                         <?php echo rc_svg_icon('button_arrow'); ?>

@@ -7,11 +7,11 @@ $route_img_1 = content_url('/uploads/2026/11/image-ha-1536x864.webp');
 $route_img_2 = content_url('/uploads/2026/11/image-khai-dinh-tomb-hue-1024x768.webp');
 $route_img_3 = content_url('/uploads/2026/11/img-tour-bana-003-1024x683.webp');
 ?>
-<section class="about-routes-section rc-section">
+<section class="about-routes-section ui-section">
     <div class="container">
         <!-- Section Header -->
         <div class="about-routes-header text-center">
-            <span class="rc-badge about-badge">Destination Horizons</span>
+            <span class="ui-badge about-badge">Destination Horizons</span>
             <h2 class="about-routes-title">Connecting the Wonders of Central Vietnam</h2>
             <p class="about-routes-desc">
                 From sun-drenched coastal highways to UNESCO ancient towns and mountain summits, our private transfers let you discover the region at your own natural pace.

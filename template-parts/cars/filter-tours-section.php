@@ -118,7 +118,7 @@ $nonce = wp_create_nonce('rc_filter_tours_nonce');
  */
 $rc_render_location_item = function ($term, $is_child = false, $prefix = 'desktop') use ($initial_selected_locations) {
     $input_id = 'rc-' . $prefix . '-loc-' . $term->term_id;
-    $input_class = ($prefix === 'modal') ? 'rc-modal-filter-location-checkbox' : 'rc-filter-location-checkbox';
+    $input_class = ($prefix === 'modal') ? 'ui-modal-filter-location-checkbox' : 'ui-filter-location-checkbox';
     $item_class = 'cars-filter-checkbox';
     if ($is_child) {
         $item_class .= ' cars-filter-checkbox--child';
@@ -159,14 +159,14 @@ $rc_render_locations_tree = function ($prefix = 'desktop') use ($locations_hiera
 };
 ?>
 
-<section class="rc-section cars-filter-section" id="cars-filter-section" aria-labelledby="cars-filter-heading"
+<section class="ui-section cars-filter-section" id="cars-filter-section" aria-labelledby="cars-filter-heading"
     data-nonce="<?php echo esc_attr($nonce); ?>" data-currency="<?php echo esc_attr($currency); ?>"
     data-min-bound="<?php echo esc_attr($min_bound); ?>" data-max-bound="<?php echo esc_attr($max_bound); ?>"
     data-initial-locations="<?php echo esc_attr(json_encode($initial_selected_locations)); ?>">
     <div class="container">
         <!-- Section Header -->
         <div class="cars-filter-section__header text-center">
-            <span class="rc-badge"><?php esc_html_e('Explore Our Fleet & Routes', 'rc'); ?></span>
+            <span class="ui-badge"><?php esc_html_e('Explore Our Fleet & Routes', 'rc'); ?></span>
             <h2 id="cars-filter-heading" class="cars-filter-section__title">
                 <?php esc_html_e('Private Car Tours & Transfers', 'rc'); ?>
             </h2>
@@ -333,7 +333,7 @@ $rc_render_locations_tree = function ($prefix = 'desktop') use ($locations_hiera
                             <p class="cars-filter-empty__desc">
                                 <?php esc_html_e('Try expanding your price range, clearing your search keyword, or resetting all filters.', 'rc'); ?>
                             </p>
-                            <button type="button" class="rc-button rc-button--secondary" id="rc-filter-empty-reset">
+                            <button type="button" class="ui-button ui-button--secondary" id="rc-filter-empty-reset">
                                 <?php esc_html_e('Reset All Filters', 'rc'); ?>
                             </button>
                         </div>
@@ -443,11 +443,11 @@ $rc_render_locations_tree = function ($prefix = 'desktop') use ($locations_hiera
 
         <!-- Modal Footer: Clear All & Apply Filters -->
         <div class="cars-filter-modal__footer">
-            <button type="button" class="rc-button rc-button--secondary cars-filter-modal__btn-clear"
+            <button type="button" class="ui-button ui-button--secondary cars-filter-modal__btn-clear"
                 id="rc-modal-filter-clear">
                 <?php esc_html_e('Clear All', 'rc'); ?>
             </button>
-            <button type="button" class="rc-button cars-filter-modal__btn-apply" id="rc-modal-filter-apply">
+            <button type="button" class="ui-button cars-filter-modal__btn-apply" id="rc-modal-filter-apply">
                 <?php esc_html_e('Apply Filters', 'rc'); ?>
             </button>
         </div>

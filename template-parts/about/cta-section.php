@@ -10,20 +10,20 @@ if (empty($phone)) {
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : 'https://wa.me/' . preg_replace('/\D/', '', $phone);
 $cars_url = home_url('/cars/');
 ?>
-<section class="about-cta-section rc-section">
+<section class="about-cta-section ui-section">
     <div class="container">
         <div class="about-cta-card">
             <div class="about-cta-card__bg-glow"></div>
             
             <div class="about-cta-card__content text-center">
-                <span class="rc-badge about-badge about-badge--gold">Reserve Your Chauffeur</span>
+                <span class="ui-badge about-badge about-badge--gold">Reserve Your Chauffeur</span>
                 <h2 class="about-cta-card__title">Experience Central Vietnam With Complete Peace of Mind</h2>
                 <p class="about-cta-card__desc">
                     Book in advance with instant confirmation and free 24-hour cancellation. Our English-speaking concierge team is standing by to customize your route or answer any fleet questions.
                 </p>
 
                 <div class="about-cta-card__actions">
-                    <a href="<?= esc_url($cars_url); ?>" class="rc-button about-cta-btn about-cta-btn--primary">
+                    <a href="<?= esc_url($cars_url); ?>" class="ui-button about-cta-btn about-cta-btn--primary">
                         <span>Browse Vehicle Fleet</span>
                         <?= rc_svg_icon('button_arrow'); ?>
                     </a>

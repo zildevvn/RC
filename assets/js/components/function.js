@@ -152,7 +152,7 @@ import AOS from 'aos';
     };
 
     const rcRelatedCarousel = () => {
-        const carousels = document.querySelectorAll('.rc-related-carousel.swiper, .related-tour-section__list.swiper, .related-post-section__list.swiper');
+        const carousels = document.querySelectorAll('.ui-related-carousel.swiper, .related-tour-section__list.swiper, .related-post-section__list.swiper');
         if (!carousels.length) {
             return;
         }
@@ -166,9 +166,9 @@ import AOS from 'aos';
 
             // Find controls within the closest section or parent container
             const section = carousel.closest('section') || carousel.parentElement;
-            const prevEl = section ? section.querySelector('.rc-swiper-prev, .swiper-prev') : null;
-            const nextEl = section ? section.querySelector('.rc-swiper-next, .swiper-next') : null;
-            const paginationEl = carousel.querySelector('.swiper-pagination') || (section ? section.querySelector('.rc-related-pagination, .swiper-pagination') : null);
+            const prevEl = section ? section.querySelector('.ui-swiper-prev, .swiper-prev') : null;
+            const nextEl = section ? section.querySelector('.ui-swiper-next, .swiper-next') : null;
+            const paginationEl = carousel.querySelector('.swiper-pagination') || (section ? section.querySelector('.ui-related-pagination, .swiper-pagination') : null);
 
             new Swiper(carousel, {
                 modules: [Navigation, Pagination, Autoplay],
@@ -203,7 +203,7 @@ import AOS from 'aos';
     };
 
     const rcFaqs = () => {
-        const $containers = $('.rc-faqs, .faqs-list');
+        const $containers = $('.ui-faqs, .faqs-list');
         if (!$containers.length) {
             return;
         }
@@ -216,23 +216,23 @@ import AOS from 'aos';
 
             $container.data('rcFaqsInit', true);
 
-            $container.on('click.rcFaqs', '.rc-faqs__question, .faqs-list__question, .faq-item__question', function (e) {
+            $container.on('click.rcFaqs', '.ui-faqs__question, .faqs-list__question, .faq-item__question', function (e) {
                 e.preventDefault();
                 const $btn = $(this);
-                const $item = $btn.closest('.rc-faqs__item, .faqs-list__item, .faq-item');
+                const $item = $btn.closest('.ui-faqs__item, .faqs-list__item, .faq-item');
                 if (!$item.length) {
                     return;
                 }
 
-                const isActive = $item.hasClass('is-active') || $item.hasClass('rc-faqs__item--active') || $item.hasClass('faqs-list__item--active');
+                const isActive = $item.hasClass('is-active') || $item.hasClass('ui-faqs__item--active') || $item.hasClass('faqs-list__item--active');
 
                 if (isActive) {
-                    $item.removeClass('is-active rc-faqs__item--active faqs-list__item--active');
+                    $item.removeClass('is-active ui-faqs__item--active faqs-list__item--active');
                     $btn.attr('aria-expanded', 'false');
                 } else {
-                    const $siblings = $container.find('.rc-faqs__item, .faqs-list__item, .faq-item').filter('.is-active, .rc-faqs__item--active, .faqs-list__item--active').not($item);
-                    $siblings.removeClass('is-active rc-faqs__item--active faqs-list__item--active');
-                    $siblings.find('.rc-faqs__question, .faqs-list__question, .faq-item__question').attr('aria-expanded', 'false');
+                    const $siblings = $container.find('.ui-faqs__item, .faqs-list__item, .faq-item').filter('.is-active, .ui-faqs__item--active, .faqs-list__item--active').not($item);
+                    $siblings.removeClass('is-active ui-faqs__item--active faqs-list__item--active');
+                    $siblings.find('.ui-faqs__question, .faqs-list__question, .faq-item__question').attr('aria-expanded', 'false');
 
                     $item.addClass('is-active');
                     $btn.attr('aria-expanded', 'true');
@@ -261,7 +261,7 @@ import AOS from 'aos';
 
             $activeTrigger = $trigger && $trigger.length ? $trigger : null;
             $modal.addClass('is-active').attr('aria-hidden', 'false');
-            $('.rc-book-car-trigger').attr('aria-expanded', 'true');
+            $('.ui-book-car-trigger').attr('aria-expanded', 'true');
             $('body').addClass('book-car-modal-open');
 
             const $firstInput = $modal
@@ -289,7 +289,7 @@ import AOS from 'aos';
 
             clearTimeout(focusTimer);
             $modal.removeClass('is-active').attr('aria-hidden', 'true');
-            $('.rc-book-car-trigger').attr('aria-expanded', 'false');
+            $('.ui-book-car-trigger').attr('aria-expanded', 'false');
             $('body').removeClass('book-car-modal-open');
 
             if ($activeTrigger && $activeTrigger.is(':visible')) {
@@ -298,7 +298,7 @@ import AOS from 'aos';
             $activeTrigger = null;
         };
 
-        $(document).on('click.rcModalBookCar', '.rc-book-car-trigger', function (e) {
+        $(document).on('click.rcModalBookCar', '.ui-book-car-trigger', function (e) {
             e.preventDefault();
             openModal($(this));
         });

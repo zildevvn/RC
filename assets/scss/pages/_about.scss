@@ -17,7 +17,7 @@
     }
 }
 
-.rc-about-page {
+.ui-about-page {
     background-color: #FFFFFF;
     color: $color-body;
     overflow-x: hidden;
@@ -30,7 +30,7 @@
     }
 
     // Shared Brand Badge
-    .rc-about-badge {
+    .ui-about-badge {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
@@ -62,7 +62,7 @@
     // --------------------------------------------------------------------------
     // 1. HERO SECTION
     // --------------------------------------------------------------------------
-    .rc-about-hero {
+    .ui-about-hero {
         position: relative;
         width: 100%;
         min-height: 640px;
@@ -281,7 +281,7 @@
     // --------------------------------------------------------------------------
     // 2. BRAND STORY & HERITAGE
     // --------------------------------------------------------------------------
-    .rc-about-story {
+    .ui-about-story {
         padding: 6.5rem 0 5rem;
         background-color: #FFFFFF;
 
@@ -402,7 +402,7 @@
         }
 
         // Layered Visual Card (Right Side)
-        .rc-about-visual-card {
+        .ui-about-visual-card {
             position: relative;
             border-radius: 1.25rem;
             overflow: hidden;
@@ -432,7 +432,7 @@
         }
 
         // Floating Badges
-        .rc-about-floating-badge {
+        .ui-about-floating-badge {
             position: absolute;
             border-radius: 0.875rem;
             backdrop-filter: blur(10px);
@@ -520,7 +520,7 @@
     // --------------------------------------------------------------------------
     // 3. SERVICE SPECTRUM
     // --------------------------------------------------------------------------
-    .rc-about-services {
+    .ui-about-services {
         padding: 5.5rem 0 5rem;
         background-color: #F8FAFC;
 
@@ -559,7 +559,7 @@
             }
         }
 
-        .rc-about-service-card {
+        .ui-about-service-card {
             background: #FFFFFF;
             border: 1px solid #E2E8F0;
             border-radius: 1rem;
@@ -634,7 +634,7 @@
     // --------------------------------------------------------------------------
     // 4. STANDARDS: The 4 Pillars of Excellence
     // --------------------------------------------------------------------------
-    .rc-about-standards {
+    .ui-about-standards {
         padding: 6rem 0 5rem;
         background-color: #FFFFFF;
 
@@ -673,7 +673,7 @@
             }
         }
 
-        .rc-about-standard-card {
+        .ui-about-standard-card {
             background: #FFFFFF;
             border: 1px solid #E2E8F0;
             border-radius: 1rem;
@@ -769,7 +769,7 @@
     // --------------------------------------------------------------------------
     // 5. OPERATIONAL METRICS
     // --------------------------------------------------------------------------
-    .rc-about-metrics {
+    .ui-about-metrics {
         padding: 5.5rem 0;
         background-color: #0F4C81;
         color: #FFFFFF;
@@ -818,7 +818,7 @@
             }
         }
 
-        .rc-about-metric-card {
+        .ui-about-metric-card {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 1rem;
@@ -867,7 +867,7 @@
     // --------------------------------------------------------------------------
     // 6. HOW IT WORKS: 4-Step Booking Flow
     // --------------------------------------------------------------------------
-    .rc-about-steps {
+    .ui-about-steps {
         padding: 6rem 0 5rem;
         background-color: #FFFFFF;
 
@@ -907,7 +907,7 @@
             }
         }
 
-        .rc-about-step-card {
+        .ui-about-step-card {
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -1019,7 +1019,7 @@
     // --------------------------------------------------------------------------
     // 7. TRAVELER REPUTATION
     // --------------------------------------------------------------------------
-    .rc-about-reviews {
+    .ui-about-reviews {
         padding: 5.5rem 0;
         background-color: #F8FAFC;
 
@@ -1074,7 +1074,7 @@
             }
         }
 
-        .rc-about-review-card {
+        .ui-about-review-card {
             background: #FFFFFF;
             border: 1px solid #E2E8F0;
             border-radius: 1rem;
@@ -1183,7 +1183,7 @@
     // --------------------------------------------------------------------------
     // 8. CLOSING CTA
     // --------------------------------------------------------------------------
-    .rc-about-cta {
+    .ui-about-cta {
         padding: 5rem 0 6rem;
         background-color: #FFFFFF;
 

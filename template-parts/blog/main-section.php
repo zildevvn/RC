@@ -44,12 +44,12 @@ $query = new WP_Query($initial_args);
 $nonce = wp_create_nonce('rc_filter_posts_nonce');
 ?>
 
-<section class="rc-section blog-main-section" id="blog-main-section" aria-labelledby="blog-main-heading">
+<section class="ui-section blog-main-section" id="blog-main-section" aria-labelledby="blog-main-heading">
     <div class="container">
 
         <!-- Section Header -->
         <div class="blog-main-header">
-            <span class="rc-badge blog-main-header__badge">
+            <span class="ui-badge blog-main-header__badge">
                 <?= esc_html($badge); ?>
             </span>
             <h2 id="blog-main-heading" class="blog-main-header__title">
@@ -147,8 +147,8 @@ $nonce = wp_create_nonce('rc_filter_posts_nonce');
              data-total-pages="<?= esc_attr($query->max_num_pages); ?>">
 
             <!-- Loading Overlay -->
-            <div class="rc-loading-overlay blog-loading-overlay" id="rc-blog-loading" style="display: none;" aria-hidden="true">
-                <div class="rc-loading-spinner">
+            <div class="ui-loading-overlay blog-loading-overlay" id="rc-blog-loading" style="display: none;" aria-hidden="true">
+                <div class="ui-loading-spinner">
                     <div class="spinner-dot"></div>
                 </div>
             </div>
@@ -176,7 +176,7 @@ $nonce = wp_create_nonce('rc_filter_posts_nonce');
                     <p class="blog-empty-state__desc">
                         <?php esc_html_e('We could not find any articles matching your search or category filter. Try using different keywords or reset your filters.', 'rc'); ?>
                     </p>
-                    <button type="button" class="rc-button rc-button--secondary blog-empty-state__reset" id="rc-blog-empty-reset">
+                    <button type="button" class="ui-button ui-button--secondary blog-empty-state__reset" id="rc-blog-empty-reset">
                         <span><?php esc_html_e('Reset All Filters', 'rc'); ?></span>
                     </button>
                 </div>
@@ -185,7 +185,7 @@ $nonce = wp_create_nonce('rc_filter_posts_nonce');
             <!-- Error State -->
             <div id="rc-blog-error" class="blog-error-state" style="display: none;">
                 <p id="rc-blog-error-message"></p>
-                <button type="button" class="rc-button rc-button--secondary" id="rc-blog-retry-btn">
+                <button type="button" class="ui-button ui-button--secondary" id="rc-blog-retry-btn">
                     <span><?php esc_html_e('Try Again', 'rc'); ?></span>
                 </button>
             </div>

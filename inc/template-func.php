@@ -3,37 +3,37 @@
 function rc_breadcrumbs($title)
 {
     ?>
-    <p class="rc-breadcrumbs d-flex align-items-center flex-wrap mb-0">
-        <a href="<?= home_url() ?>" class="rc-breadcrumbs__link">
+    <p class="ui-breadcrumbs d-flex align-items-center flex-wrap mb-0">
+        <a href="<?= home_url() ?>" class="ui-breadcrumbs__link">
             <?= rc_svg_icon('home'); ?>
             <span>Home</span>
         </a>
-        <span class="rc-breadcrumbs__separator">
+        <span class="ui-breadcrumbs__separator">
             <?= rc_svg_icon('breadcrumb_separator'); ?>
         </span>
 
         <?php if (is_singular('tours')): ?>
-            <a href="<?= home_url('/da-nang-travel-car/') ?>" class="rc-breadcrumbs__link">Tours</a>
-            <span class="rc-breadcrumbs__separator">
+            <a href="<?= home_url('/da-nang-travel-car/') ?>" class="ui-breadcrumbs__link">Tours</a>
+            <span class="ui-breadcrumbs__separator">
                 <?= rc_svg_icon('breadcrumb_separator'); ?>
             </span>
         <?php endif; ?>
 
         <?php if (is_singular('cars')): ?>
-            <a href="<?= home_url('/car-rental-in-phu-quoc/') ?>" class="rc-breadcrumbs__link">Cars</a>
-            <span class="rc-breadcrumbs__separator">
+            <a href="<?= home_url('/car-rental-in-phu-quoc/') ?>" class="ui-breadcrumbs__link">Cars</a>
+            <span class="ui-breadcrumbs__separator">
                 <?= rc_svg_icon('breadcrumb_separator'); ?>
             </span>
         <?php endif; ?>
 
         <?php if (is_singular('post')): ?>
-            <a href="<?= home_url('/phu-quoc-island-travel-guide/') ?>" class="rc-breadcrumbs__link">Blog</a>
-            <span class="rc-breadcrumbs__separator">
+            <a href="<?= home_url('/phu-quoc-island-travel-guide/') ?>" class="ui-breadcrumbs__link">Blog</a>
+            <span class="ui-breadcrumbs__separator">
                 <?= rc_svg_icon('breadcrumb_separator'); ?>
             </span>
         <?php endif; ?>
 
-        <span class="rc-breadcrumbs__current" aria-current="page"><?= esc_html($title) ?></span>
+        <span class="ui-breadcrumbs__current" aria-current="page"><?= esc_html($title) ?></span>
     </p>
 <?php }
 
@@ -46,7 +46,7 @@ add_shortcode('rc_table_of_content', 'rc_table_of_content_shortcode');
 
 function header_booking_top($original_price, $discount_price)
 { ?>
-    <div id="header-booking-top" class="rc-header-booking-top d-md-none">
+    <div id="header-booking-top" class="ui-header-booking-top d-md-none">
         <div class="d-flex align-items-center justify-content-between">
             <?php if (!empty($original_price)): ?>
                 <h2 class="h4 mb-0">From:
@@ -67,7 +67,7 @@ function header_booking_top($original_price, $discount_price)
                 </h2>
             <?php endif; ?>
 
-            <a href="#rc-booking-form" class="rc-button" label="Book a tour" data-scroll-target="#rc-booking-form">
+            <a href="#rc-booking-form" class="ui-button" label="Book a tour" data-scroll-target="#rc-booking-form">
                 Book Now
             </a>
         </div>
@@ -214,9 +214,9 @@ function rc_hero_section_shared($title = '', $image = '', $desc = '', $args = []
     $has_image = !empty($image);
     ?>
     <section
-        class="rc-section hero-section-shared<?= $has_image ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?><?= !empty($custom_class) ? ' ' . esc_attr($custom_class) : ''; ?>">
+        class="ui-section hero-section-shared<?= $has_image ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?><?= !empty($custom_class) ? ' ' . esc_attr($custom_class) : ''; ?>">
         <!-- Background Layer with Multi-Depth Overlay -->
-        <div class="hero-section-shared__bg rc-section__bg">
+        <div class="hero-section-shared__bg ui-section__bg">
             <?php if ($has_image): ?>
                 <img src="<?= esc_url($image); ?>" alt="<?= esc_attr($alt); ?>" class="hero-section-shared__img"
                     loading="eager" />
@@ -245,7 +245,7 @@ function rc_hero_section_shared($title = '', $image = '', $desc = '', $args = []
                 </div>
 
                 <!-- Main Heading -->
-                <h1 class="rc-heading hero-section-shared__title">
+                <h1 class="ui-heading hero-section-shared__title">
                     <?= wp_kses_post($title); ?>
                 </h1>
 
@@ -259,7 +259,7 @@ function rc_hero_section_shared($title = '', $image = '', $desc = '', $args = []
                 <!-- Optional Action CTA Button -->
                 <?php if (!empty($button_url) && !empty($button_text)): ?>
                     <div class="hero-section-shared__actions">
-                        <a href="<?= esc_url($button_url); ?>" class="rc-button rc-button--secondary hero-section-shared__cta"
+                        <a href="<?= esc_url($button_url); ?>" class="ui-button ui-button--secondary hero-section-shared__cta"
                             target="<?= esc_attr($button_target); ?>">
                             <span><?= esc_html($button_text); ?></span>
                             <?= rc_svg_icon('arrow_next'); ?>

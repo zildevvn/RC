@@ -13,7 +13,7 @@ $desc = !empty($args['desc']) ? $args['desc'] : 'No prepayment required • Free
 $phone = function_exists('get_field') ? get_field('phone', 'option') : '';
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
-<section class="rc-section banner-section" data-purpose="final-cta-section">
+<section class="ui-section banner-section" data-purpose="final-cta-section">
     <div class="container">
         <div class="banner-section__card position-relative overflow-hidden" data-aos="fade-up">
             <div aria-hidden="true" class="banner-section__waves">
@@ -73,13 +73,13 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                 <div class="banner-section__action-col d-flex flex-column justify-content-center w-100">
                     <div class="banner-section__actions d-flex flex-column gap-3 w-100 mx-auto">
                         <!-- Primary Action Button -->
-                        <a class="rc-button rc-book-car-trigger" href="#book" aria-controls="book-car-modal"
+                        <a class="ui-button ui-book-car-trigger" href="#book" aria-controls="book-car-modal"
                             aria-expanded="false">
                             Book Your Car Now
                             <?php echo rc_svg_icon('arrow_next'); ?>
                         </a>
                         <!-- WhatsApp Action Button -->
-                        <a class="rc-button--secondary"
+                        <a class="ui-button--secondary"
                             href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" rel="noopener noreferrer"
                             target="_blank" aria-label="Chat with us on WhatsApp">
                             Chat on WhatsApp

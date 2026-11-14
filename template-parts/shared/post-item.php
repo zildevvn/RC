@@ -45,31 +45,31 @@ if (empty($excerpt) && !empty($post_content)) {
 }
 ?>
 
-<article class="rc-post-item<?= !empty($extra_class) ? ' ' . esc_attr($extra_class) : '' ?>" data-post-id="<?= esc_attr($post_id) ?>">
-    <div class="rc-post-item__thumb">
-        <a href="<?= esc_url($permalink) ?>" tabindex="-1" aria-hidden="true" class="rc-post-item__thumb-link">
+<article class="ui-post-item<?= !empty($extra_class) ? ' ' . esc_attr($extra_class) : '' ?>" data-post-id="<?= esc_attr($post_id) ?>">
+    <div class="ui-post-item__thumb">
+        <a href="<?= esc_url($permalink) ?>" tabindex="-1" aria-hidden="true" class="ui-post-item__thumb-link">
             <?php if (!empty($thumb_url)): ?>
                 <img src="<?= esc_url($thumb_url) ?>" alt="<?= esc_attr($thumb_alt) ?>" loading="lazy" width="600" height="375">
             <?php endif; ?>
         </a>
         <?php if (!empty($cat_name)): ?>
-            <span class="rc-post-item__category" data-cat-id="<?= esc_attr($cat_id) ?>">
+            <span class="ui-post-item__category" data-cat-id="<?= esc_attr($cat_id) ?>">
                 <?= esc_html($cat_name) ?>
             </span>
         <?php endif; ?>
     </div>
 
-    <div class="rc-post-item__body">
-        <div class="rc-post-item__meta">
+    <div class="ui-post-item__body">
+        <div class="ui-post-item__meta">
             <?php if (!empty($post_date)): ?>
-                <span class="rc-post-item__meta-item">
+                <span class="ui-post-item__meta-item">
                     <?php if (function_exists('rc_svg_icon')): ?>
                         <?= rc_svg_icon('calendar'); ?>
                     <?php endif; ?>
                     <time datetime="<?= esc_attr(get_the_date('c', $post_id)) ?>"><?= esc_html($post_date) ?></time>
                 </span>
             <?php endif; ?>
-            <span class="rc-post-item__meta-item">
+            <span class="ui-post-item__meta-item">
                 <?php if (function_exists('rc_svg_icon')): ?>
                     <?= rc_svg_icon('clock'); ?>
                 <?php endif; ?>
@@ -77,20 +77,20 @@ if (empty($excerpt) && !empty($post_content)) {
             </span>
         </div>
 
-        <h3 class="rc-post-item__title">
+        <h3 class="ui-post-item__title">
             <a href="<?= esc_url($permalink) ?>">
                 <?= esc_html($title) ?>
             </a>
         </h3>
 
         <?php if (!empty($excerpt)): ?>
-            <p class="rc-post-item__excerpt">
+            <p class="ui-post-item__excerpt">
                 <?= esc_html($excerpt) ?>
             </p>
         <?php endif; ?>
 
-        <div class="rc-post-item__footer">
-            <a href="<?= esc_url($permalink) ?>" class="rc-post-item__link">
+        <div class="ui-post-item__footer">
+            <a href="<?= esc_url($permalink) ?>" class="ui-post-item__link">
                 <span><?php esc_html_e('Read Full Article', 'rc'); ?></span>
                 <?php if (function_exists('rc_svg_icon') && rc_svg_icon('arrow_next')): ?>
                     <?= rc_svg_icon('arrow_next'); ?>

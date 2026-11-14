@@ -17,7 +17,7 @@ $cta_group = [
 ];
 ?>
 <main class="site-main">
-    <section class="error-404-section rc-section">
+    <section class="error-404-section ui-section">
         <div class="container">
             <div class="error-404-section__code">404</div>
             <h1 class="error-404-section__title">Oops! Page Not Found</h1>
@@ -34,12 +34,12 @@ $cta_group = [
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                         <input type="search" name="s" placeholder="Search for tours, cars, or articles..." required />
-                        <button type="submit" class="rc-button rc-button--primary search-submit">Search</button>
+                        <button type="submit" class="ui-button ui-button--primary search-submit">Search</button>
                     </div>
                 </form>
             </div>
 
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="rc-button rc-button--primary back-home-btn">
+            <a href="<?php echo esc_url(home_url('/')); ?>" class="ui-button ui-button--primary back-home-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="19" y1="12" x2="5" y2="12"></line>

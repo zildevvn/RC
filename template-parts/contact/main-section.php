@@ -27,19 +27,19 @@ if (!empty($image)) {
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 $clean_phone = !empty($phone) ? preg_replace('/[^0-9+]/', '', $phone) : '';
 ?>
-<section class="rc-section contact-main-section main-section">
+<section class="ui-section contact-main-section main-section">
     <div class="container">
         <!-- 1. Section Header -->
         <?php if (!empty($heading) || !empty($badge) || !empty($sub_heading)): ?>
             <div class="contact-header-block text-center">
                 <?php if (!empty($badge)): ?>
-                    <span class="rc-badge contact-header-block__badge">
+                    <span class="ui-badge contact-header-block__badge">
                         <?= esc_html($badge) ?>
                     </span>
                 <?php endif; ?>
 
                 <?php if (!empty($heading)): ?>
-                    <h2 class="rc-heading contact-header-block__title">
+                    <h2 class="ui-heading contact-header-block__title">
                         <?= wp_kses_post($heading) ?>
                     </h2>
                 <?php endif; ?>

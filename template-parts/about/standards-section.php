@@ -4,11 +4,11 @@
  * The 4 Pillars of the Rent Car Da Nang Experience
  */
 ?>
-<section class="about-standards-section rc-section">
+<section class="about-standards-section ui-section">
     <div class="container">
         <!-- Section Header -->
         <div class="about-standards-header text-center">
-            <span class="rc-badge about-badge">Uncompromising Quality</span>
+            <span class="ui-badge about-badge">Uncompromising Quality</span>
             <h2 class="about-standards-title">The Four Standards That Define Our Service</h2>
             <p class="about-standards-desc">
                 From your initial inquiry to your final destination, every detail of our service is calibrated for reliability, calm comfort, and effortless punctuality.

@@ -23,9 +23,9 @@
     };
 
     const rcInitAjaxTourOptions = () => {
-        const $form = $('.rc-form-booking, .vm-form-booking');
-        const $btn = $form.find('#rc-btn-check-availability, .rc-btn-check-availability, #vm-btn-check-availability, .vm-btn-check-availability');
-        const $container = $('#rc-tour-options-container, #vm-tour-options-container, .rc-tour-options-container');
+        const $form = $('.ui-form-booking, .vm-form-booking');
+        const $btn = $form.find('#rc-btn-check-availability, .ui-btn-check-availability, #vm-btn-check-availability, .vm-btn-check-availability');
+        const $container = $('#rc-tour-options-container, #vm-tour-options-container, .ui-tour-options-container');
 
         if (!$form.length || !$btn.length || !$container.length) return;
 
@@ -35,7 +35,7 @@
             e.preventDefault();
 
             const date = $form.find('input[type="date"]').val();
-            const $error = $form.find('.rc-form-error, .vm-form-error');
+            const $error = $form.find('.ui-form-error, .vm-form-error');
 
             $error.hide().text('');
 
@@ -88,7 +88,7 @@
                                 }, 600);
                             });
                         } else {
-                            $container.html('<div class="container"><div class="rc-tour-options-empty vm-tour-options-empty" style="padding:40px 20px;text-align:center;background:#fff;border-radius:12px;margin:30px 0;border:1px solid #eaeaea;">Không có option phù hợp. Vui lòng thử lại với số lượng khách khác.</div></div>');
+                            $container.html('<div class="container"><div class="ui-tour-options-empty vm-tour-options-empty" style="padding:40px 20px;text-align:center;background:#fff;border-radius:12px;margin:30px 0;border:1px solid #eaeaea;">Không có option phù hợp. Vui lòng thử lại với số lượng khách khác.</div></div>');
                             $container.slideDown(400);
                         }
                     } else {
@@ -347,7 +347,7 @@
             $desktopPriceMax.val(appliedState.maxPrice);
 
             // Sync desktop checkboxes
-            $section.find('.rc-filter-location-checkbox').each(function () {
+            $section.find('.ui-filter-location-checkbox').each(function () {
                 const termId = parseInt($(this).val());
                 $(this).prop('checked', appliedState.locations.includes(termId));
             });
@@ -380,7 +380,7 @@
             $modalPriceMax.val(modalDraftState.maxPrice);
 
             // Sync modal checkboxes
-            $modal.find('.rc-modal-filter-location-checkbox').each(function () {
+            $modal.find('.ui-modal-filter-location-checkbox').each(function () {
                 const termId = parseInt($(this).val());
                 $(this).prop('checked', modalDraftState.locations.includes(termId));
             });
@@ -570,7 +570,7 @@
         });
 
         // Desktop Tour Locations checkbox handler
-        $section.on('change', '.rc-filter-location-checkbox', function () {
+        $section.on('change', '.ui-filter-location-checkbox', function () {
             const termId = parseInt($(this).val());
             if ($(this).is(':checked')) {
                 if (!appliedState.locations.includes(termId)) {
@@ -685,7 +685,7 @@
         });
 
         // Modal Tour Locations checkbox handler (updates draft only)
-        $modal.on('change', '.rc-modal-filter-location-checkbox', function () {
+        $modal.on('change', '.ui-modal-filter-location-checkbox', function () {
             const termId = parseInt($(this).val());
             if ($(this).is(':checked')) {
                 if (!modalDraftState.locations.includes(termId)) {
@@ -774,7 +774,7 @@
         // ----------------------------------------------------------------------
         // Pagination Click Handler
         // ----------------------------------------------------------------------
-        $section.on('click', '.rc-ajax-pagination a, .rc-ajax-pagination .page-numbers a', function (e) {
+        $section.on('click', '.ui-ajax-pagination a, .ui-ajax-pagination .page-numbers a', function (e) {
             e.preventDefault();
             const paged = parseInt($(this).data('page'));
             if (paged) {

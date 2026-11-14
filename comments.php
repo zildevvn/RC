@@ -61,8 +61,8 @@ if (post_password_required()) {
     $comments_args = array(
         'fields' => $fields,
         'comment_field' => '<div class="comment-form-comment mb-4"><textarea id="comment" name="comment" placeholder="Your Comment *" cols="45" rows="5" aria-required="true" class="form-control"></textarea></div>',
-        'class_form' => 'comment-form rc-comment-form',
-        'class_submit' => 'submit rc-button w-auto',
+        'class_form' => 'comment-form ui-comment-form',
+        'class_submit' => 'submit ui-button w-auto',
         'title_reply_before' => '<h3 id="reply-title" class="comment-reply-title widget-title">',
         'title_reply_after' => '</h3>',
         'title_reply' => 'Leave a Comment',

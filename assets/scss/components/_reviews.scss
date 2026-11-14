@@ -1,8 +1,8 @@
 /* ----------------------------------------- */
-/* REVIEWS COMPONENT (.rc-reviews)
+/* REVIEWS COMPONENT (.ui-reviews)
 /* ----------------------------------------- */
 
-.rc-reviews {
+.ui-reviews {
     margin-top: 1rem;
 
     // Heading
@@ -356,7 +356,7 @@
             justify-content: space-between;
             gap: 1rem;
 
-            .rc-reviews__label {
+            .ui-reviews__label {
                 margin: 0;
                 font-weight: 600;
                 font-size: 0.875rem;
@@ -367,7 +367,7 @@
         &--comment {
             height: 100%;
 
-            .rc-reviews__textarea {
+            .ui-reviews__textarea {
                 height: 100%;
                 min-height: 160px;
                 resize: vertical;
@@ -520,13 +520,13 @@
     }
 }
 
-// Rendered Star Ratings (.rc-stars)
-.rc-stars {
+// Rendered Star Ratings (.ui-stars)
+.ui-stars {
     display: inline-flex;
     align-items: center;
     gap: 3px;
 
-    .rc-star {
+    .ui-star {
         display: inline-flex;
         align-items: center;
         justify-content: center;

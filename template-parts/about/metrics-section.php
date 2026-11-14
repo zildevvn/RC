@@ -4,11 +4,11 @@
  * Panoramic Performance Dashboard for Rent Car Da Nang
  */
 ?>
-<section class="about-metrics-section rc-section">
+<section class="about-metrics-section ui-section">
     <div class="container">
         <div class="about-metrics-panel">
             <div class="about-metrics-header text-center">
-                <span class="rc-badge about-badge about-badge--light">Verified Operational Metrics</span>
+                <span class="ui-badge about-badge about-badge--light">Verified Operational Metrics</span>
                 <h2 class="about-metrics-title">A Decade of Delivering Precision on Every Journey</h2>
                 <p class="about-metrics-desc">
                     Behind every private car booking is a proven operational system designed for zero stress and maximum dependability.
