@@ -103,18 +103,55 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                 </div>
             </div>
         </div>
-        <!-- 3. Bottom Quick Action Strip -->
-        <div
-            class="steps-booking-section__cta d-flex flex-column flex-sm-row align-items-center justify-content-between mx-auto">
-            <span class="steps-booking-section__cta-text text-center text-sm-start">
-                Need custom multi-day itinerary or special route?
-            </span>
-            <a class="steps-booking-section__cta-btn pill-shaped d-inline-flex align-items-center flex-shrink-0"
-                href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>" rel="noopener noreferrer"
-                target="_blank" aria-label="Chat with us on WhatsApp">
-                <span>Chat on WhatsApp Now</span>
-                <span class="fw-bold">➔</span>
-            </a>
+        <!-- 3. Bottom Quick Action Strip / Dedicated Premium CTA -->
+        <div class="steps-booking-section__cta" data-aos="fade-up">
+            <div class="steps-booking-section__cta-inner d-flex flex-column flex-lg-row align-items-center justify-content-between">
+                <!-- Left: Editorial Content with Icon & Hierarchy -->
+                <div class="steps-booking-section__cta-content d-flex align-items-center">
+                    <div class="steps-booking-section__cta-icon d-none d-md-flex align-items-center justify-content-center flex-shrink-0" aria-hidden="true">
+                        <?= function_exists('rc_svg_icon') ? rc_svg_icon('headset') : ''; ?>
+                    </div>
+                    <div class="steps-booking-section__cta-text">
+                        <div class="steps-booking-section__cta-badge d-inline-flex align-items-center gap-2 mb-2">
+                            <span class="steps-booking-section__cta-dot" aria-hidden="true"></span>
+                            <span><?= esc_html__('Custom Itinerary Support', 'rc'); ?></span>
+                        </div>
+                        <h3 class="steps-booking-section__cta-title mb-1">
+                            <?= esc_html__('Need custom multi-day itinerary or special route?', 'rc'); ?>
+                        </h3>
+                        <p class="steps-booking-section__cta-desc mb-0">
+                            <?= esc_html__('Chat directly with our local travel specialists for personalized routes, private chauffeurs, and instant support.', 'rc'); ?>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Actions Group -->
+                <div class="steps-booking-section__cta-actions d-flex flex-column align-items-center align-items-lg-end flex-shrink-0">
+                    <a class="steps-booking-section__cta-btn d-inline-flex align-items-center justify-content-center"
+                        href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        aria-label="<?= esc_attr__('Chat with us on WhatsApp', 'rc'); ?>">
+                        <span class="steps-booking-section__cta-btn-icon d-inline-flex align-items-center justify-content-center" aria-hidden="true">
+                            <?= function_exists('rc_svg_icon') ? rc_svg_icon('whatsapp') : ''; ?>
+                        </span>
+                        <span class="steps-booking-section__cta-btn-label"><?= esc_html__('Chat on WhatsApp Now', 'rc'); ?></span>
+                        <span class="steps-booking-section__cta-btn-arrow d-inline-flex align-items-center" aria-hidden="true">
+                            <?= function_exists('rc_svg_icon') ? rc_svg_icon('arrow_next') : '➔'; ?>
+                        </span>
+                    </a>
+
+                    <?php if (!empty($phone)): ?>
+                        <div class="steps-booking-section__cta-helpline d-flex align-items-center justify-content-center gap-1">
+                            <span class="steps-booking-section__cta-helpline-label"><?= esc_html__('Or call 24/7:', 'rc'); ?></span>
+                            <a class="steps-booking-section__cta-helpline-link"
+                                href="tel:<?= esc_attr(preg_replace('/\s+/', '', $phone)); ?>">
+                                <?= esc_html($phone); ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
     </div>
 </section>
