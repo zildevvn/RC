@@ -199,3 +199,43 @@ function override_kk_star_ratings_meta($value, $object_id, $meta_key, $single)
 	// Quan trọng: Trả về null để WordPress tiếp tục lấy dữ liệu từ DB cho các post meta khác
 	return null;
 }
+
+
+
+add_action('init', 'block_vn_except_danang');
+function block_vn_except_danang()
+{
+	// 1. Bỏ qua trang quản trị admin và các bot tìm kiếm (Google, Bing...)
+	if (is_admin() || (isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/bot|crawl|slurp|spider|mediapartners/i', $_SERVER['HTTP_USER_AGENT']))) {
+		return;
+	}
+
+	$visitor_ip = $_SERVER['REMOTE_ADDR'];
+
+	// 2. Chặn thẳng IP Wi-Fi công ty (Thay bằng IP công ty của bạn)
+	$company_ips = array('113.161.72.105');
+	if (in_array($visitor_ip, $company_ips)) {
+		wp_redirect('https://www.google.com', 302);
+		exit;
+	}
+
+	// 3. Kiểm tra Cookie để không gọi API nhiều lần gây chậm web
+	if (isset($_COOKIE['geo_verified']) && $_COOKIE['geo_verified'] === 'allowed') {
+		return;
+	}
+
+	// 4. Tra cứu vị trí IP (chỉ chạy 1 lần đầu tiên khách vào web)
+	$response = wp_remote_get("http://ip-api.com/json/{$visitor_ip}?fields=status,countryCode,city", array('timeout' => 2));
+	if (!is_wp_error($response)) {
+		$data = json_decode(wp_remote_retrieve_body($response), true);
+		if (isset($data['status']) && $data['status'] === 'success') {
+			// Nếu ở Việt Nam nhưng thành phố KHÔNG phải Đà Nẵng -> Chuyển hướng sang Google
+			if ($data['countryCode'] === 'VN' && stripos($data['city'], 'Da Nang') === false) {
+				wp_redirect('https://www.google.com', 302);
+				exit;
+			}
+			// Lưu cookie hợp lệ trong 24 giờ
+			setcookie('geo_verified', 'allowed', time() + 86400, '/');
+		}
+	}
+}
