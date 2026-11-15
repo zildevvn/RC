@@ -12,23 +12,12 @@
 
     <meta name="google-site-verification" content="qwN9omocrfcaegsJm2o714T7TfY7zubl9ghNA7DAcSM" />
 
-    <!-- Tailwind CSS CDN with Forms & Container Queries plugins -->
-    <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-MZJGL94T"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        amber: {
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                        }
-                    }
-                }
-            }
-        }
-    </script> -->
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+    </script>
     <?php wp_head(); ?>
 </head>
 
