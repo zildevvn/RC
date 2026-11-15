@@ -18,7 +18,7 @@ $kk_score = $kk_count > 0
 <section class="ui-section hero-section" data-purpose="hero-section">
     <?php if (!empty($bg_image)): ?>
         <img class="hero-section__bg" src="<?php echo esc_url($bg_image['url']); ?>"
-            alt="<?php echo esc_attr($bg_image['alt'] ?: $heading); ?>" />
+            alt="<?php echo esc_attr($bg_image['alt'] ?: $heading); ?>" fetchpriority=high />
     <?php endif; ?>
 
     <div aria-hidden="true" class="hero-section__overlay"></div>
