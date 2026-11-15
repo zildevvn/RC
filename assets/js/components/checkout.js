@@ -114,7 +114,20 @@
             if (data.status === 'Confirmed') {
                 $('#booking-status').removeClass('badge-pending').addClass('badge-confirmed');
             }
-            $('#booking-email').text(customerEmail || '');
+
+            const recipientEmail = data.customer_email || customerEmail || '';
+            const $emailNotice = $('.booking-email-notice');
+            if (data.email_sent === true) {
+                $emailNotice
+                    .removeClass('booking-email-notice--warning')
+                    .html('Booking details have been sent to: <b id="booking-email"></b>');
+                $('#booking-email').text(recipientEmail);
+            } else {
+                $emailNotice
+                    .addClass('booking-email-notice--warning')
+                    .html('Your booking is recorded, but we could not send a confirmation email to <b id="booking-email"></b>. Please save your Booking Number below.');
+                $('#booking-email').text(recipientEmail);
+            }
 
             $('#rc-checkout-form-wrapper').fadeOut(300, function () {
                 $('#rc-booking-success').fadeIn(400);

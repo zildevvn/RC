@@ -202,29 +202,34 @@ function rc_ajax_submit_checkout()
         ], false);
     }
 
-    if ($booking_post_id) {
-        update_post_meta($booking_post_id, 'customer_name', $customer_name);
-        update_post_meta($booking_post_id, 'customer_email', $customer_email);
-        update_post_meta($booking_post_id, 'customer_phone', $customer_phone);
-        update_post_meta($booking_post_id, 'customer_pickup', $customer_pickup);
-        update_post_meta($booking_post_id, 'customer_dropoff', $customer_dropoff);
-        update_post_meta($booking_post_id, 'customer_country', $customer_country);
-        update_post_meta($booking_post_id, 'customer_messages', $customer_messages);
-        update_post_meta($booking_post_id, 'payment_method', $payment_method);
-        update_post_meta($booking_post_id, 'payment_status', 'pending');
-        update_post_meta($booking_post_id, 'booking_status', 'Pending Confirmation');
-        update_post_meta($booking_post_id, 'tour_id', $tour_id);
-        update_post_meta($booking_post_id, 'booking_token', $token);
-        update_post_meta($booking_post_id, 'option_name', $selected_option['name'] ?? '');
-        update_post_meta($booking_post_id, 'date', $booking_data['date']);
-        update_post_meta($booking_post_id, 'adults', $adults);
-        update_post_meta($booking_post_id, 'children', $children);
-        update_post_meta($booking_post_id, 'total_pax', $total_pax);
-        update_post_meta($booking_post_id, 'total_price', $total_price);
+    if (!$booking_post_id || is_wp_error($booking_post_id)) {
+        wp_send_json_error(['message' => 'Could not initialize booking. Please try again.']);
     }
+
+    update_post_meta($booking_post_id, 'customer_name', $customer_name);
+    update_post_meta($booking_post_id, 'customer_email', $customer_email);
+    update_post_meta($booking_post_id, 'customer_phone', $customer_phone);
+    update_post_meta($booking_post_id, 'customer_pickup', $customer_pickup);
+    update_post_meta($booking_post_id, 'customer_dropoff', $customer_dropoff);
+    update_post_meta($booking_post_id, 'customer_country', $customer_country);
+    update_post_meta($booking_post_id, 'customer_messages', $customer_messages);
+    update_post_meta($booking_post_id, 'payment_method', $payment_method);
+    update_post_meta($booking_post_id, 'payment_status', 'pending');
+    update_post_meta($booking_post_id, 'booking_status', 'Pending Confirmation');
+    update_post_meta($booking_post_id, 'tour_id', $tour_id);
+    update_post_meta($booking_post_id, 'booking_token', $token);
+    update_post_meta($booking_post_id, 'option_name', $selected_option['name'] ?? '');
+    update_post_meta($booking_post_id, 'date', $booking_data['date']);
+    update_post_meta($booking_post_id, 'adults', $adults);
+    update_post_meta($booking_post_id, 'children', $children);
+    update_post_meta($booking_post_id, 'total_pax', $total_pax);
+    update_post_meta($booking_post_id, 'total_price', $total_price);
 
     $payment_method_label = ($payment_method === 'bank_transfer') ? 'Bank Transfer' : 'Pay on Arrival';
     $formatted_date = date('F j, Y', strtotime($booking_data['date']));
+
+    $email_sent = rc_send_booking_confirmation_email($booking_post_id);
+    rc_send_internal_booking_notification($booking_post_id);
 
     delete_transient('rc_booking_' . $token);
     delete_transient('rc_booking_post_' . $token);
@@ -235,8 +240,445 @@ function rc_ajax_submit_checkout()
         'date' => $formatted_date,
         'payment_method' => $payment_method_label,
         'status' => 'Pending Confirmation',
-        'country' => $customer_country
+        'country' => $customer_country,
+        'customer_email' => $customer_email,
+        'email_sent' => $email_sent,
     ]);
+}
+
+/**
+ * Send booking confirmation email to customer (with idempotency and status tracking).
+ *
+ * @param int $booking_post_id
+ * @return bool True if wp_mail() accepted the message for delivery, false otherwise.
+ */
+function rc_send_booking_confirmation_email($booking_post_id)
+{
+    $booking_post_id = intval($booking_post_id);
+    if ($booking_post_id <= 0) {
+        return false;
+    }
+
+    // Prevent duplicate confirmation emails for the same booking
+    if (get_post_meta($booking_post_id, 'booking_email_sent', true) === '1') {
+        return true;
+    }
+
+    $customer_email = sanitize_email(get_post_meta($booking_post_id, 'customer_email', true));
+    if (empty($customer_email) || !is_email($customer_email)) {
+        update_post_meta($booking_post_id, 'booking_email_sent', '0');
+        return false;
+    }
+
+    $booking_ref = get_the_title($booking_post_id);
+    $customer_name = get_post_meta($booking_post_id, 'customer_name', true);
+    $tour_id = intval(get_post_meta($booking_post_id, 'tour_id', true));
+    $tour_title = $tour_id ? get_the_title($tour_id) : '';
+    $option_name = get_post_meta($booking_post_id, 'option_name', true);
+    $raw_date = get_post_meta($booking_post_id, 'date', true);
+    $formatted_date = $raw_date ? date('F j, Y', strtotime($raw_date)) : '';
+    $total_pax = get_post_meta($booking_post_id, 'total_pax', true);
+    $adults = get_post_meta($booking_post_id, 'adults', true);
+    $children = get_post_meta($booking_post_id, 'children', true);
+    $pickup = get_post_meta($booking_post_id, 'customer_pickup', true);
+    $dropoff = get_post_meta($booking_post_id, 'customer_dropoff', true);
+    $method = get_post_meta($booking_post_id, 'payment_method', true);
+    $booking_status = get_post_meta($booking_post_id, 'booking_status', true) ?: 'Pending Confirmation';
+
+    $method_label = ($method === 'paypal')
+        ? 'PayPal'
+        : (($method === 'bank_transfer') ? 'Bank Transfer' : 'Pay on Arrival');
+
+    $site_name = wp_specialchars_decode(get_bloginfo('name'), ENT_QUOTES);
+    $subject = sprintf('[%s] Booking Confirmation - %s', $site_name, $booking_ref);
+
+    $lines = [
+        sprintf('Dear %s,', $customer_name ?: 'Guest'),
+        '',
+        sprintf('Thank you for booking with %s. Here are your reservation details:', $site_name),
+        '',
+        sprintf('Booking Reference: %s', $booking_ref),
+        sprintf('Tour / Service: %s', $tour_title),
+        sprintf('Option: %s', $option_name),
+        sprintf('Date: %s', $formatted_date),
+        sprintf('Participants: %s Guests (%s Adults, %s Children)', $total_pax, $adults, $children),
+        sprintf('Pick-up Location: %s', $pickup),
+        sprintf('Drop-off Location: %s', $dropoff),
+        sprintf('Payment Method: %s', $method_label),
+        sprintf('Status: %s', $booking_status),
+        '',
+        'Our team will review your schedule and contact you if any additional details are needed.',
+    ];
+
+    $message = implode("\n", $lines);
+    $headers = ['Content-Type: text/plain; charset=UTF-8'];
+
+    $sent = (bool) wp_mail($customer_email, $subject, $message, $headers);
+
+    if ($sent) {
+        update_post_meta($booking_post_id, 'booking_email_sent', '1');
+        update_post_meta($booking_post_id, 'booking_email_sent_at', current_time('mysql'));
+    } else {
+        update_post_meta($booking_post_id, 'booking_email_sent', '0');
+    }
+
+    return $sent;
+}
+
+/**
+ * Send internal booking notification email to fixed operations recipients.
+ * Independent from customer confirmation email; uses separate idempotency meta.
+ *
+ * @param int $booking_post_id
+ * @return bool True if wp_mail() succeeded, false otherwise.
+ */
+function rc_send_internal_booking_notification($booking_post_id)
+{
+    $booking_post_id = intval($booking_post_id);
+    if ($booking_post_id <= 0) {
+        return false;
+    }
+
+    $booking_post = function_exists('get_post') ? get_post($booking_post_id) : null;
+    if (!$booking_post) {
+        return false;
+    }
+
+    // Separate idempotency check for internal notifications
+    if (get_post_meta($booking_post_id, 'booking_internal_notification_sent', true) === '1') {
+        return true;
+    }
+
+    // Concurrency guard to prevent duplicate sends from simultaneous requests
+    $existing_lock = intval(get_post_meta($booking_post_id, 'booking_internal_notification_lock', true));
+    if ($existing_lock > 0 && (time() - $existing_lock) < 60) {
+        return false;
+    }
+    update_post_meta($booking_post_id, 'booking_internal_notification_lock', (string) time());
+
+    $recipients = [
+        'vuongdevvn0509@gmail.com',
+        'rentcardana@gmail.com',
+    ];
+
+    $booking_ref = get_the_title($booking_post_id) ?: ('#' . $booking_post_id);
+    $tour_id = intval(get_post_meta($booking_post_id, 'tour_id', true));
+    $tour_title = $tour_id ? get_the_title($tour_id) : '';
+    $option_name = (string) get_post_meta($booking_post_id, 'option_name', true);
+    $raw_date = (string) get_post_meta($booking_post_id, 'date', true);
+    $formatted_date = $raw_date !== '' ? date('F j, Y', strtotime($raw_date)) : '';
+
+    $customer_name = (string) get_post_meta($booking_post_id, 'customer_name', true);
+    $customer_email = sanitize_email((string) get_post_meta($booking_post_id, 'customer_email', true));
+    $customer_phone = (string) get_post_meta($booking_post_id, 'customer_phone', true);
+    $customer_pickup = (string) get_post_meta($booking_post_id, 'customer_pickup', true);
+    $customer_dropoff = (string) get_post_meta($booking_post_id, 'customer_dropoff', true);
+    $customer_country = (string) get_post_meta($booking_post_id, 'customer_country', true);
+    $customer_messages = (string) get_post_meta($booking_post_id, 'customer_messages', true);
+
+    $adults = get_post_meta($booking_post_id, 'adults', true);
+    $children = get_post_meta($booking_post_id, 'children', true);
+    $total_pax = get_post_meta($booking_post_id, 'total_pax', true);
+
+    $raw_total_price = get_post_meta($booking_post_id, 'total_price', true);
+    $currency_symbol = '₫';
+    if (function_exists('get_field')) {
+        $configured_currency = get_field('currency', 'option');
+        if (!empty($configured_currency)) {
+            $currency_symbol = (string) $configured_currency;
+        }
+    }
+    $formatted_price = ($raw_total_price !== '' && is_numeric($raw_total_price) && floatval($raw_total_price) > 0)
+        ? number_format(floatval($raw_total_price), 0, '.', ',') . ' ' . $currency_symbol
+        : 'Contact for Price';
+
+    $payment_method = (string) get_post_meta($booking_post_id, 'payment_method', true);
+    $payment_method_label = ($payment_method === 'paypal')
+        ? 'PayPal'
+        : (($payment_method === 'bank_transfer') ? 'Bank Transfer' : 'Pay on Arrival');
+
+    $payment_status = (string) get_post_meta($booking_post_id, 'payment_status', true) ?: 'pending';
+    $booking_status = (string) get_post_meta($booking_post_id, 'booking_status', true) ?: 'Pending Confirmation';
+
+    $paypal_order_id = (string) get_post_meta($booking_post_id, 'paypal_order_id', true);
+    $paypal_capture_id = (string) get_post_meta($booking_post_id, 'paypal_capture_id', true);
+    $paypal_amount = (string) get_post_meta($booking_post_id, 'paypal_amount', true);
+    $paypal_currency = (string) get_post_meta($booking_post_id, 'paypal_currency', true);
+
+    $site_name = function_exists('get_bloginfo')
+        ? wp_specialchars_decode(get_bloginfo('name'), ENT_QUOTES)
+        : 'Rent Car Da Nang';
+    if ($site_name === '') {
+        $site_name = 'Rent Car Da Nang';
+    }
+
+    $subject = sprintf('New Booking Received – %s', $booking_ref);
+
+    // Plain-text fallback
+    $plain_lines = [
+        sprintf('NEW BOOKING RECEIVED – %s', $booking_ref),
+        str_repeat('=', 44),
+        sprintf('Booking Number: %s', $booking_ref),
+        sprintf('Booking Status: %s', $booking_status),
+        sprintf('Payment Status: %s', strtoupper($payment_status)),
+        sprintf('Payment Method: %s', $payment_method_label),
+        '',
+        'TOUR / SERVICE DETAILS',
+        str_repeat('-', 24),
+        sprintf('Tour Name: %s (ID: %d)', $tour_title ?: 'N/A', $tour_id),
+    ];
+    if ($option_name !== '') {
+        $plain_lines[] = sprintf('Tour Option: %s', $option_name);
+    }
+    if ($formatted_date !== '') {
+        $plain_lines[] = sprintf('Booking Date: %s', $formatted_date);
+    }
+    if ($total_pax !== '') {
+        $plain_lines[] = sprintf('Guests: %s (%s Adults, %s Children)', $total_pax, $adults !== '' ? $adults : '0', $children !== '' ? $children : '0');
+    }
+    $plain_lines[] = sprintf('Total Price: %s', $formatted_price);
+    if ($payment_method === 'paypal' && $paypal_amount !== '' && $paypal_currency !== '') {
+        $plain_lines[] = sprintf('PayPal Charged: %s %s', $paypal_amount, $paypal_currency);
+    }
+    if ($paypal_capture_id !== '') {
+        $plain_lines[] = sprintf('PayPal Capture ID: %s', $paypal_capture_id);
+    }
+
+    $plain_lines[] = '';
+    $plain_lines[] = 'CUSTOMER DETAILS';
+    $plain_lines[] = str_repeat('-', 24);
+    $plain_lines[] = sprintf('Customer Name: %s', $customer_name ?: 'N/A');
+    $plain_lines[] = sprintf('Customer Email: %s', $customer_email ?: 'N/A');
+    $plain_lines[] = sprintf('Customer Phone: %s', $customer_phone ?: 'N/A');
+    if ($customer_pickup !== '') {
+        $plain_lines[] = sprintf('Pick-up Location: %s', $customer_pickup);
+    }
+    if ($customer_dropoff !== '') {
+        $plain_lines[] = sprintf('Drop-off Location: %s', $customer_dropoff);
+    }
+    if ($customer_country !== '') {
+        $plain_lines[] = sprintf('Country: %s', $customer_country);
+    }
+    if ($customer_messages !== '') {
+        $plain_lines[] = sprintf('Special Requests: %s', $customer_messages);
+    }
+    $plain_text_body = implode("\n", $plain_lines);
+
+    // Status badge styling
+    $is_paid = (strtolower($payment_status) === 'paid');
+    $status_bg = $is_paid ? '#dcfce7' : '#fef3c7';
+    $status_color = $is_paid ? '#166534' : '#92400e';
+    $admin_edit_url = function_exists('admin_url')
+        ? admin_url('post.php?post=' . $booking_post_id . '&action=edit')
+        : '';
+
+    ob_start();
+    ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title><?php echo esc_html($subject); ?></title>
+    </head>
+    <body style="margin:0;padding:24px;background-color:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1e293b;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;margin:0 auto;background-color:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e2e8f0;">
+            <tr>
+                <td style="background-color:#0f4c81;padding:24px 28px;color:#ffffff;">
+                    <div style="font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#fbbf24;margin-bottom:6px;">
+                        <?php echo esc_html($site_name); ?> • Internal Booking Alert
+                    </div>
+                    <h1 style="margin:0;font-size:22px;font-weight:800;line-height:1.3;color:#ffffff;">
+                        New Booking Received – <?php echo esc_html($booking_ref); ?>
+                    </h1>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:20px 28px;background-color:#f8fafc;border-bottom:1px solid #e2e8f0;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                        <tr>
+                            <td style="vertical-align:middle;">
+                                <span style="font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;display:block;">Booking Number</span>
+                                <strong style="font-size:18px;color:#0f4c81;"><?php echo esc_html($booking_ref); ?></strong>
+                            </td>
+                            <td align="right" style="vertical-align:middle;">
+                                <span style="display:inline-block;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;text-transform:uppercase;background-color:<?php echo esc_attr($status_bg); ?>;color:<?php echo esc_attr($status_color); ?>;">
+                                    <?php echo esc_html($booking_status); ?> (<?php echo esc_html(strtoupper($payment_status)); ?>)
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding:24px 28px;">
+                    <h2 style="margin:0 0 12px;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#0f4c81;">
+                        Tour &amp; Booking Summary
+                    </h2>
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;margin-bottom:24px;">
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;width:36%;font-size:14px;">Tour / Service</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;">
+                                <strong><?php echo esc_html($tour_title ?: 'N/A'); ?></strong>
+                                <?php if ($tour_id > 0): ?>
+                                    <span style="color:#64748b;font-size:12px;">(ID: #<?php echo esc_html((string) $tour_id); ?>)</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php if ($option_name !== ''): ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Tour Option</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo esc_html($option_name); ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        <?php if ($formatted_date !== ''): ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Booking Date</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo esc_html($formatted_date); ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        <?php if ($total_pax !== ''): ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Number of Guests</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;">
+                                <?php echo esc_html((string) $total_pax); ?> Guests
+                                (<?php echo esc_html((string) ($adults !== '' ? $adults : 0)); ?> Adults, <?php echo esc_html((string) ($children !== '' ? $children : 0)); ?> Children)
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Total Price</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:15px;font-weight:700;color:#0f4c81;">
+                                <?php echo esc_html($formatted_price); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Payment Method</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo esc_html($payment_method_label); ?></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Payment Status</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;font-weight:600;"><?php echo esc_html(strtoupper($payment_status)); ?></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Booking Status</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;font-weight:600;"><?php echo esc_html($booking_status); ?></td>
+                        </tr>
+                        <?php if ($payment_method === 'paypal' && ($paypal_order_id !== '' || $paypal_capture_id !== '')): ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">PayPal Reference</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:13px;">
+                                <?php if ($paypal_order_id !== ''): ?>
+                                    Order ID: <code><?php echo esc_html($paypal_order_id); ?></code><br>
+                                <?php endif; ?>
+                                <?php if ($paypal_capture_id !== ''): ?>
+                                    Capture ID: <code><?php echo esc_html($paypal_capture_id); ?></code><br>
+                                <?php endif; ?>
+                                <?php if ($paypal_amount !== '' && $paypal_currency !== ''): ?>
+                                    Charged: <strong><?php echo esc_html($paypal_amount . ' ' . $paypal_currency); ?></strong>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endif; ?>
+                    </table>
+
+                    <h2 style="margin:0 0 12px;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#0f4c81;">
+                        Customer Information
+                    </h2>
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse:collapse;">
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;width:36%;font-size:14px;">Full Name</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo esc_html($customer_name ?: 'N/A'); ?></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Email Address</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;">
+                                <?php if ($customer_email !== ''): ?>
+                                    <a href="mailto:<?php echo esc_attr($customer_email); ?>" style="color:#0f4c81;text-decoration:none;"><?php echo esc_html($customer_email); ?></a>
+                                <?php else: ?>
+                                    N/A
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Phone / WhatsApp</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo esc_html($customer_phone ?: 'N/A'); ?></td>
+                        </tr>
+                        <?php if ($customer_pickup !== ''): ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Pick-up Location</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo esc_html($customer_pickup); ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        <?php if ($customer_dropoff !== ''): ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Drop-off Location</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo esc_html($customer_dropoff); ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        <?php if ($customer_country !== ''): ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Country</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo esc_html($customer_country); ?></td>
+                        </tr>
+                        <?php endif; ?>
+                        <?php if ($customer_messages !== ''): ?>
+                        <tr>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;background-color:#f8fafc;font-weight:600;font-size:14px;">Special Requests</td>
+                            <td style="padding:9px 12px;border:1px solid #e2e8f0;font-size:14px;"><?php echo nl2br(esc_html($customer_messages)); ?></td>
+                        </tr>
+                        <?php endif; ?>
+                    </table>
+
+                    <?php if ($admin_edit_url !== ''): ?>
+                    <div style="margin-top:22px;text-align:center;">
+                        <a href="<?php echo esc_url($admin_edit_url); ?>" style="display:inline-block;padding:10px 20px;background-color:#0f4c81;color:#ffffff;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;">
+                            View Booking in WordPress Admin
+                        </a>
+                    </div>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        </table>
+    </body>
+    </html>
+    <?php
+    $html_body = ob_get_clean();
+
+    $headers = ['Content-Type: text/html; charset=UTF-8'];
+    if ($customer_email !== '' && is_email($customer_email)) {
+        $clean_reply_name = str_replace(["\r", "\n", '"'], '', $customer_name ?: 'Customer');
+        $headers[] = sprintf('Reply-To: "%s" <%s>', $clean_reply_name, $customer_email);
+    }
+
+    // Attach plain-text fallback via phpmailer_init for this send
+    $alt_body_hook = static function ($phpmailer) use ($plain_text_body) {
+        if (is_object($phpmailer)) {
+            $phpmailer->AltBody = $plain_text_body;
+        }
+    };
+    if (function_exists('add_action')) {
+        add_action('phpmailer_init', $alt_body_hook);
+    }
+
+    $sent = (bool) wp_mail($recipients, $subject, $html_body, $headers);
+
+    if (function_exists('remove_action')) {
+        remove_action('phpmailer_init', $alt_body_hook);
+    }
+    if (function_exists('delete_post_meta')) {
+        delete_post_meta($booking_post_id, 'booking_internal_notification_lock');
+    } else {
+        update_post_meta($booking_post_id, 'booking_internal_notification_lock', '0');
+    }
+
+    if ($sent) {
+        update_post_meta($booking_post_id, 'booking_internal_notification_sent', '1');
+        update_post_meta($booking_post_id, 'booking_internal_notification_sent_at', current_time('mysql'));
+    } else {
+        update_post_meta($booking_post_id, 'booking_internal_notification_sent', '0');
+    }
+
+    return $sent;
 }
 
 /**
@@ -431,9 +873,10 @@ function rc_ajax_capture_paypal_order()
 
     $booking_post_id = $booking_post->ID;
 
-    // Idempotency: If already paid, return success immediately
+    // Idempotency: If already paid, return success immediately (retry internal notification if previously unsent)
     $current_payment_status = get_post_meta($booking_post_id, 'payment_status', true);
     if ($current_payment_status === 'paid') {
+        rc_send_internal_booking_notification($booking_post_id);
         $formatted_date = date('F j, Y', strtotime(get_post_meta($booking_post_id, 'date', true)));
         wp_send_json_success([
             'message' => 'Payment already verified.',
@@ -442,6 +885,8 @@ function rc_ajax_capture_paypal_order()
             'payment_method' => 'PayPal',
             'status' => 'Confirmed',
             'country' => get_post_meta($booking_post_id, 'customer_country', true),
+            'customer_email' => get_post_meta($booking_post_id, 'customer_email', true),
+            'email_sent' => (get_post_meta($booking_post_id, 'booking_email_sent', true) === '1'),
         ]);
     }
 
@@ -511,6 +956,9 @@ function rc_ajax_capture_paypal_order()
         update_post_meta($booking_post_id, 'paypal_payer_id', sanitize_text_field($payer['payer_id']));
     }
 
+    $email_sent = rc_send_booking_confirmation_email($booking_post_id);
+    rc_send_internal_booking_notification($booking_post_id);
+
     // Clean up session transients
     if (!empty($token)) {
         delete_transient('rc_booking_' . $token);
@@ -526,6 +974,8 @@ function rc_ajax_capture_paypal_order()
         'payment_method' => 'PayPal',
         'status' => 'Confirmed',
         'country' => get_post_meta($booking_post_id, 'customer_country', true),
+        'customer_email' => get_post_meta($booking_post_id, 'customer_email', true),
+        'email_sent' => $email_sent,
     ]);
 }
 

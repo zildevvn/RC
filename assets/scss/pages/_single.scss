@@ -1035,6 +1035,7 @@ body.single:not(.single-tours):not(.single-cars) {
                 font-size: 0.875rem;
                 padding: 0.65rem 1.25rem;
                 min-height: 44px;
+
             }
 
             &__actions {
@@ -1271,6 +1272,7 @@ body.single:not(.single-tours):not(.single-cars) {
             }
 
             @media (max-width: 575.98px) {
+
                 .posts-section__meta,
                 .posts-section__title,
                 .posts-section__excerpt,
@@ -1599,6 +1601,7 @@ body.single:not(.single-tours):not(.single-cars) {
         }
 
         @media (max-width: 575.98px) {
+
             .posts-section__meta,
             .posts-section__title,
             .posts-section__excerpt,
