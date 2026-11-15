@@ -8650,8 +8650,7 @@ body.book-car-modal-open {
 @media (max-width: 767.98px) {
   .ui-back-to-top {
     left: 1rem;
-    bottom: 1rem;
-    bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    bottom: 70px;
     width: 42px;
     height: 42px;
   }

@@ -13,7 +13,7 @@ $sub_heading = get_field('desc_tours_home');
 
 $args = array(
     'post_type' => 'tours',
-    'posts_per_page' => 6,
+    'posts_per_page' => 12,
     'post_status' => 'publish',
 );
 $query = new WP_Query($args);
