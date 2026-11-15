@@ -92,9 +92,32 @@ $empty_message = ($post_type === 'cars') ? 'Be the first to leave a review for t
 ?>
 
 <div id="<?php echo esc_attr($section_id); ?>" class="ui-reviews">
-    <h2 class="ui-heading ui-reviews__title">
-        <?php esc_html_e('Guest Reviews', 'rc'); ?>
-    </h2>
+    <div class="tour-section-header tour-section-header--reviews">
+        <div class="tour-section-header__main">
+            <span class="tour-section-header__eyebrow">
+                <?php echo rc_svg_icon('star'); ?>
+                <span><?php esc_html_e('Traveler Feedback', 'rc'); ?></span>
+            </span>
+            <h2 class="ui-heading ui-reviews__title">
+                <?php esc_html_e('Guest Reviews', 'rc'); ?>
+            </h2>
+        </div>
+        <?php if ($total_reviews > 0): ?>
+            <div class="ui-reviews__count-badge">
+                <?php echo rc_svg_icon('check_circle'); ?>
+                <span>
+                    <?php
+                    echo esc_html(
+                        sprintf(
+                            _n('%s Verified Review', '%s Verified Reviews', $total_reviews, 'rc'),
+                            number_format_i18n($total_reviews)
+                        )
+                    );
+                    ?>
+                </span>
+            </div>
+        <?php endif; ?>
+    </div>
 
     <?php if ($total_reviews > 0 || $unapproved_comment): ?>
         <div class="ui-reviews__container">

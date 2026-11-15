@@ -1,449 +1,717 @@
 // ==========================================================================
-// Page: Single Tour
-// Dedicated styles for Single Tour Hero / Banner section & related elements
+// SINGLE TOUR PAGE STYLES (_single-tour.scss)
+// Design Direction: Premium Travel Experience + Modern Travel Editorial
 // ==========================================================================
 
-$font-heading: 'Cormorant Garamond', Georgia, serif !default;
-$font-body: 'Manrope', sans-serif !default;
+// Design Tokens mapped to Theme Variables
+$st-primary: $color-primary; // #0F4C81
+$st-primary-dark: #0a355c;
+$st-primary-light: rgba(15, 76, 129, 0.08);
+$st-accent: $color-secondary; // #DFA128
+$st-accent-light: rgba(223, 161, 40, 0.14);
+
+$st-success: #10b981;
+$st-success-bg: #ecfdf5;
+$st-success-border: rgba(16, 185, 129, 0.24);
+
+$st-danger: #f43f5e;
+$st-danger-bg: #fff1f2;
+$st-danger-border: rgba(244, 63, 94, 0.22);
+
+$st-text-main: $color-heading; // #19232B
+$st-text-secondary: #334155;
+$st-text-muted: #64748b;
+$st-text-light: #94a3b8;
+
+$st-bg-page: #f8fafc;
+$st-bg-card: #ffffff;
+$st-bg-subtle: #f1f5f9;
+$st-border: #e2e8f0;
+$st-border-light: #f1f5f9;
+
+$st-radius-xl: 24px;
+$st-radius-lg: 20px;
+$st-radius-md: 14px;
+$st-radius-sm: 10px;
+$st-radius-pill: 9999px;
+
+$st-shadow-xs: 0 2px 6px rgba(15, 35, 43, 0.04);
+$st-shadow-sm: 0 6px 20px -4px rgba(15, 35, 43, 0.05), 0 2px 6px -1px rgba(15, 35, 43, 0.03);
+$st-shadow-md: 0 14px 34px -8px rgba(15, 35, 43, 0.08), 0 4px 12px -2px rgba(15, 35, 43, 0.04);
+$st-shadow-lg: 0 24px 48px -12px rgba(15, 35, 43, 0.14), 0 8px 20px -4px rgba(15, 35, 43, 0.06);
+$st-shadow-sticky: 0 20px 44px -10px rgba(15, 35, 43, 0.12), 0 4px 14px -2px rgba(15, 35, 43, 0.05);
+
+$st-transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+
+$st-font-sans: $font-primary;
+$st-font-heading: $font-second;
+
+@keyframes gallerySpinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+body.tour-gallery-lightbox-open {
+    overflow: hidden !important;
+}
 
 body.single-tours {
+    background-color: $st-bg-page;
+    color: $st-text-main;
+    font-family: $st-font-sans;
+    overflow-x: hidden;
+
+    @media (max-width: 991.98px) {
+        padding-bottom: 84px; // Space for fixed bottom mobile booking bar
+    }
+
+    // ==========================================================================
+    // SHARED SECTION HEADER INSIDE SINGLE TOUR
+    // ==========================================================================
+    .tour-section-header {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.15rem;
+        border-bottom: 1px solid $st-border-light;
+
+        &--reviews {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        &__eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: $st-radius-pill;
+            background: rgba(15, 76, 129, 0.07);
+            color: $st-primary;
+            font-family: $st-font-sans;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+
+            svg {
+                width: 14px;
+                height: 14px;
+                color: $st-accent;
+                flex-shrink: 0;
+            }
+        }
+
+        .ui-heading {
+            font-family: $st-font-heading;
+            font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+            font-weight: 800;
+            color: $st-text-main;
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+            margin: 0;
+            padding: 0;
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    // ==========================================================================
+    // 1. TOP MOBILE STICKY BAR (#header-booking-top)
+    // ==========================================================================
+    #header-booking-top.ui-header-booking-top {
+        position: sticky;
+        top: 0;
+        z-index: 990;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 0.65rem 1rem;
+        border-bottom: 1px solid $st-border;
+        box-shadow: $st-shadow-xs;
+
+        h2 {
+            font-family: $st-font-sans;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $st-text-muted;
+            display: flex;
+            align-items: baseline;
+            gap: 0.35rem;
+
+            .car-item__price-discount {
+                font-family: $st-font-heading;
+                font-size: 1.25rem;
+                font-weight: 800;
+                color: $st-primary;
+            }
+
+            .car-item__price-original {
+                font-size: 0.8125rem;
+                color: $st-text-light;
+                text-decoration: line-through;
+            }
+        }
+
+        .ui-button {
+            padding: 0.5rem 1.1rem;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            border-radius: $st-radius-pill;
+        }
+    }
+
+    // ==========================================================================
+    // 2. HERO SECTION (.hero-section)
+    // ==========================================================================
     .hero-section {
         position: relative;
+        min-height: 480px;
+        padding: 3.5rem 0 5.5rem;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        padding: 90px 0 110px;
-        color: #FFFFFF;
-        min-height: 520px;
+        color: #ffffff;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
+        overflow: hidden;
 
-        @include media-breakpoint-down(md) {
-            min-height: 440px;
-            padding: 60px 0 80px;
+        @media (max-width: 991.98px) {
+            min-height: 400px;
+            padding: 2.75rem 0 4rem;
         }
 
-        // A. Rich, multi-stop gradient overlay to eliminate visual noise & ensure contrast
+        @media (max-width: 767.98px) {
+            min-height: 340px;
+            padding: 2rem 0 2.5rem;
+        }
+
         &-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.45) 0%, rgba(15, 23, 42, 0.75) 60%, rgba(10, 17, 30, 0.95) 100%);
+            inset: 0;
+            background:
+                radial-gradient(circle at 85% 20%, rgba(223, 161, 40, 0.18) 0%, transparent 45%),
+                linear-gradient(180deg, rgba(10, 25, 41, 0.55) 0%, rgba(10, 25, 41, 0.72) 45%, rgba(10, 25, 41, 0.94) 100%);
             z-index: 1;
+        }
+
+        &__motif {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: min(52vw, 640px);
+            height: auto;
+            color: rgba(255, 255, 255, 0.16);
             pointer-events: none;
+            z-index: 1;
+
+            svg {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
         }
 
         .container {
             position: relative;
             z-index: 2;
+            width: 100%;
         }
 
         &-content {
-            max-width: 1000px;
+            max-width: 1040px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
         }
 
-        // B. Breadcrumbs
-        // .ui-breadcrumbs {
-
-        //     font-size: 0.8125rem;
-        //     color: rgba(255, 255, 255, 0.7);
-        //     margin-bottom: 0.5rem;
-
-        //     a,
-        //     &__link {
-        //         color: rgba(255, 255, 255, 0.7);
-        //         transition: color 0.25s ease;
-
-        //         &:hover {
-        //             color: $color-secondary;
-        //         }
-        //     }
-
-        //     &__separator,
-        //     >span:not(.ui-breadcrumbs__current) {
-        //         color: rgba(255, 255, 255, 0.35);
-
-        //         svg {
-        //             color: inherit;
-        //             stroke: currentColor;
-        //         }
-        //     }
-
-        //     &__current {
-        //         color: #FFFFFF;
-        //         font-weight: 600;
-        //     }
-        // }
-
-        // C. Tour Type Badge ("DAY TRIP") - Refined glass capsule tag
-        // &__badge {
-        //     display: inline-flex;
-        //     align-items: center;
-
-        //     font-size: 0.6875rem;
-        //     font-weight: 700;
-        //     letter-spacing: 0.12em;
-        //     text-transform: uppercase;
-        //     line-height: 1.2;
-        //     color: $color-secondary;
-        //     background: rgba($color-secondary, 0.15);
-        //     border: 1px solid rgba($color-secondary, 0.4);
-        //     border-radius: 9999px;
-        //     padding: 0.35rem 0.85rem;
-        //     margin-top: 1.25rem;
-        //     backdrop-filter: blur(8px);
-        //     -webkit-backdrop-filter: blur(8px);
-        // }
-
-        // D. Main Title (H1) - Elegant serif with responsive clamp
-        &__title {
-            letter-spacing: -0.015em;
-            color: #FFFFFF;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            margin: 1rem 0 0;
-        }
-
-        // Excerpt
-        &__excerpt {
-            margin: 1rem 0 0;
-            max-width: 800px;
-
-            p {
-                color: rgba(255, 255, 255, 0.85);
-                margin: 0;
-
-                @include media-breakpoint-down(md) {
-                    font-size: 0.9375rem;
-                }
-            }
-        }
-
-        // E. Duration & Starting Price (Quick Meta)
-        &__metadata {
+        // Top Bar: Breadcrumbs + Category Badge + Star Ratings
+        &__top-bar {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            justify-content: space-between;
             flex-wrap: wrap;
-            margin-top: 1.25rem;
+            gap: 0.75rem 1.25rem;
+        }
 
+        &__breadcrumbs {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: $st-radius-pill;
+            padding: 0.35rem 0.9rem;
+        }
 
-            .meta-item {
+        &__top-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        &__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(223, 161, 40, 0.2);
+            border: 1px solid rgba(223, 161, 40, 0.45);
+            color: #fde68a;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.35rem 0.85rem;
+            border-radius: $st-radius-pill;
+            backdrop-filter: blur(8px);
+
+            svg {
+                width: 13px;
+                height: 13px;
+                color: $st-accent;
+            }
+        }
+
+        // Breadcrumbs inside Hero
+        .ui-breadcrumbs {
+            font-size: 0.8125rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0;
+
+            &__link {
+                color: rgba(255, 255, 255, 0.85);
+                text-decoration: none;
                 display: inline-flex;
                 align-items: center;
-                gap: 0.5rem;
-                background: rgba(255, 255, 255, 0.08);
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                border-radius: 8px;
-                padding: 0.4rem 0.75rem;
-                color: #E2E8F0;
-                font-size: 0.875rem;
-                font-weight: 500;
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                line-height: 1.3;
+                gap: 0.35rem;
+                transition: $st-transition;
 
                 svg {
-                    width: 16px;
-                    height: 16px;
-                    color: $color-secondary;
-                    stroke: currentColor;
-                    flex-shrink: 0;
+                    width: 14px;
+                    height: 14px;
                 }
 
-                span {
-                    color: #E2E8F0;
+                &:hover {
+                    color: #ffffff;
                 }
+            }
 
-                // Price highlight item
-                &:last-child,
-                &:has(.mb-0) {
-                    background: rgba(223, 161, 40, 0.12);
-                    border-color: rgba($color-secondary, 0.35);
+            &__separator {
+                margin: 0 0.45rem;
+                opacity: 0.55;
+                display: inline-flex;
+                align-items: center;
 
-                    >span {
-                        color: #E2E8F0;
-                        font-weight: 500;
-                        font-size: 0.875rem;
-                    }
+                svg {
+                    width: 11px;
+                    height: 11px;
+                }
+            }
 
-                    .mb-0 {
-                        color: $color-secondary;
-                        font-weight: 700;
-                        font-size: 1.125rem;
-                        margin: 0 1px 0 2px;
-                    }
+            &__current {
+                color: #ffffff;
+                font-weight: 600;
+                max-width: 280px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
 
-                    color: $color-secondary;
-                    font-weight: 700;
-                    font-size: 1.125rem;
+                @media (max-width: 575.98px) {
+                    max-width: 170px;
                 }
             }
         }
 
-        // F. Feature / USP Pills ("✓ Driver waits...", "✓ Flexible return...")
+        &__header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        &__title {
+            font-family: $st-font-heading;
+            font-size: clamp(1.85rem, 3.8vw, 2.85rem);
+            font-weight: 800;
+            line-height: 1.16;
+            letter-spacing: -0.025em;
+            color: #ffffff;
+            margin: 0;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
+        }
+
+        &__excerpt {
+            font-size: clamp(0.95rem, 1.4vw, 1.0625rem);
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.86);
+            max-width: 780px;
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+
+        // Quick-Facts Metadata Bar
+        &__metadata {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.25rem;
+            background: rgba(15, 23, 42, 0.52);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: $st-radius-lg;
+            padding: 0.85rem 1rem;
+            max-width: 880px;
+
+            @media (max-width: 575.98px) {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0.75rem;
+                gap: 0.65rem;
+            }
+
+            .meta-item {
+                display: flex;
+                align-items: center;
+                gap: 0.7rem;
+                padding: 0.35rem 0.5rem;
+                border-radius: $st-radius-sm;
+                font-size: 0.875rem;
+                color: #ffffff;
+
+                &__icon {
+                    width: 38px;
+                    height: 38px;
+                    border-radius: 10px;
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 1px solid rgba(255, 255, 255, 0.14);
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    color: $st-accent;
+
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                        stroke: currentColor;
+                    }
+                }
+
+                &__body {
+                    display: flex;
+                    flex-direction: column;
+                    line-height: 1.25;
+                    min-width: 0;
+                }
+
+                &__label {
+                    font-size: 0.6875rem;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                    color: rgba(255, 255, 255, 0.64);
+                    margin-bottom: 0.15rem;
+                }
+
+                &__value {
+                    font-size: 0.9375rem;
+                    font-weight: 700;
+                    color: #ffffff;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+
+                    strong {
+                        font-family: $st-font-heading;
+                        font-size: 1.125rem;
+                        font-weight: 800;
+                        color: #fde68a;
+                    }
+
+                    small {
+                        font-size: 0.75rem;
+                        font-weight: 500;
+                        color: rgba(255, 255, 255, 0.75);
+                    }
+                }
+
+                &--price {
+                    .meta-item__icon {
+                        background: rgba(223, 161, 40, 0.22);
+                        border-color: rgba(223, 161, 40, 0.45);
+                        color: #fde68a;
+                    }
+                }
+            }
+        }
+
+        // Feature Badges Strip
         &__features {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.625rem;
-            margin: 1.25rem 0;
+            gap: 0.5rem;
 
             .feature-badge {
                 display: inline-flex;
                 align-items: center;
-                gap: 0.5rem;
-                padding: 0.45rem 1rem;
-                border-radius: 9999px;
-                font-size: 0.8125rem;
-
-                color: #F1F5F9;
-                background: rgba(255, 255, 255, 0.08);
+                gap: 0.4rem;
+                background: rgba(255, 255, 255, 0.09);
                 border: 1px solid rgba(255, 255, 255, 0.15);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                transition: background 0.25s ease, border-color 0.25s ease;
+                padding: 0.35rem 0.8rem;
+                border-radius: $st-radius-pill;
+                font-size: 0.8125rem;
+                font-weight: 500;
+                color: rgba(255, 255, 255, 0.92);
+                backdrop-filter: blur(6px);
 
-                svg,
-                > :first-child {
-                    width: 15px;
-                    height: 15px;
-                    color: $color-secondary;
-                    stroke: currentColor;
-                    font-weight: bold;
+                svg {
+                    width: 14px;
+                    height: 14px;
+                    color: #34d399;
                     flex-shrink: 0;
-                }
-
-                &:hover {
-                    background: rgba(255, 255, 255, 0.14);
-                    border-color: rgba(255, 255, 255, 0.25);
                 }
             }
         }
 
-        // G. Rating Bar
+        // KK Star Ratings inside Hero
         &__ratings {
-            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 0.3rem 0.75rem;
+            border-radius: $st-radius-pill;
+            border: 1px solid rgba(255, 255, 255, 0.15);
 
-            .kk-star-ratings {
-                display: flex;
-                align-items: center;
-                gap: 0.75rem;
-                flex-wrap: wrap;
-
-                .kksr-stars {
-                    color: $color-secondary;
-                    letter-spacing: 2px;
-                    font-size: 1rem;
-
-                    .kksr-star {
-                        color: $color-secondary;
-
-                        svg,
-                        .kksr-icon {
-                            color: $color-secondary;
-                            fill: $color-secondary;
-                        }
-                    }
-                }
-
-                .kksr-legend {
-
-                    font-size: 0.875rem;
-                    color: #FFFFFF;
-                    font-weight: 600;
-
-                    .kksr-score,
-                    strong,
-                    b {
-                        color: #FFFFFF;
-                        font-weight: 600;
-                    }
-
-                    .kksr-muted,
-                    .kksr-total,
-                    span:last-child {
-                        color: #94A3B8;
-                        font-weight: 400;
-                    }
-                }
+            .kksr-stars,
+            .kksr-legend {
+                color: #ffffff !important;
+                font-size: 0.8125rem;
+                font-weight: 600;
             }
         }
     }
 
-    // ======================================================================
-    // Tour Gallery Component (.tour-gallery)
-    // ======================================================================
+    // ==========================================================================
+    // 3. TOUR GALLERY SECTION (.tour-gallery & #tourGalleryLightbox)
+    // ==========================================================================
     .tour-gallery {
-        padding: 2.5rem 0;
-        background-color: transparent;
+        position: relative;
+        z-index: 5;
+        margin-top: -3rem;
+        margin-bottom: 1.75rem;
 
-        @include media-breakpoint-down(md) {
-            padding: 1.5rem 0;
+        @media (max-width: 991.98px) {
+            margin-top: -2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 767.98px) {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
 
         &__wrapper {
             position: relative;
-            border-radius: 16px;
-            overflow: hidden;
+            background: $st-bg-card;
+            padding: 0.75rem;
+            border-radius: $st-radius-xl;
+            box-shadow: $st-shadow-lg;
+            border: 1px solid rgba(226, 232, 240, 0.92);
+
+            @media (max-width: 767.98px) {
+                padding: 0.5rem;
+                border-radius: 18px;
+            }
         }
 
-        // Grid Container
         &__grid {
             display: grid;
-            gap: 12px;
-            width: 100%;
-            border-radius: 16px;
+            gap: 0.75rem;
+            border-radius: 18px;
             overflow: hidden;
+            height: 490px;
+            width: 100%;
 
-            @include media-breakpoint-down(md) {
-                gap: 8px;
-                border-radius: 12px;
+            @media (max-width: 1199.98px) {
+                height: 440px;
             }
 
-            // 1 Image: Single Featured Hero
+            @media (max-width: 991.98px) {
+                height: 370px;
+                gap: 0.6rem;
+            }
+
+            @media (max-width: 767.98px) {
+                height: auto;
+                gap: 0.5rem;
+                border-radius: 14px;
+            }
+
+            // 1 Image: Full-width Showcase
             &--count-1 {
                 grid-template-columns: 1fr;
-                height: 480px;
+                grid-template-rows: 1fr;
 
-                @include media-breakpoint-down(md) {
-                    height: 280px;
-                }
-
-                .tour-gallery__item {
-                    height: 100%;
-                }
-            }
-
-            // 2 Images: Side-by-side
-            &--count-2 {
-                grid-template-columns: repeat(2, 1fr);
-                height: 440px;
-
-                @include media-breakpoint-down(md) {
-                    grid-template-columns: 1fr;
-                    height: auto;
-                }
-
-                .tour-gallery__item {
-                    height: 100%;
-
-                    @include media-breakpoint-down(md) {
-                        height: 240px;
+                @media (max-width: 767.98px) {
+                    .tour-gallery__item {
+                        aspect-ratio: 16 / 10;
                     }
                 }
             }
 
-            // 3 Images: 1 large left + 2 stacked right
+            // 2 Images: Asymmetrical 2-Column Split
+            &--count-2 {
+                grid-template-columns: 1.45fr 1fr;
+                grid-template-rows: 1fr;
+
+                @media (max-width: 767.98px) {
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-rows: auto;
+
+                    .tour-gallery__item {
+                        aspect-ratio: 16 / 10;
+                    }
+
+                    .tour-gallery__item--featured,
+                    .tour-gallery__item--main {
+                        grid-column: 1 / -1;
+                        aspect-ratio: 16 / 10;
+                    }
+
+                    .tour-gallery__item--sub {
+                        grid-column: 1 / -1;
+                        aspect-ratio: 16 / 9;
+                    }
+                }
+            }
+
+            // 3 Images: 1 Large Featured Left + 2 Stacked Right
             &--count-3 {
                 grid-template-columns: 1.6fr 1fr;
                 grid-template-rows: repeat(2, 1fr);
-                height: 460px;
 
-                @include media-breakpoint-down(md) {
-                    grid-template-columns: 1fr;
-                    grid-template-rows: auto;
-                    height: auto;
-                }
-
-                .tour-gallery__item--featured {
-                    grid-row: 1 / span 2;
-                    height: 100%;
-
-                    @include media-breakpoint-down(md) {
-                        height: 260px;
-                    }
-                }
-
-                .tour-gallery__item:not(.tour-gallery__item--featured) {
-                    height: 100%;
-
-                    @include media-breakpoint-down(md) {
-                        height: 180px;
-                    }
-                }
-            }
-
-            // 4 Images: 1 large left + 3 right column or 2x2
-            &--count-4 {
-                grid-template-columns: 1.4fr 1fr 1fr;
-                grid-template-rows: repeat(2, 1fr);
-                height: 460px;
-
-                @include media-breakpoint-down(md) {
-                    grid-template-columns: repeat(2, 1fr);
-                    height: auto;
-                }
-
-                .tour-gallery__item--featured {
-                    grid-row: 1 / span 2;
-                    height: 100%;
-
-                    @include media-breakpoint-down(md) {
-                        grid-column: 1 / span 2;
-                        height: 240px;
-                    }
-                }
-
-                .tour-gallery__item:not(.tour-gallery__item--featured) {
-                    height: 100%;
-
-                    @include media-breakpoint-down(md) {
-                        height: 150px;
-                    }
-                }
-            }
-
-            // 5+ Images: Modern Luxury Editorial Mosaic (1 Featured Hero Left + 4 Grid Right)
-            &--count-5 {
-                grid-template-columns: 1.25fr 1fr 1fr;
-                grid-template-rows: repeat(2, 1fr);
-                height: 480px;
-
-                @include media-breakpoint-down(lg) {
-                    height: 420px;
-                }
-
-                @include media-breakpoint-down(md) {
-                    grid-template-columns: repeat(2, 1fr);
-                    grid-template-rows: auto;
-                    height: auto;
-                }
-
-                .tour-gallery__item--featured {
-                    grid-row: 1 / span 2;
+                .tour-gallery__item--featured,
+                .tour-gallery__item--main {
                     grid-column: 1 / 2;
-                    height: 100%;
-
-                    @include media-breakpoint-down(md) {
-                        grid-column: 1 / span 2;
-                        grid-row: auto;
-                        height: 260px;
-                    }
+                    grid-row: 1 / 3;
                 }
 
-                .tour-gallery__item:not(.tour-gallery__item--featured) {
-                    height: 100%;
+                @media (max-width: 767.98px) {
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-rows: auto;
 
-                    @include media-breakpoint-down(md) {
-                        height: 140px;
+                    .tour-gallery__item {
+                        aspect-ratio: 4 / 3;
+                    }
+
+                    .tour-gallery__item--featured,
+                    .tour-gallery__item--main {
+                        grid-column: 1 / -1;
+                        grid-row: auto;
+                        aspect-ratio: 16 / 10;
+                    }
+                }
+            }
+
+            // 4 Images: 1 Featured Left + 1 Wide Top-Right + 2 Split Bottom-Right (0 empty spaces)
+            &--count-4 {
+                grid-template-columns: 1.6fr 1fr 1fr;
+                grid-template-rows: repeat(2, 1fr);
+
+                .tour-gallery__item--featured,
+                .tour-gallery__item--main {
+                    grid-column: 1 / 2;
+                    grid-row: 1 / 3;
+                }
+
+                .tour-gallery__item--sub-1,
+                .tour-gallery__item:nth-child(2) {
+                    grid-column: 2 / 4;
+                    grid-row: 1 / 2;
+                }
+
+                .tour-gallery__item--sub-2,
+                .tour-gallery__item:nth-child(3) {
+                    grid-column: 2 / 3;
+                    grid-row: 2 / 3;
+                }
+
+                .tour-gallery__item--sub-3,
+                .tour-gallery__item:nth-child(4) {
+                    grid-column: 3 / 4;
+                    grid-row: 2 / 3;
+                }
+
+                @media (max-width: 767.98px) {
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-rows: auto;
+
+                    .tour-gallery__item {
+                        grid-column: auto !important;
+                        grid-row: auto !important;
+                        aspect-ratio: 4 / 3;
+                    }
+
+                    .tour-gallery__item--featured,
+                    .tour-gallery__item--main {
+                        grid-column: 1 / -1 !important;
+                        aspect-ratio: 16 / 10;
+                    }
+                }
+            }
+
+            // 5+ Images: Signature Editorial Bento Mosaic (1 Featured Left + 2x2 Secondary Grid Right)
+            &--count-5 {
+                grid-template-columns: 1.75fr 1fr 1fr;
+                grid-template-rows: repeat(2, 1fr);
+
+                .tour-gallery__item--featured,
+                .tour-gallery__item--main {
+                    grid-column: 1 / 2;
+                    grid-row: 1 / 3;
+                }
+
+                @media (max-width: 767.98px) {
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-template-rows: auto;
+
+                    .tour-gallery__item {
+                        grid-column: auto !important;
+                        grid-row: auto !important;
+                        aspect-ratio: 16 / 10;
+                    }
+
+                    .tour-gallery__item--featured,
+                    .tour-gallery__item--main {
+                        grid-column: 1 / -1 !important;
+                        aspect-ratio: 16 / 10;
                     }
                 }
             }
         }
 
-        // Gallery Item (Button trigger)
+        // Gallery Image Button Trigger
         &__item {
             position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
             padding: 0;
             margin: 0;
             border: none;
-            outline: none;
+            border-radius: 10px;
             background: #0f172a;
-            cursor: pointer;
             overflow: hidden;
-            display: block;
-            width: 100%;
+            cursor: pointer;
             text-align: left;
             user-select: none;
             touch-action: manipulation;
@@ -452,144 +720,218 @@ body.single-tours {
                 display: none !important;
             }
 
+            &::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg, rgba(15, 23, 42, 0.04) 40%, rgba(15, 23, 42, 0.38) 100%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                pointer-events: none;
+                z-index: 1;
+            }
+
             img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 display: block;
-                border-radius: 0;
-                transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease;
-            }
+                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 
-            // Hover Effect
-            &::after {
-                content: '';
-                position: absolute;
-                inset: 0;
-                background: rgba(15, 23, 42, 0.15);
-                opacity: 0;
-                transition: opacity 0.3s ease;
-                pointer-events: none;
+                @media (prefers-reduced-motion: reduce) {
+                    transition: none;
+                }
             }
 
             &:hover {
-                img {
-                    transform: scale(1.04);
-                }
-
                 &::after {
                     opacity: 1;
+                }
+
+                img {
+                    transform: scale(1.05);
+
+                    @media (prefers-reduced-motion: reduce) {
+                        transform: none;
+                    }
+                }
+
+                .tour-gallery__zoom-badge {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+                .tour-gallery__counter-badge {
+                    background: rgba(10, 20, 35, 0.78);
+
+                    .tour-gallery__counter-icon {
+                        transform: scale(1.08);
+                        background: rgba(223, 161, 40, 0.28);
+                    }
                 }
             }
 
             &:focus-visible {
-                outline: 2px solid $color-secondary;
-                outline-offset: -2px;
-                z-index: 2;
+                outline: 3px solid $st-accent;
+                outline-offset: -3px;
+                z-index: 4;
             }
         }
 
-        // Counter Badge on last visible photo (+N Photos)
-        &__counter-badge {
+        // Subtle Zoom Hint Badge on Hover
+        &__zoom-badge {
             position: absolute;
-            inset: 0;
-            background: rgba(10, 17, 30, 0.72);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            padding: 0.5rem;
-            transition: background-color 0.3s ease;
-
-            .tour-gallery__counter-number {
-                font-family: $font-heading;
-                font-size: 1.75rem;
-                font-weight: 700;
-                line-height: 1.1;
-                color: $color-secondary;
-
-                @include media-breakpoint-down(md) {
-                    font-size: 1.35rem;
-                }
-            }
-
-            .tour-gallery__counter-text {
-                font-family: $font-body;
-                font-size: 0.75rem;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                color: #E2E8F0;
-                margin-top: 2px;
-            }
-
-            &:hover {
-                background: rgba(10, 17, 30, 0.82);
-            }
-        }
-
-        // Floating "View all N photos" Button
-        &__view-all-btn {
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            z-index: 3;
+            top: 0.85rem;
+            right: 0.85rem;
+            z-index: 2;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #ffffff;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.55rem 1.1rem;
-            background: rgba(15, 23, 42, 0.82);
-            color: #FFFFFF;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 9999px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            font-family: $font-body;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.88);
+            transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
 
             svg {
                 width: 16px;
                 height: 16px;
-                color: $color-secondary;
                 stroke: currentColor;
+            }
+
+            @media (max-width: 767.98px) {
+                display: none;
+            }
+        }
+
+        // Remaining Photos Overlay on the 5th Visible Tile (+N Photos)
+        &__counter-badge {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            background: rgba(10, 20, 35, 0.68);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.2rem;
+            color: #ffffff;
+            padding: 0.75rem;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            pointer-events: none;
+
+            .tour-gallery__counter-icon {
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.14);
+                border: 1px solid rgba(255, 255, 255, 0.24);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 0.2rem;
+                color: $st-accent;
+                transition: transform 0.25s ease, background-color 0.25s ease;
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                }
+
+                @media (max-width: 575.98px) {
+                    width: 30px;
+                    height: 30px;
+
+                    svg {
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+            }
+
+            .tour-gallery__counter-number {
+                font-family: $st-font-heading;
+                font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+                font-weight: 800;
+                line-height: 1.05;
+                color: #ffffff;
+                letter-spacing: -0.02em;
+            }
+
+            .tour-gallery__counter-text {
+                font-family: $st-font-sans;
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: #fde68a;
+            }
+        }
+
+        // Floating "View all N photos" Button (Bottom-Left on Featured Image to avoid colliding with +N overlay)
+        &__view-all-btn {
+            position: absolute;
+            left: 1.5rem;
+            bottom: 1.5rem;
+            z-index: 4;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: $st-radius-pill;
+            background: rgba(15, 23, 42, 0.84);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            font-family: $st-font-sans;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            box-shadow: 0 8px 24px rgba(10, 20, 35, 0.32);
+            cursor: pointer;
+            transition: $st-transition;
+
+            svg {
+                width: 16px;
+                height: 16px;
+                color: $st-accent;
                 flex-shrink: 0;
             }
 
             &:hover {
-                background: rgba(15, 23, 42, 0.95);
-                border-color: rgba($color-secondary, 0.5);
-                color: #FFFFFF;
+                background: $st-primary;
+                border-color: rgba(255, 255, 255, 0.35);
+                color: #ffffff;
                 transform: translateY(-2px);
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+                box-shadow: 0 12px 28px rgba(10, 20, 35, 0.42);
             }
 
             &:focus-visible {
-                outline: 2px solid $color-secondary;
+                outline: 2px solid $st-accent;
                 outline-offset: 2px;
             }
 
-            @include media-breakpoint-down(md) {
-                bottom: 0.75rem;
-                right: 0.75rem;
-                padding: 0.45rem 0.85rem;
+            @media (max-width: 767.98px) {
+                left: 1rem;
+                bottom: auto;
+                top: 1rem;
+                padding: 0.45rem 0.95rem;
                 font-size: 0.75rem;
-
-                svg {
-                    width: 14px;
-                    height: 14px;
-                }
             }
         }
 
-        // Lightbox Modal
+        // Lightbox Modal (#tourGalleryLightbox.tour-gallery__lightbox)
         &__lightbox {
             position: fixed;
             inset: 0;
@@ -600,7 +942,11 @@ body.single-tours {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transition: opacity 0.28s ease, visibility 0.28s ease;
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
 
             &.is-active {
                 opacity: 1;
@@ -615,9 +961,10 @@ body.single-tours {
             &-overlay {
                 position: absolute;
                 inset: 0;
-                background: rgba(8, 12, 22, 0.94);
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
+                background: rgba(8, 14, 24, 0.94);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                cursor: pointer;
             }
 
             &-content {
@@ -628,61 +975,73 @@ body.single-tours {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 4rem 5rem 3.5rem;
+                padding: 4.5rem 5.5rem 3.5rem;
                 transform: scale(0.97);
                 transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
-                @include media-breakpoint-down(md) {
-                    padding: 3.5rem 1rem 3rem;
+                @media (prefers-reduced-motion: reduce) {
+                    transform: none;
+                    transition: none;
+                }
+
+                @media (max-width: 991.98px) {
+                    padding: 4.25rem 3.75rem 3rem;
+                }
+
+                @media (max-width: 767.98px) {
+                    padding: 4rem 1rem 3rem;
                 }
             }
 
             &-header {
                 position: absolute;
                 top: 1.25rem;
-                left: 1.5rem;
-                right: 1.5rem;
+                left: 1.75rem;
+                right: 1.75rem;
+                z-index: 10;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                z-index: 10;
+                pointer-events: none;
 
-                @include media-breakpoint-down(md) {
-                    top: 0.75rem;
+                @media (max-width: 767.98px) {
+                    top: 0.9rem;
                     left: 1rem;
                     right: 1rem;
                 }
             }
 
             &-counter {
-                font-family: $font-body;
-                font-size: 0.875rem;
-                font-weight: 600;
-                color: #E2E8F0;
-                background: rgba(255, 255, 255, 0.1);
-                padding: 0.35rem 0.85rem;
-                border-radius: 9999px;
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                letter-spacing: 0.05em;
+                pointer-events: auto;
+                font-family: $st-font-heading;
+                font-size: 0.9375rem;
+                font-weight: 700;
+                color: #f8fafc;
+                background: rgba(255, 255, 255, 0.12);
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                padding: 0.4rem 1rem;
+                border-radius: $st-radius-pill;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                letter-spacing: 0.04em;
             }
 
             &-close {
+                pointer-events: auto;
+                width: 46px;
+                height: 46px;
+                padding: 0;
+                border-radius: 50%;
+                border: 1px solid rgba(255, 255, 255, 0.22);
+                background: rgba(255, 255, 255, 0.12);
+                color: #ffffff;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 44px;
-                height: 44px;
-                padding: 0;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: #FFFFFF;
                 cursor: pointer;
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                transition: $st-transition;
 
                 svg {
                     width: 20px;
@@ -691,14 +1050,19 @@ body.single-tours {
                 }
 
                 &:hover {
-                    background: rgba(255, 255, 255, 0.2);
-                    border-color: rgba(255, 255, 255, 0.4);
-                    transform: scale(1.05);
+                    background: rgba(244, 63, 94, 0.85);
+                    border-color: rgba(244, 63, 94, 0.95);
+                    transform: rotate(90deg);
                 }
 
                 &:focus-visible {
-                    outline: 2px solid $color-secondary;
+                    outline: 2px solid $st-accent;
                     outline-offset: 2px;
+                }
+
+                @media (max-width: 767.98px) {
+                    width: 42px;
+                    height: 42px;
                 }
             }
 
@@ -708,21 +1072,21 @@ body.single-tours {
                 top: 50%;
                 transform: translateY(-50%);
                 z-index: 10;
+                width: 52px;
+                height: 52px;
+                padding: 0;
+                border-radius: 50%;
+                border: 1px solid rgba(255, 255, 255, 0.22);
+                background: rgba(15, 23, 42, 0.78);
+                color: #ffffff;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 48px;
-                height: 48px;
-                padding: 0;
-                border-radius: 50%;
-                background: rgba(15, 23, 42, 0.75);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: #FFFFFF;
                 cursor: pointer;
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-                transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+                transition: $st-transition;
 
                 svg {
                     width: 22px;
@@ -731,20 +1095,21 @@ body.single-tours {
                 }
 
                 &:hover {
-                    background: rgba(223, 161, 40, 0.85);
-                    border-color: $color-secondary;
-                    color: #FFFFFF;
-                    transform: translateY(-50%) scale(1.08);
+                    background: $st-primary;
+                    border-color: rgba(255, 255, 255, 0.45);
+                    color: #ffffff;
+                    transform: translateY(-50%) scale(1.06);
                 }
 
                 &:focus-visible {
-                    outline: 2px solid $color-secondary;
+                    outline: 2px solid $st-accent;
                     outline-offset: 2px;
                 }
 
-                @include media-breakpoint-down(md) {
-                    width: 40px;
-                    height: 40px;
+                @media (max-width: 767.98px) {
+                    width: 42px;
+                    height: 42px;
+                    background: rgba(15, 23, 42, 0.85);
 
                     svg {
                         width: 18px;
@@ -754,29 +1119,42 @@ body.single-tours {
             }
 
             &-prev {
-                left: 1.5rem;
+                left: 1.75rem;
 
-                @include media-breakpoint-down(md) {
-                    left: 0.5rem;
+                @media (max-width: 991.98px) {
+                    left: 1rem;
+                }
+
+                @media (max-width: 767.98px) {
+                    left: 0.65rem;
                 }
             }
 
             &-next {
-                right: 1.5rem;
+                right: 1.75rem;
 
-                @include media-breakpoint-down(md) {
-                    right: 0.5rem;
+                @media (max-width: 991.98px) {
+                    right: 1rem;
+                }
+
+                @media (max-width: 767.98px) {
+                    right: 0.65rem;
                 }
             }
 
             &-image-container {
                 position: relative;
-                max-width: 90vw;
+                max-width: min(88vw, 1280px);
                 max-height: 82vh;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+
+                @media (max-width: 767.98px) {
+                    max-width: 94vw;
+                    max-height: 80vh;
+                }
             }
 
             &-image {
@@ -785,12 +1163,13 @@ body.single-tours {
                 width: auto;
                 height: auto;
                 object-fit: contain;
-                border-radius: 8px;
-                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+                border-radius: $st-radius-md;
+                box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
                 transition: opacity 0.25s ease;
+                user-select: none;
 
                 .tour-gallery__lightbox.is-loading & {
-                    opacity: 0.4;
+                    opacity: 0.35;
                 }
             }
 
@@ -799,13 +1178,14 @@ body.single-tours {
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 40px;
-                height: 40px;
-                margin: -20px 0 0 -20px;
+                width: 42px;
+                height: 42px;
+                margin: -21px 0 0 -21px;
                 border: 3px solid rgba(255, 255, 255, 0.2);
-                border-top-color: $color-secondary;
+                border-top-color: $st-accent;
                 border-radius: 50%;
-                animation: gallerySpinner 0.8s linear infinite;
+                animation: gallerySpinner 0.75s linear infinite;
+                pointer-events: none;
 
                 .tour-gallery__lightbox.is-loading & {
                     display: block;
@@ -813,12 +1193,16 @@ body.single-tours {
             }
 
             &-caption {
-                font-family: $font-body;
-                font-size: 0.875rem;
-                color: #CBD5E1;
-                margin-top: 0.75rem;
+                font-family: $st-font-sans;
+                font-size: 0.9375rem;
+                font-weight: 500;
+                color: #e2e8f0;
+                margin-top: 0.85rem;
+                padding: 0.35rem 1rem;
+                border-radius: $st-radius-pill;
+                background: rgba(15, 23, 42, 0.6);
                 text-align: center;
-                max-width: 700px;
+                max-width: min(85vw, 720px);
 
                 &:empty {
                     display: none;
@@ -827,41 +1211,307 @@ body.single-tours {
         }
     }
 
-    // ======================================================================
-    // Anchor Navigation Component (#anchor-nav, #rc-anchor-nav, .anchor-nav)
-    // ======================================================================
+    // ==========================================================================
+    // 4. AJAX TOUR OPTIONS CONTAINER (#rc-tour-options-container)
+    // ==========================================================================
+    #rc-tour-options-container {
+        margin: 1rem 0 0.5rem;
+    }
+
+    .tour-options-section {
+        background: $st-bg-card;
+        border: 2px solid rgba(15, 76, 129, 0.16);
+        border-radius: $st-radius-xl;
+        padding: 2rem;
+        margin: 1rem 0 1.5rem;
+        box-shadow: $st-shadow-md;
+
+        @media (max-width: 767.98px) {
+            padding: 1.25rem;
+            border-radius: $st-radius-lg;
+        }
+
+        .ui-title {
+            font-family: $st-font-heading;
+            font-size: clamp(1.35rem, 2vw, 1.65rem);
+            font-weight: 800;
+            color: $st-text-main;
+            margin-bottom: 1.25rem;
+        }
+    }
+
+    .tour-options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .tour-option-card {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 1.75rem;
+        background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid $st-border;
+        border-radius: $st-radius-lg;
+        padding: 1.5rem;
+        transition: $st-transition;
+
+        &:hover {
+            border-color: $st-primary;
+            box-shadow: $st-shadow-sm;
+        }
+
+        @media (max-width: 991.98px) {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        &__title {
+            font-family: $st-font-heading;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: $st-primary;
+            margin-bottom: 0.75rem;
+        }
+
+        &__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1.25rem;
+            margin-bottom: 0.75rem;
+
+            .meta-item {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-size: 0.875rem;
+                color: $st-text-secondary;
+                font-weight: 500;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    color: $st-accent;
+                }
+            }
+        }
+
+        &__desc {
+            font-size: 0.9375rem;
+            color: $st-text-muted;
+            line-height: 1.6;
+        }
+
+        &__action {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid $st-border;
+            border-radius: $st-radius-md;
+            padding: 1.15rem;
+
+            .price-breakdown {
+                margin-bottom: 1rem;
+
+                .breakdown-item {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 0.8125rem;
+                    color: $st-text-muted;
+                    margin-bottom: 0.35rem;
+                }
+
+                .total-price {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                    padding-top: 0.65rem;
+                    margin-top: 0.65rem;
+                    border-top: 1px dashed $st-border;
+
+                    .total-label {
+                        font-size: 0.875rem;
+                        font-weight: 700;
+                        color: $st-text-main;
+                    }
+
+                    .total-value {
+                        font-family: $st-font-heading;
+                        font-size: 1.35rem;
+                        font-weight: 800;
+                        color: $st-primary;
+                    }
+                }
+            }
+
+            .btn-book-now {
+                width: 100%;
+                border-radius: $st-radius-sm;
+                font-weight: 700;
+            }
+        }
+    }
+
+    // ==========================================================================
+    // 5. MAIN TWO-COLUMN SECTION (.main-section)
+    // ==========================================================================
+    .main-section {
+        padding: 1.5rem 0 4.5rem;
+        background: transparent;
+
+        @media (max-width: 991.98px) {
+            padding: 1rem 0 3rem;
+        }
+
+        &-wrap {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 390px;
+            gap: 2.5rem;
+            align-items: start;
+
+            @media (max-width: 1199.98px) {
+                grid-template-columns: minmax(0, 1fr) 350px;
+                gap: 1.75rem;
+            }
+
+            @media (max-width: 991.98px) {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        &-content {
+            min-width: 0;
+        }
+
+        &-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            @media (max-width: 767.98px) {
+                gap: 1.35rem;
+            }
+
+            > div[id^="tour-"],
+            > div[id^="car-"] {
+                scroll-margin-top: 140px;
+
+                @media (max-width: 991.98px) {
+                    scroll-margin-top: 110px;
+                }
+            }
+        }
+
+        // Right Column Sticky Sidebar
+        &__sidebar {
+            position: sticky;
+            top: 96px;
+            z-index: 20;
+
+            @media (max-width: 991.98px) {
+                position: static;
+            }
+        }
+
+        // Mobile Fixed Bottom Booking Bar
+        &__sidebar-mobile {
+            display: none;
+
+            @media (max-width: 991.98px) {
+                display: block;
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 995;
+                background: rgba(255, 255, 255, 0.96);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                border-top: 1px solid $st-border;
+                padding: 0.75rem 1.25rem;
+                box-shadow: 0 -8px 28px rgba(15, 35, 43, 0.1);
+            }
+
+            &-inner {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                max-width: 680px;
+                margin: 0 auto;
+
+                .price {
+                    display: flex;
+                    align-items: baseline;
+                    flex-wrap: wrap;
+                    gap: 0.25rem;
+
+                    .label {
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        color: $st-text-muted;
+                        text-transform: uppercase;
+                    }
+
+                    .value {
+                        font-family: $st-font-heading;
+                        font-size: 1.35rem;
+                        font-weight: 800;
+                        color: $st-primary;
+                    }
+
+                    .unit {
+                        font-size: 0.8125rem;
+                        color: $st-text-muted;
+                    }
+                }
+
+                .ui-button {
+                    padding: 0.7rem 1.35rem;
+                    border-radius: $st-radius-pill;
+                    font-size: 0.875rem;
+                    font-weight: 700;
+                    gap: 0.45rem;
+                    white-space: nowrap;
+
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+        }
+    }
+
+    // ==========================================================================
+    // 6. STICKY ANCHOR NAVIGATION (#anchor-nav)
+    // ==========================================================================
     .anchor-nav,
     #anchor-nav,
     #rc-anchor-nav {
         position: sticky;
-        top: 76px;
-        z-index: 40;
-        margin-bottom: 2.25rem;
-        background: rgba(255, 255, 255, 0.94);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(15, 76, 129, 0.08);
-        border-radius: 16px;
-        box-shadow: 0 4px 20px -2px rgba(15, 35, 43, 0.05), 0 2px 6px -1px rgba(15, 35, 43, 0.03);
-        padding: 6px 8px;
-        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        top: 84px;
+        z-index: 30;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        border-radius: $st-radius-pill;
+        padding: 0.4rem;
+        margin-bottom: 2rem;
+        box-shadow: $st-shadow-sm;
 
-        @include media-breakpoint-down(md) {
-            top: 64px;
+        @media (max-width: 991.98px) {
+            top: 66px;
+            border-radius: $st-radius-md;
             margin-bottom: 1.5rem;
-            border-radius: 12px;
-            padding: 5px 6px;
-        }
-
-        @include media-breakpoint-down(sm) {
-            top: 56px;
         }
 
         &__inner {
-            width: 100%;
             overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             -ms-overflow-style: none;
 
@@ -873,37 +1523,27 @@ body.single-tours {
         &__list {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 0.3rem;
             list-style: none;
             margin: 0;
             padding: 0;
-            flex-wrap: nowrap;
-            min-width: min-content;
-
-            @include media-breakpoint-down(md) {
-                gap: 4px;
-            }
+            min-width: max-content;
         }
 
         &__item {
             margin: 0;
             padding: 0;
-            list-style: none;
-            flex-shrink: 0;
+
+            &::before {
+                display: none !important;
+            }
 
             &.is-active,
             &.active {
                 .anchor-nav__link {
-                    color: $color-white;
-                    background-color: $color-primary;
-                    border-color: $color-primary;
-                    box-shadow: 0 4px 14px rgba($color-primary, 0.25);
-
-                    &:hover {
-                        color: $color-white;
-                        background-color: darken($color-primary, 4%);
-                        border-color: darken($color-primary, 4%);
-                    }
+                    background: $st-primary;
+                    color: #ffffff;
+                    box-shadow: 0 4px 12px rgba(15, 76, 129, 0.24);
                 }
             }
         }
@@ -913,898 +1553,1884 @@ body.single-tours {
             align-items: center;
             justify-content: center;
             padding: 0.55rem 1.15rem;
-            border-radius: 9999px;
-            font-family: $font-primary;
+            border-radius: $st-radius-pill;
+            font-family: $st-font-sans;
             font-size: 0.875rem;
-            font-weight: 600;
-            line-height: 1.25;
-            letter-spacing: 0.01em;
-            color: $color-body;
+            font-weight: 700;
+            color: $st-text-secondary;
             text-decoration: none;
             white-space: nowrap;
-            border: 1px solid transparent;
-            background-color: transparent;
-            position: relative;
-            user-select: none;
-            outline: none;
-            transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.2s ease;
+            transition: $st-transition;
 
-            @include media-breakpoint-down(md) {
-                padding: 0.45rem 0.85rem;
-                font-size: 0.8125rem;
-            }
-
-            // Hover state
             &:hover {
-                color: $color-primary;
-                background-color: rgba($color-primary, 0.06);
-                border-color: rgba($color-primary, 0.12);
-                transform: translateY(-1px);
+                background: rgba(15, 76, 129, 0.08);
+                color: $st-primary;
             }
 
-            // Press state
-            &:active {
-                transform: translateY(0);
-                background-color: rgba($color-primary, 0.1);
-            }
-
-            // Active / Current state
             &.is-active,
             &.active,
             &[aria-current="true"] {
-                color: $color-white;
-                background-color: $color-primary;
-                border-color: $color-primary;
-                box-shadow: 0 4px 14px rgba($color-primary, 0.25);
-
-                &:hover {
-                    color: $color-white;
-                    background-color: darken($color-primary, 4%);
-                    border-color: darken($color-primary, 4%);
-                }
+                background: $st-primary;
+                color: #ffffff;
+                box-shadow: 0 4px 12px rgba(15, 76, 129, 0.24);
             }
 
-            // Accessibility: Focus visible
-            &:focus-visible {
-                outline: 2px solid $color-secondary;
-                outline-offset: 2px;
-                box-shadow: 0 0 0 3px rgba($color-secondary, 0.25);
-            }
-
-            @media (prefers-reduced-motion: reduce) {
-                transition: none;
-                transform: none;
+            @media (max-width: 767.98px) {
+                padding: 0.45rem 0.9rem;
+                font-size: 0.8125rem;
             }
         }
     }
 
-    // Scroll offset for anchor target sections
+    // ==========================================================================
+    // 7. CONTENT CARDS: OVERVIEW, HIGHLIGHTS, INCLUSIONS, ITINERARY, REVIEWS, FAQS
+    // ==========================================================================
     .tour-overview,
     .tour-highlights,
     .tour-inclusions,
-    .tour-prices,
     .tour-itinerary,
-    .tour-review,
+    .ui-reviews,
     .tour-faqs {
-        scroll-margin-top: 140px;
+        background: $st-bg-card;
+        border: 1px solid $st-border;
+        border-radius: $st-radius-xl;
+        padding: 2.25rem;
+        box-shadow: $st-shadow-sm;
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
 
-        @include media-breakpoint-down(md) {
-            scroll-margin-top: 110px;
+        &:hover {
+            box-shadow: $st-shadow-md;
+        }
+
+        @media (max-width: 767.98px) {
+            padding: 1.5rem 1.25rem;
+            border-radius: $st-radius-lg;
         }
     }
 
-    // Section specific spacing for FAQs section in Single Tour
-    .tour-faqs {
-        margin-bottom: 2.75rem;
+    // Rich Editorial Typography inside Overview & Itinerary
+    .tour-overview__content,
+    .tour-itinerary__desc {
+        font-size: 1rem;
+        line-height: 1.78;
+        color: $st-text-secondary;
 
-        @include media-breakpoint-down(md) {
-            margin-bottom: 2rem;
-        }
+        p {
+            margin-bottom: 1.1rem;
 
-        .ui-heading {
-            margin-bottom: 1.25rem;
-        }
-    }
-
-    // ======================================================================
-    // Main Section Layout & Components (.main-section)
-    // ======================================================================
-    .main-section {
-        padding-top: 1.5rem;
-        padding-bottom: 4rem;
-
-        @include media-breakpoint-down(md) {
-            padding-top: 1rem;
-            padding-bottom: 5.5rem;
-        }
-    }
-
-    .main-section-wrap {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 380px;
-        gap: 3rem;
-        align-items: start;
-
-        @include media-breakpoint-down(lg) {
-            grid-template-columns: minmax(0, 1fr);
-            gap: 2.25rem;
-        }
-    }
-
-    .main-section-content {
-        min-width: 0;
-
-        &-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-
-            @include media-breakpoint-down(md) {
-                gap: 2.25rem;
+            &:last-child {
+                margin-bottom: 0;
             }
         }
+
+        h2, h3, h4 {
+            font-family: $st-font-heading;
+            font-weight: 700;
+            color: $st-text-main;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: $st-radius-md;
+            margin: 1rem 0;
+        }
     }
 
-    // Section Headings (.ui-heading)
-    .main-section .ui-heading {
-        font-family: $font-second;
-        font-size: clamp(1.4rem, 2vw, 1.75rem);
-        font-weight: 700;
-        color: $color-heading;
-        letter-spacing: -0.01em;
-        margin-bottom: 1.25rem;
+    // ==========================================================================
+    // 7B. TOUR HIGHLIGHTS — DISTINCTIVE ARCHITECTURAL TRAVEL EDITORIAL
+    // ==========================================================================
+    #tour-highlights.tour-highlights {
         position: relative;
-        padding-bottom: 0.75rem;
+        background: linear-gradient(180deg, #ffffff 0%, #fcfbf8 100%);
+        border: 1px solid rgba(203, 213, 225, 0.85);
+        border-radius: $st-radius-xl;
+        padding: 2.35rem 2.25rem 2.25rem;
+        overflow: hidden;
 
-        &::after {
+        // Dual-tone editorial top rule (Gold + Coastal Navy)
+        &::before {
             content: '';
             position: absolute;
+            top: 0;
             left: 0;
-            bottom: 0;
-            width: 44px;
-            height: 3px;
-            background-color: $color-secondary;
-            border-radius: 2px;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, $st-accent 0%, $st-accent 28%, $st-primary 28%, $st-primary 100%);
         }
-    }
 
-    // Inclusions & Exclusions Section
-    .tour-inclusions {
-        &__wrapper {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+        @media (max-width: 767.98px) {
+            padding: 1.65rem 1.25rem 1.5rem;
+            border-radius: $st-radius-lg;
+        }
 
-            @include media-breakpoint-down(md) {
-                grid-template-columns: 1fr;
-                gap: 1.25rem;
+        // Masthead Header
+        .tour-highlights__masthead {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 1.25rem;
+            padding-bottom: 1.35rem;
+            margin-bottom: 1.75rem;
+            border-bottom: 1px solid rgba(15, 35, 43, 0.1);
+
+            @media (max-width: 575.98px) {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.85rem;
+                padding-bottom: 1.1rem;
+                margin-bottom: 1.35rem;
             }
         }
 
-        .inclusion-card {
-            border-radius: 16px;
-            padding: 1.5rem 1.5rem 1.25rem;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 16px -2px rgba(15, 35, 43, 0.04);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        .tour-highlights__heading-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
 
-            h3 {
-                display: flex;
+        .tour-highlights__kicker {
+            display: inline-flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-family: $st-font-sans;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: $st-primary;
+
+            &-icon {
+                display: inline-flex;
                 align-items: center;
-                gap: 0.65rem;
-                font-family: $font-primary;
-                font-size: 1.125rem;
-                font-weight: 700;
-                margin-top: 0;
-                margin-bottom: 1.25rem;
+                justify-content: center;
+                color: $st-accent;
 
                 svg {
-                    width: 22px;
-                    height: 22px;
-                    flex-shrink: 0;
+                    width: 14px;
+                    height: 14px;
                 }
             }
 
-            ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 0.85rem;
-
-                li {
-                    display: flex;
-                    align-items: flex-start;
-                    gap: 0.75rem;
-                    font-size: 0.9375rem;
-                    line-height: 1.55;
-                    color: $color-heading;
-
-                    &::before {
-                        display: none !important;
-                    }
-
-                    svg {
-                        width: 18px;
-                        height: 18px;
-                        flex-shrink: 0;
-                        margin-top: 2px;
-                    }
-
-                    span {
-                        flex: 1;
-                    }
-                }
+            &-sep {
+                width: 18px;
+                height: 1px;
+                background: rgba(15, 76, 129, 0.28);
             }
 
-            &.card-included {
-                background: linear-gradient(145deg, rgba(22, 163, 74, 0.04) 0%, rgba(240, 253, 244, 0.6) 100%);
-                border-color: rgba(22, 163, 74, 0.22);
-                box-shadow: 0 4px 16px -2px rgba(22, 163, 74, 0.06);
-
-                h3 {
-                    color: #15803d;
-
-                    svg {
-                        color: #16a34a;
-                    }
-                }
-
-                ul li svg {
-                    color: #16a34a;
-                }
-            }
-
-            &.card-excluded {
-                background: linear-gradient(145deg, rgba(220, 38, 38, 0.04) 0%, rgba(254, 242, 242, 0.6) 100%);
-                border-color: rgba(220, 38, 38, 0.2);
-                box-shadow: 0 4px 16px -2px rgba(220, 38, 38, 0.06);
-
-                h3 {
-                    color: #b91c1c;
-
-                    svg {
-                        color: #dc2626;
-                    }
-                }
-
-                ul li svg {
-                    color: #dc2626;
-                }
+            &-sub {
+                color: $st-text-muted;
+                font-weight: 600;
             }
         }
-    }
 
-    // ======================================================================
-    // Tour Itinerary Timeline Component (.tour-itinerary)
-    // ======================================================================
-    .tour-itinerary {
-        &__desc {
+        .tour-highlights__title.ui-heading {
+            font-family: $st-font-heading;
+            font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+            font-weight: 800;
+            color: $st-text-main;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+            margin: 0;
+            padding: 0;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        // Architectural Editorial Stamp (Right Side of Masthead)
+        .tour-highlights__stamp {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding-left: 1.15rem;
+            border-left: 2px solid $st-accent;
+            flex-shrink: 0;
+
+            @media (max-width: 575.98px) {
+                padding-left: 0.75rem;
+            }
+
+            &-num {
+                font-family: $st-font-heading;
+                font-size: 1.85rem;
+                font-weight: 800;
+                line-height: 1;
+                color: $st-primary;
+                letter-spacing: -0.03em;
+
+                @media (max-width: 575.98px) {
+                    font-size: 1.45rem;
+                }
+            }
+
+            &-label {
+                font-family: $st-font-sans;
+                font-size: 0.6875rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                line-height: 1.25;
+                color: $st-text-muted;
+                max-width: 78px;
+            }
+        }
+
+        // Optional Lead Deck Paragraph
+        .tour-highlights__deck {
             font-size: 1rem;
-            color: $color-body;
-            line-height: 1.75;
-            margin-bottom: 2rem;
+            line-height: 1.72;
+            color: $st-text-secondary;
+            margin-bottom: 1.65rem;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(15, 76, 129, 0.22);
 
             p:last-child {
                 margin-bottom: 0;
             }
         }
 
-        &__list {
+        // Main Editorial Composition
+        .tour-highlights__primary-spread {
+            display: grid;
+            grid-template-columns: 1.05fr 1.2fr;
+            gap: 2rem;
+            align-items: stretch;
+
+            @media (max-width: 991.98px) {
+                grid-template-columns: 1fr;
+                gap: 1.35rem;
+            }
+        }
+
+        // Single Highlight Variant: Full-Width Horizontal Spotlight
+        &.tour-highlights--count-1 {
+            .tour-highlights__primary-spread {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        // 2 or 3 Highlights on Tablet: Preserve 2-Column Asymmetric Split
+        &.tour-highlights--count-2,
+        &.tour-highlights--count-3 {
+            @media (min-width: 768px) and (max-width: 991.98px) {
+                .tour-highlights__primary-spread {
+                    grid-template-columns: 1fr 1.1fr;
+                    gap: 1.5rem;
+                }
+            }
+        }
+
+        // Primary Focal Highlight (#01 Spotlight Panel)
+        .tour-highlights__spotlight {
             position: relative;
-            margin-top: 1.5rem;
+            background: linear-gradient(155deg, $st-primary 0%, #092c4c 100%);
+            color: #ffffff;
+            border-radius: $st-radius-lg;
+            padding: 1.85rem 1.75rem;
             display: flex;
             flex-direction: column;
-        }
+            justify-content: space-between;
+            gap: 1.35rem;
+            overflow: hidden;
+            box-shadow: 0 16px 36px -10px rgba(15, 76, 129, 0.32);
+            border-left: 4px solid $st-accent;
 
-        // Itinerary Item (Timeline Step)
-        .itinerary-item {
-            position: relative;
-            transition: all 0.25s ease;
+            @media (max-width: 767.98px) {
+                padding: 1.4rem 1.35rem;
+                gap: 1.1rem;
+                border-radius: 16px;
+            }
 
-            // Desktop layout (Time on left, Divider in middle, Content on right)
-            @include media-breakpoint-up(md) {
-                display: flex;
-                gap: 1.25rem;
-                align-items: stretch;
+            &-motif {
+                position: absolute;
+                right: -1rem;
+                bottom: -1rem;
+                width: 240px;
+                color: rgba(255, 255, 255, 0.1);
+                pointer-events: none;
+                z-index: 0;
 
-                &__time-wrapper {
-                    width: 105px;
-                    flex-shrink: 0;
-                    display: flex;
-                    justify-content: flex-end;
-                    padding-top: 2px;
-                }
-
-                &__divider {
-                    width: 24px;
-                    flex-shrink: 0;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-
-                &__content {
-                    flex: 1;
-                    min-width: 0;
-                    padding-bottom: 2.25rem;
+                svg {
+                    width: 100%;
+                    height: auto;
+                    display: block;
                 }
             }
 
-            // Mobile layout (Divider on left, Time above Title on right)
-            @include media-breakpoint-down(md) {
-                display: grid;
-                grid-template-columns: 20px minmax(0, 1fr);
-                grid-template-rows: auto 1fr;
-                column-gap: 0.875rem;
-                row-gap: 0.35rem;
-
-                &__divider {
-                    grid-column: 1;
-                    grid-row: 1 / span 2;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-
-                &__time-wrapper {
-                    grid-column: 2;
-                    grid-row: 1;
-                    display: flex;
-                    justify-content: flex-start;
-                    padding-top: 0;
-
-                    &:empty {
-                        display: none;
-                    }
-                }
-
-                &__content {
-                    grid-column: 2;
-                    grid-row: 2;
-                    padding-bottom: 1.75rem;
-                    min-width: 0;
-                }
-            }
-
-            // Time Badge
-            &__time {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0.28rem 0.65rem;
-                background: rgba(15, 76, 129, 0.06);
-                border: 1px solid rgba(15, 76, 129, 0.12);
-                border-radius: 8px;
-                font-family: $font-second;
-                font-size: 0.8125rem;
-                font-weight: 700;
-                color: $color-primary;
-                letter-spacing: 0.02em;
-                line-height: 1.25;
-                white-space: nowrap;
-                box-shadow: 0 1px 3px rgba(15, 76, 129, 0.04);
-                transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-
-                @include media-breakpoint-down(md) {
-                    font-size: 0.75rem;
-                    padding: 0.22rem 0.55rem;
-                    border-radius: 6px;
-                }
-            }
-
-            // Timeline Divider (Dot + Connecting Line)
-            &__divider {
+            &-top {
                 position: relative;
-            }
-
-            &__dot {
-                width: 14px;
-                height: 14px;
-                border-radius: 50%;
-                background-color: $color-secondary;
-                border: 3px solid $color-white;
-                box-shadow: 0 0 0 2px rgba(15, 76, 129, 0.22), 0 2px 6px rgba(223, 161, 40, 0.35);
-                flex-shrink: 0;
-                margin-top: 6px;
-                transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease, box-shadow 0.25s ease;
-
-                @include media-breakpoint-down(md) {
-                    width: 13px;
-                    height: 13px;
-                    margin-top: 5px;
-                    border-width: 2.5px;
-                }
-            }
-
-            &__line {
-                flex: 1;
-                width: 2px;
-                min-height: 20px;
-                background: linear-gradient(180deg, rgba(15, 76, 129, 0.28) 0%, rgba(15, 76, 129, 0.1) 100%);
-                margin-top: 6px;
-            }
-
-            // Content Area (Title + Description)
-            &__content {
-                .itinerary-item__title {
-                    font-family: $font-primary;
-                    font-size: 1.0625rem;
-                    font-weight: 700;
-                    color: $color-heading;
-                    line-height: 1.4;
-                    margin: 0 0 0.5rem;
-                    transition: color 0.25s ease;
-
-                    @include media-breakpoint-down(md) {
-                        font-size: 1rem;
-                        margin-bottom: 0.4rem;
-                    }
-                }
-
-                .itinerary-item__desc {
-                    font-size: 0.9375rem;
-                    color: $color-body;
-                    line-height: 1.65;
-
-                    p {
-                        margin-bottom: 0.65rem;
-
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-                    }
-
-                    @include media-breakpoint-down(md) {
-                        font-size: 0.875rem;
-                        line-height: 1.6;
-                    }
-                }
-            }
-
-            // Interactive hover effect
-            &:hover {
-                .itinerary-item__dot {
-                    transform: scale(1.3);
-                    background-color: $color-primary;
-                    box-shadow: 0 0 0 3px rgba(223, 161, 40, 0.4), 0 3px 8px rgba(15, 76, 129, 0.35);
-                }
-
-                .itinerary-item__time {
-                    background-color: $color-primary;
-                    border-color: $color-primary;
-                    color: $color-white;
-                    box-shadow: 0 4px 12px rgba(15, 76, 129, 0.22);
-                }
-
-                .itinerary-item__title {
-                    color: $color-primary;
-                }
-            }
-
-            // Last item: remove trailing line & bottom padding
-            &:last-child {
-                .itinerary-item__line {
-                    display: none;
-                }
-
-                .itinerary-item__content {
-                    padding-bottom: 0;
-                }
-            }
-        }
-
-        // Bottom Map / Itinerary Image
-        >img {
-            margin-top: 2.25rem;
-            border-radius: 16px;
-            width: 100%;
-            height: auto;
-            max-height: 480px;
-            object-fit: cover;
-            border: 1px solid rgba(15, 76, 129, 0.08);
-            box-shadow: 0 8px 24px -4px rgba(15, 35, 43, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-            &:hover {
-                box-shadow: 0 12px 32px -4px rgba(15, 35, 43, 0.12);
-            }
-        }
-    }
-
-    // Desktop Sticky Sidebar
-    .main-section__sidebar {
-        position: sticky;
-        top: 96px;
-        z-index: 20;
-
-        @include media-breakpoint-down(lg) {
-            position: static;
-            top: auto;
-        }
-    }
-
-    // Mobile Fixed Bottom Booking Bar
-    .main-section__sidebar-mobile {
-        display: none;
-
-        @include media-breakpoint-down(lg) {
-            display: block;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 90;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-top: 1px solid rgba(15, 76, 129, 0.1);
-            box-shadow: 0 -4px 20px rgba(15, 35, 43, 0.08);
-            padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
-
-            &-inner {
+                z-index: 1;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                gap: 1rem;
-                max-width: 600px;
-                margin: 0 auto;
+                gap: 0.75rem;
             }
 
-            .price {
-                display: flex;
-                flex-direction: column;
-                line-height: 1.2;
-
-                .label {
-                    font-size: 0.7rem;
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                    color: #64748b;
-                    font-weight: 600;
-                }
-
-                .value {
-                    font-size: 1.25rem;
-                    font-weight: 800;
-                    color: $color-primary;
-                    font-family: $font-second;
-
-                    .mb-0 {
-                        margin-right: 2px;
-                    }
-                }
-
-                .unit {
-                    font-size: 0.725rem;
-                    color: #64748b;
-                }
+            &-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
             }
 
-            .ui-button {
-                padding: 0.65rem 1.25rem;
-                font-size: 0.9375rem;
-                border-radius: 9999px;
-                white-space: nowrap;
-                text-decoration: none;
+            &-index {
+                font-family: $st-font-heading;
+                font-size: 1.5rem;
+                font-weight: 800;
+                line-height: 1;
+                color: $st-accent;
+                letter-spacing: -0.02em;
+            }
+
+            &-tag {
+                font-family: $st-font-sans;
+                font-size: 0.6875rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: #fde68a;
+                background: rgba(223, 161, 40, 0.16);
+                border: 1px solid rgba(223, 161, 40, 0.38);
+                padding: 0.25rem 0.65rem;
+                border-radius: $st-radius-pill;
+            }
+
+            &-compass {
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.16);
+                color: rgba(255, 255, 255, 0.8);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
                 flex-shrink: 0;
 
                 svg {
                     width: 16px;
                     height: 16px;
-                    margin-left: 0.25rem;
+                }
+            }
+
+            &-body {
+                position: relative;
+                z-index: 1;
+                margin: auto 0;
+            }
+
+            &-lead {
+                font-family: $st-font-heading;
+                font-size: clamp(1.15rem, 1.55vw, 1.375rem);
+                font-weight: 800;
+                line-height: 1.3;
+                color: #ffffff;
+                margin: 0 0 0.55rem;
+            }
+
+            &-desc {
+                font-size: 0.95rem;
+                line-height: 1.68;
+                color: rgba(255, 255, 255, 0.86);
+
+                p:last-child {
+                    margin-bottom: 0;
+                }
+
+                a {
+                    color: #fde68a;
+                    text-decoration: underline;
+                }
+            }
+
+            &-statement {
+                font-family: $st-font-heading;
+                font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+                font-weight: 600;
+                line-height: 1.6;
+                color: #ffffff;
+
+                strong, b {
+                    color: #fde68a;
+                    font-weight: 800;
+                }
+
+                p:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            &-footer {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                padding-top: 0.9rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.12);
+            }
+
+            &-rule {
+                width: 28px;
+                height: 2px;
+                background: $st-accent;
+                border-radius: 2px;
+            }
+
+            &-caption {
+                font-size: 0.6875rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: rgba(255, 255, 255, 0.65);
+            }
+        }
+
+        // Supporting Highlights Ledger (Open Architectural Hairline Rows)
+        .tour-highlights__ledger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-top: 1px solid rgba(15, 35, 43, 0.09);
+
+            @media (max-width: 991.98px) {
+                border-top: none;
+            }
+        }
+
+        // Individual Highlight Ledger Item (#02, #03, #04...)
+        .tour-highlights__item {
+            display: grid;
+            grid-template-columns: 42px minmax(0, 1fr);
+            gap: 0.9rem;
+            padding: 1.15rem 0.35rem;
+            border-bottom: 1px solid rgba(15, 35, 43, 0.09);
+            transition: background-color 0.25s ease, padding-left 0.25s ease;
+
+            &:first-child {
+                @media (max-width: 991.98px) {
+                    padding-top: 0.35rem;
+                }
+            }
+
+            &:last-child {
+                @media (max-width: 767.98px) {
+                    border-bottom: none;
+                    padding-bottom: 0.15rem;
+                }
+            }
+
+            &-num-col {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-top: 0.1rem;
+            }
+
+            &-num {
+                font-family: $st-font-heading;
+                font-size: 1.0625rem;
+                font-weight: 800;
+                line-height: 1.1;
+                color: $st-primary;
+                letter-spacing: -0.02em;
+                transition: color 0.25s ease, transform 0.25s ease;
+            }
+
+            &-tick {
+                width: 1.5px;
+                flex: 1;
+                min-height: 14px;
+                margin-top: 0.35rem;
+                background: linear-gradient(180deg, rgba(15, 76, 129, 0.25) 0%, transparent 100%);
+                transition: background-color 0.25s ease;
+            }
+
+            &-body {
+                min-width: 0;
+                align-self: center;
+            }
+
+            &-title {
+                font-family: $st-font-heading;
+                font-size: 1.03125rem;
+                font-weight: 800;
+                color: $st-text-main;
+                line-height: 1.35;
+                margin: 0 0 0.25rem;
+                transition: color 0.2s ease;
+            }
+
+            &-desc {
+                font-size: 0.9375rem;
+                line-height: 1.62;
+                color: $st-text-secondary;
+
+                p:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            &-text {
+                font-size: 0.95rem;
+                line-height: 1.65;
+                color: $st-text-main;
+                font-weight: 500;
+
+                strong, b {
+                    font-family: $st-font-heading;
+                    font-weight: 800;
+                    color: $st-primary;
+                }
+
+                p:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            &:hover {
+                background-color: rgba(15, 76, 129, 0.025);
+                padding-left: 0.65rem;
+
+                .tour-highlights__item-num {
+                    color: $st-accent;
+                    transform: translateY(-1px);
+                }
+
+                .tour-highlights__item-tick {
+                    background: $st-accent;
+                }
+
+                .tour-highlights__item-title {
+                    color: $st-primary;
+                }
+            }
+        }
+
+        // Secondary 2-Column Architectural Ledger Grid (for #04+ when 5 or more highlights exist)
+        .tour-highlights__secondary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: 2.25rem;
+            margin-top: 0.25rem;
+
+            @media (max-width: 767.98px) {
+                grid-template-columns: 1fr;
+                margin-top: 0;
+            }
+
+            .tour-highlights__item--secondary {
+                padding: 1.2rem 0.35rem;
+
+                @media (min-width: 768px) {
+                    &:nth-child(odd):not(:last-child) {
+                        position: relative;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 1.1rem;
+                            bottom: 1.1rem;
+                            right: -1.125rem;
+                            width: 1px;
+                            background: rgba(15, 35, 43, 0.09);
+                        }
+                    }
+
+                    // If odd number of secondary items, last item spans full width cleanly
+                    &:last-child:nth-child(odd) {
+                        grid-column: 1 / -1;
+                        border-bottom: none;
+                        padding-bottom: 0.25rem;
+                    }
+
+                    // Remove bottom border on final row in 2-col layout
+                    &:nth-last-child(-n + 2):nth-child(odd),
+                    &:last-child {
+                        border-bottom: none;
+                        padding-bottom: 0.25rem;
+                    }
+                }
+            }
+        }
+
+        // Fallback Prose / Custom HTML Block
+        .tour-highlights__prose {
+            font-size: 1rem;
+            line-height: 1.78;
+            color: $st-text-secondary;
+            padding: 1.25rem 1.5rem;
+            background: rgba(15, 76, 129, 0.03);
+            border-left: 3px solid $st-accent;
+            border-radius: 0 $st-radius-md $st-radius-md 0;
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        // Optional Outro Note
+        .tour-highlights__outro {
+            margin-top: 1.35rem;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(15, 35, 43, 0.12);
+            font-size: 0.875rem;
+            color: $st-text-muted;
+            font-style: italic;
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    // ==========================================================================
+    // 8. INCLUSIONS & EXCLUSIONS (#tour-inclusions) — EDITORIAL CHARTER DOSSIER
+    // ==========================================================================
+    #tour-inclusions.tour-inclusions {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid rgba(203, 213, 225, 0.88);
+        border-radius: $st-radius-xl;
+        padding: 2.35rem 2.25rem 2rem;
+        overflow: hidden;
+
+        // Subtle architectural top rule
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, $st-primary 0%, $st-primary 62%, $st-accent 62%, #94a3b8 100%);
+            z-index: 2;
+        }
+
+        @media (max-width: 991.98px) {
+            padding: 2rem 1.75rem 1.75rem;
+        }
+
+        @media (max-width: 767.98px) {
+            padding: 1.5rem 1.15rem 1.35rem;
+            border-radius: $st-radius-lg;
+        }
+
+        // ----------------------------------------------------------------------
+        // 8.1 Editorial Masthead Header
+        // ----------------------------------------------------------------------
+        .tour-inclusions__masthead {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 1.25rem;
+            padding-bottom: 1.35rem;
+            margin-bottom: 1.65rem;
+            border-bottom: 1px solid rgba(15, 35, 43, 0.09);
+
+            @media (max-width: 767.98px) {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.85rem;
+                padding-bottom: 1.1rem;
+                margin-bottom: 1.25rem;
+            }
+        }
+
+        .tour-inclusions__heading-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .tour-inclusions__kicker {
+            display: inline-flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            font-family: $st-font-sans;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: $st-primary;
+
+            &-icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: $st-accent;
+
+                svg {
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+
+            &-sep {
+                width: 16px;
+                height: 1px;
+                background: rgba(15, 76, 129, 0.28);
+            }
+
+            &-sub {
+                color: $st-text-muted;
+                font-weight: 600;
+            }
+        }
+
+        .tour-inclusions__title.ui-heading {
+            font-family: $st-font-heading;
+            font-size: clamp(1.45rem, 2.3vw, 1.85rem);
+            font-weight: 800;
+            color: $st-text-main;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+            margin: 0;
+            padding: 0;
+
+            &::after {
+                display: none;
+            }
+        }
+
+        // Architectural Coverage Summary Pill
+        .tour-inclusions__ledger-summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.5rem 0.95rem;
+            border-radius: $st-radius-md;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            flex-shrink: 0;
+
+            @media (max-width: 767.98px) {
+                width: 100%;
+                justify-content: flex-start;
+                padding: 0.45rem 0.8rem;
+            }
+        }
+
+        .tour-inclusions__summary-stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.4rem;
+
+            &--included {
+                .tour-inclusions__summary-num {
+                    color: $st-primary;
+                }
+
+                .tour-inclusions__summary-label {
+                    color: $st-text-main;
+                }
+            }
+
+            &--excluded {
+                .tour-inclusions__summary-num {
+                    color: $st-text-muted;
+                }
+
+                .tour-inclusions__summary-label {
+                    color: $st-text-muted;
+                }
+            }
+        }
+
+        .tour-inclusions__summary-num {
+            font-family: $st-font-heading;
+            font-size: 1.0625rem;
+            font-weight: 800;
+            line-height: 1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .tour-inclusions__summary-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .tour-inclusions__summary-divider {
+            width: 1px;
+            height: 18px;
+            background: #cbd5e1;
+        }
+
+        // ----------------------------------------------------------------------
+        // 8.2 Unified Asymmetric Dossier Wrapper
+        // ----------------------------------------------------------------------
+        .tour-inclusions__wrapper {
+            display: grid;
+            grid-template-columns: minmax(0, 1.58fr) minmax(260px, 0.92fr);
+            gap: 0;
+            border: 1px solid #dbe3ec;
+            border-radius: 16px;
+            background: #ffffff;
+            overflow: hidden;
+            box-shadow: 0 10px 28px -12px rgba(15, 35, 43, 0.06);
+
+            @media (max-width: 991.98px) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        &.tour-inclusions--single {
+            .tour-inclusions__wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        // ----------------------------------------------------------------------
+        // 8.3 Shared Zone Architecture (.inclusion-card / .tour-inclusions__zone)
+        // ----------------------------------------------------------------------
+        .inclusion-card {
+            position: relative;
+            border: 0;
+            border-radius: 0;
+            padding: 1.85rem 1.75rem;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+
+            @media (max-width: 767.98px) {
+                padding: 1.35rem 1.1rem;
+            }
+
+            .tour-inclusions__zone-header {
+                position: relative;
+                z-index: 2;
+                margin-bottom: 1.35rem;
+                padding-bottom: 1.1rem;
+                border-bottom: 1px solid rgba(15, 35, 43, 0.08);
+            }
+
+            .tour-inclusions__zone-meta {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                margin-bottom: 0.55rem;
+            }
+
+            .tour-inclusions__zone-index {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 24px;
+                height: 20px;
+                padding: 0 0.4rem;
+                border-radius: 4px;
+                font-family: $st-font-heading;
+                font-size: 0.6875rem;
+                font-weight: 800;
+                letter-spacing: 0.05em;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .tour-inclusions__zone-tag {
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.09em;
+                text-transform: uppercase;
+            }
+
+            .tour-inclusions__zone-title-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 0.65rem;
+                margin-bottom: 0.45rem;
+            }
+
+            h3 {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-family: $st-font-heading;
+                font-size: 1.2rem;
+                font-weight: 800;
+                letter-spacing: -0.015em;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                line-height: 1.25;
+
+                .inclusion-card__icon {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 8px;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                }
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    flex-shrink: 0;
+                }
+            }
+
+            .tour-inclusions__zone-count {
+                display: inline-flex;
+                align-items: center;
+                padding: 0.22rem 0.6rem;
+                border-radius: $st-radius-pill;
+                font-family: $st-font-heading;
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .tour-inclusions__zone-desc {
+                font-size: 0.84375rem;
+                line-height: 1.5;
+                color: $st-text-muted;
+                margin: 0;
+            }
+
+            // Reset list defaults cleanly
+            ul.tour-inclusions__list {
+                position: relative;
+                z-index: 2;
+                list-style: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+
+                li.tour-inclusions__item {
+                    padding: 0;
+                    margin: 0;
+
+                    &::before {
+                        display: none !important;
+                    }
+                }
+            }
+
+            // ------------------------------------------------------------------
+            // 8.4 Primary Zone: What's Included (.card-included)
+            // ------------------------------------------------------------------
+            &.card-included {
+                background: linear-gradient(180deg, #ffffff 0%, #fcfdfd 100%);
+
+                // Subtle topographic contour watermark
+                .tour-inclusions__zone-motif {
+                    position: absolute;
+                    top: -20px;
+                    right: -30px;
+                    width: 320px;
+                    height: 200px;
+                    color: $st-primary;
+                    opacity: 0.035;
+                    pointer-events: none;
+                    z-index: 1;
+
+                    svg {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                .tour-inclusions__zone-index {
+                    background: $st-primary;
+                    color: #ffffff;
+                }
+
+                .tour-inclusions__zone-tag {
+                    color: $st-primary;
+                }
+
+                h3 {
+                    color: $st-text-main;
+
+                    .inclusion-card__icon {
+                        background: rgba(15, 76, 129, 0.09);
+                        border: 1px solid rgba(15, 76, 129, 0.18);
+                        color: $st-primary;
+                    }
+                }
+
+                .tour-inclusions__zone-count {
+                    background: rgba(223, 161, 40, 0.14);
+                    border: 1px solid rgba(223, 161, 40, 0.32);
+                    color: #85580a;
+                }
+
+                // Architectural Grid for Included Entitlements
+                ul.tour-inclusions__list--included {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    gap: 0.75rem;
+
+                    @media (max-width: 575.98px) {
+                        grid-template-columns: 1fr;
+                        gap: 0.6rem;
+                    }
+                }
+
+                li.tour-inclusions__item--included {
+                    position: relative;
+                    display: grid;
+                    grid-template-columns: 28px minmax(0, 1fr) auto;
+                    align-items: start;
+                    gap: 0.75rem;
+                    padding: 0.95rem 1rem !important;
+                    border-radius: 12px;
+                    background: #ffffff;
+                    border: 1px solid #e2e8f0;
+                    box-shadow: 0 2px 5px rgba(15, 35, 43, 0.02);
+                    transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease, background-color 0.22s ease;
+
+                    &:hover {
+                        border-color: rgba(15, 76, 129, 0.32);
+                        background: #fcfdff;
+                        box-shadow: 0 8px 18px -6px rgba(15, 76, 129, 0.09);
+                        transform: translateY(-1px);
+
+                        .tour-inclusions__marker--included {
+                            background: $st-primary;
+                            border-color: $st-primary;
+                            color: #ffffff;
+                        }
+
+                        .tour-inclusions__item-index {
+                            color: $st-primary;
+                        }
+                    }
+
+                    // Featured full-width span when Included count is odd (>= 5)
+                    &.tour-inclusions__item--featured {
+                        grid-column: 1 / -1;
+                        background: linear-gradient(95deg, rgba(15, 76, 129, 0.04) 0%, rgba(223, 161, 40, 0.06) 100%);
+                        border-color: rgba(15, 76, 129, 0.22);
+                        padding: 1.05rem 1.15rem !important;
+
+                        .tour-inclusions__marker--included {
+                            background: $st-primary;
+                            border-color: $st-primary;
+                            color: $st-accent;
+                        }
+                    }
+                }
+
+                .tour-inclusions__marker--included {
+                    width: 28px;
+                    height: 28px;
+                    border-radius: 8px;
+                    background: rgba(15, 76, 129, 0.07);
+                    border: 1px solid rgba(15, 76, 129, 0.18);
+                    color: $st-primary;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    margin-top: 0.05rem;
+                    transition: all 0.22s ease;
+
+                    svg {
+                        width: 15px;
+                        height: 15px;
+                        margin: 0;
+                        color: currentColor;
+                    }
+                }
+
+                .tour-inclusions__item-body {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.18rem;
+                    min-width: 0;
+                }
+
+                .tour-inclusions__item-lead {
+                    font-family: $st-font-heading;
+                    font-size: 0.9375rem;
+                    font-weight: 800;
+                    color: $st-text-main;
+                    line-height: 1.35;
+                }
+
+                .tour-inclusions__item-detail {
+                    font-size: 0.85rem;
+                    line-height: 1.5;
+                    color: $st-text-secondary;
+                }
+
+                .tour-inclusions__item-text {
+                    font-size: 0.925rem;
+                    font-weight: 600;
+                    line-height: 1.5;
+                    color: #1e293b;
+                }
+
+                .tour-inclusions__item-index {
+                    font-family: $st-font-heading;
+                    font-size: 0.6875rem;
+                    font-weight: 800;
+                    color: #cbd5e1;
+                    letter-spacing: 0.04em;
+                    font-variant-numeric: tabular-nums;
+                    padding-top: 0.15rem;
+                    transition: color 0.22s ease;
+                }
+            }
+
+            // Stack layout when Included has 1-3 items
+            @at-root body.single-tours #tour-inclusions.tour-inclusions--inc-stack .inclusion-card.card-included {
+                ul.tour-inclusions__list--included {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            // ------------------------------------------------------------------
+            // 8.5 Secondary Zone: Not Included (.card-excluded)
+            // Restrained, editorial slate palette — non-alarming & balanced
+            // ------------------------------------------------------------------
+            &.card-excluded {
+                background: #f8fafc;
+                border-left: 1px solid #dbe3ec;
+
+                @media (max-width: 991.98px) {
+                    border-left: 0;
+                    border-top: 1px solid #dbe3ec;
+                }
+
+                .tour-inclusions__zone-index {
+                    background: #e2e8f0;
+                    color: #475569;
+                }
+
+                .tour-inclusions__zone-tag {
+                    color: #64748b;
+                }
+
+                h3 {
+                    color: #334155;
+                    font-size: 1.125rem;
+
+                    .inclusion-card__icon {
+                        background: #e2e8f0;
+                        border: 1px solid #cbd5e1;
+                        color: #475569;
+                    }
+                }
+
+                .tour-inclusions__zone-count {
+                    background: #eef2f6;
+                    border: 1px solid #cbd5e1;
+                    color: #64748b;
+                }
+
+                ul.tour-inclusions__list--excluded {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0;
+                    border-top: 1px dashed rgba(148, 163, 184, 0.35);
+                }
+
+                li.tour-inclusions__item--excluded {
+                    display: grid;
+                    grid-template-columns: 24px minmax(0, 1fr) auto;
+                    align-items: start;
+                    gap: 0.65rem;
+                    padding: 0.8rem 0.25rem !important;
+                    border-bottom: 1px dashed rgba(148, 163, 184, 0.35);
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        .tour-inclusions__marker--excluded {
+                            background: #e2e8f0;
+                            border-color: #94a3b8;
+                            color: #334155;
+                        }
+                    }
+                }
+
+                .tour-inclusions__marker--excluded {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 6px;
+                    background: #f1f5f9;
+                    border: 1px solid #cbd5e1;
+                    color: #64748b;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    margin-top: 0.08rem;
+                    transition: all 0.2s ease;
+
+                    svg {
+                        width: 13px;
+                        height: 13px;
+                        margin: 0;
+                        color: currentColor;
+                    }
+                }
+
+                .tour-inclusions__item-body {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.15rem;
+                    min-width: 0;
+                }
+
+                .tour-inclusions__item-lead {
+                    font-family: $st-font-heading;
+                    font-size: 0.875rem;
+                    font-weight: 700;
+                    color: #334155;
+                    line-height: 1.4;
+                }
+
+                .tour-inclusions__item-detail,
+                .tour-inclusions__item-text {
+                    font-size: 0.875rem;
+                    line-height: 1.5;
+                    color: #475569;
+                }
+
+                .tour-inclusions__item-index {
+                    font-family: $st-font-heading;
+                    font-size: 0.6875rem;
+                    font-weight: 700;
+                    color: #94a3b8;
+                    font-variant-numeric: tabular-nums;
+                    padding-top: 0.15rem;
+                }
+
+                // Bottom anchor note keeps unequal column heights visually balanced
+                .tour-inclusions__zone-note {
+                    margin-top: auto;
+                    padding-top: 1.15rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-size: 0.78125rem;
+                    line-height: 1.45;
+                    color: #64748b;
+                    font-style: italic;
+
+                    &-dot {
+                        width: 6px;
+                        height: 6px;
+                        border-radius: 50%;
+                        background: $st-accent;
+                        flex-shrink: 0;
+                    }
+                }
+            }
+        }
+
+        // ----------------------------------------------------------------------
+        // 8.6 Cohesive Footer Charter Assurance Bar
+        // ----------------------------------------------------------------------
+        .tour-inclusions__charter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.1rem;
+            padding-top: 0.95rem;
+            border-top: 1px solid rgba(15, 35, 43, 0.07);
+            font-size: 0.8125rem;
+            color: $st-text-muted;
+
+            @media (max-width: 767.98px) {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.45rem;
+            }
+        }
+
+        .tour-inclusions__charter-assurance {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            color: $st-text-secondary;
+        }
+
+        .tour-inclusions__charter-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: $st-primary;
+            flex-shrink: 0;
+
+            svg {
+                width: 15px;
+                height: 15px;
+            }
+        }
+
+        .tour-inclusions__charter-stamp {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.65rem;
+            border-radius: 4px;
+            background: rgba(15, 76, 129, 0.06);
+            color: $st-primary;
+            font-family: $st-font-heading;
+            font-size: 0.6875rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+    }
+
+    // ==========================================================================
+    // 9. ITINERARY TIMELINE (#tour-itinerary)
+    // ==========================================================================
+    .tour-itinerary {
+        &__desc {
+            margin-bottom: 1.75rem;
+        }
+
+        &__list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .itinerary-item {
+            display: grid;
+            grid-template-columns: 120px 44px minmax(0, 1fr);
+            gap: 0.75rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+
+            &:last-child {
+                padding-bottom: 0;
+
+                .itinerary-item__line {
+                    display: none;
+                }
+            }
+
+            @media (max-width: 767.98px) {
+                grid-template-columns: 36px minmax(0, 1fr);
+                gap: 0.65rem;
+
+                .itinerary-item__time-wrapper {
+                    grid-column: 2 / 3;
+                    grid-row: 1 / 2;
+                    justify-content: flex-start;
+                    margin-bottom: 0.15rem;
+                }
+
+                .itinerary-item__divider {
+                    grid-column: 1 / 2;
+                    grid-row: 1 / 3;
+                }
+
+                .itinerary-item__content {
+                    grid-column: 2 / 3;
+                    grid-row: 2 / 3;
+                }
+            }
+
+            &__time-wrapper {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-start;
+                padding-top: 0.25rem;
+            }
+
+            &__time {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.3rem 0.75rem;
+                border-radius: $st-radius-pill;
+                background: rgba(15, 76, 129, 0.08);
+                border: 1px solid rgba(15, 76, 129, 0.16);
+                color: $st-primary;
+                font-family: $st-font-heading;
+                font-size: 0.8125rem;
+                font-weight: 700;
+                text-align: center;
+                line-height: 1.3;
+
+                &--step {
+                    background: rgba(223, 161, 40, 0.14);
+                    border-color: rgba(223, 161, 40, 0.3);
+                    color: #92400e;
+                }
+            }
+
+            &__divider {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+            }
+
+            &__dot {
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                background: $st-primary;
+                color: #ffffff;
+                border: 3px solid #e0f2fe;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: $st-font-heading;
+                font-size: 0.75rem;
+                font-weight: 800;
+                flex-shrink: 0;
+                z-index: 2;
+                box-shadow: 0 4px 10px rgba(15, 76, 129, 0.2);
+                transition: $st-transition;
+            }
+
+            &__line {
+                flex: 1;
+                width: 2px;
+                background: linear-gradient(180deg, rgba(15, 76, 129, 0.3) 0%, rgba(223, 161, 40, 0.35) 100%);
+                margin-top: 0.35rem;
+                margin-bottom: -1.15rem;
+            }
+
+            &__content {
+                background: $st-bg-page;
+                border: 1px solid $st-border;
+                border-radius: $st-radius-md;
+                padding: 1.15rem 1.35rem;
+                transition: $st-transition;
+
+                @media (max-width: 767.98px) {
+                    padding: 1rem 1.1rem;
+                }
+            }
+
+            &:hover {
+                .itinerary-item__dot {
+                    background: $st-accent;
+                    border-color: #fef3c7;
+                    transform: scale(1.08);
+                }
+
+                .itinerary-item__content {
+                    background: #ffffff;
+                    border-color: rgba(15, 76, 129, 0.24);
+                    box-shadow: $st-shadow-xs;
+                }
+            }
+
+            &__title {
+                font-family: $st-font-heading;
+                font-size: 1.0625rem;
+                font-weight: 800;
+                color: $st-text-main;
+                margin: 0 0 0.45rem;
+                line-height: 1.35;
+            }
+
+            &__desc {
+                font-size: 0.9375rem;
+                line-height: 1.65;
+                color: $st-text-secondary;
+
+                p:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        &__map-frame {
+            margin-top: 1.75rem;
+            border-radius: $st-radius-lg;
+            overflow: hidden;
+            border: 1px solid $st-border;
+            box-shadow: $st-shadow-xs;
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+        }
+
+        > img {
+            width: 100%;
+            height: auto;
+            border-radius: $st-radius-lg;
+            margin-top: 1.5rem;
+            border: 1px solid $st-border;
+        }
+    }
+
+    // ==========================================================================
+    // 10. REVIEWS SECTION ENHANCEMENTS (#tour-review.ui-reviews)
+    // ==========================================================================
+    .ui-reviews {
+        margin-top: 0;
+
+        &__count-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: $st-radius-pill;
+            background: $st-success-bg;
+            border: 1px solid $st-success-border;
+            color: #065f46;
+            font-size: 0.8125rem;
+            font-weight: 700;
+
+            svg {
+                width: 15px;
+                height: 15px;
+                color: $st-success;
+            }
+        }
+
+        &__form-container {
+            margin-top: 2rem;
+            background: $st-bg-page;
+            border: 1px solid $st-border;
+            border-radius: $st-radius-lg;
+            padding: 1.75rem;
+            box-shadow: none;
+
+            @media (max-width: 767.98px) {
+                padding: 1.25rem;
+            }
+        }
+    }
+
+    // ==========================================================================
+    // 11. FAQS SECTION (#tour-faqs)
+    // ==========================================================================
+    .tour-faqs {
+        .faqs-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+
+            &__item {
+                background: $st-bg-page;
+                border: 1px solid $st-border;
+                border-radius: $st-radius-md;
+                overflow: hidden;
+                transition: $st-transition;
+
+                &:hover {
+                    border-color: rgba(15, 76, 129, 0.28);
+                }
+
+                &.is-active {
+                    background: #ffffff;
+                    border-color: $st-primary;
+                    box-shadow: $st-shadow-xs;
+
+                    .faqs-list__question {
+                        color: $st-primary;
+                    }
+
+                    .faqs-list__icon {
+                        background: $st-primary;
+                        color: #ffffff;
+                        transform: rotate(180deg);
+                    }
+
+                    .faqs-list__answer {
+                        grid-template-rows: 1fr;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            &__question {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                padding: 1.15rem 1.35rem;
+                background: transparent;
+                border: none;
+                text-align: left;
+                font-family: $st-font-heading;
+                font-size: 1rem;
+                font-weight: 700;
+                color: $st-text-main;
+                cursor: pointer;
+                transition: color 0.2s ease;
+
+                @media (max-width: 767.98px) {
+                    padding: 1rem 1.1rem;
+                    font-size: 0.9375rem;
+                }
+            }
+
+            &__icon {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: #ffffff;
+                border: 1px solid $st-border;
+                color: $st-text-secondary;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                transition: $st-transition;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+
+            &__answer {
+                display: grid;
+                grid-template-rows: 0fr;
+                opacity: 0;
+                transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+
+                &-inner {
+                    overflow: hidden;
+                    padding: 0 1.35rem;
+                    font-size: 0.9375rem;
+                    line-height: 1.68;
+                    color: $st-text-secondary;
+
+                    p {
+                        padding-bottom: 1.15rem;
+                        margin: 0;
+                    }
                 }
             }
         }
     }
 
-    // ======================================================================
-    // Booking Form Sidebar Component (.ui-form-booking)
-    // ======================================================================
-    .ui-form-booking {
-        background: #ffffff;
-        border-radius: 20px;
-        border: 1px solid rgba(15, 76, 129, 0.1);
-        box-shadow: 0 10px 30px -5px rgba(15, 35, 43, 0.08), 0 4px 12px -2px rgba(15, 35, 43, 0.04);
+    // ==========================================================================
+    // 12. STICKY BOOKING WIDGET (#form-booking-tour.ui-form-booking)
+    // ==========================================================================
+    #form-booking-tour.ui-form-booking {
+        position: relative;
+        background: $st-bg-card;
+        border: 1px solid $st-border;
+        border-radius: $st-radius-xl;
+        padding: 1.75rem;
+        box-shadow: $st-shadow-sticky;
         overflow: hidden;
 
-        &__header {
-            padding: 0.95rem 1.35rem;
-            border-bottom: 1px solid rgba(15, 76, 129, 0.08);
-            display: flex;
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, $st-primary 0%, $st-accent 100%);
+        }
+
+        .ui-form-booking__top-badge {
+            display: inline-flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 0.75rem;
-            background: linear-gradient(180deg, rgba(248, 250, 252, 0.85) 0%, #ffffff 100%);
+            gap: 0.4rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: $st-radius-pill;
+            background: rgba(15, 76, 129, 0.07);
+            color: $st-primary;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 0.9rem;
 
-            @include media-breakpoint-down(sm) {
-                padding: 0.85rem 1.15rem;
-                gap: 0.5rem;
-            }
-
-            // Left: Price group (Micro-eyebrow + Value + Suffix)
-            .price,
-            &__price {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: baseline;
-                min-width: 0;
-                line-height: 1;
-
-                .label,
-                &__price-label {
-                    width: 100%;
-                    display: block;
-                    font-size: 0.625rem;
-                    font-weight: 700;
-                    letter-spacing: 0.1em;
-                    text-transform: uppercase;
-                    color: $gray-600;
-                    margin-bottom: 3px;
-                    line-height: 1;
-                    font-family: $font-primary;
-                }
-
-                .value,
-                &__price-value {
-                    display: inline-flex;
-                    align-items: baseline;
-                    font-size: 1.35rem;
-                    font-weight: 800;
-                    color: $color-primary;
-                    font-family: $font-second;
-                    line-height: 1;
-                    letter-spacing: -0.015em;
-
-                    .mb-0,
-                    &__price-currency {
-                        font-size: 0.85em;
-                        font-weight: 700;
-                        margin-right: 1.5px;
-                        color: inherit;
-                    }
-                }
-
-                .unit,
-                &__price-unit {
-                    display: inline-block;
-                    font-size: 0.75rem;
-                    font-weight: 400;
-                    color: $gray-600;
-                    margin-left: 0.3rem;
-                    line-height: 1;
-                    white-space: nowrap;
-                    font-family: $font-primary;
-                }
-            }
-
-            // Right: Rating group (Single line, no wrap)
-            .rating,
-            &__rating {
-                display: flex;
-                align-items: center;
-                gap: 0.35rem;
-                white-space: nowrap;
-                flex-shrink: 0;
-                line-height: 1;
-
-                // Fallback Stars (★★★★★)
-                .stars,
-                &__rating-stars {
-                    color: $color-secondary;
-                    font-size: 0.75rem;
-                    letter-spacing: 1.5px;
-                    line-height: 1;
-                    display: inline-flex;
-                    align-items: center;
-                }
-
-                // Fallback Text ("4.9 (128 reviews)")
-                .text,
-                &__rating-text {
-                    font-size: 0.8125rem;
-                    font-weight: 700;
-                    color: $color-heading;
-                    line-height: 1;
-                    white-space: nowrap;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.2rem;
-                    font-family: $font-primary;
-
-                    .count,
-                    &__rating-count,
-                    small,
-                    span {
-                        font-weight: 400;
-                        color: $gray-600;
-                    }
-                }
-
-                // KK Star Ratings Integration (Clean single line, no wrap)
-                .kk-star-ratings {
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    display: inline-flex !important;
-                    align-items: center !important;
-                    line-height: 1 !important;
-                    gap: 0.35rem !important;
-                    white-space: nowrap !important;
-                    flex-shrink: 0 !important;
-
-                    &.kksr-valign-top,
-                    &.kksr-valign-bottom {
-                        margin: 0 !important;
-                    }
-
-                    .kksr-stars {
-                        display: inline-flex !important;
-                        align-items: center !important;
-                        line-height: 1 !important;
-                        position: relative !important;
-
-                        .kksr-stars-inactive,
-                        .kksr-stars-active {
-                            display: inline-flex !important;
-                            align-items: center !important;
-                        }
-
-                        .kksr-star {
-                            padding: 0 !important;
-                            margin: 0 0.5px !important;
-                            cursor: default;
-
-                            svg,
-                            .kksr-icon {
-                                width: 13px !important;
-                                height: 13px !important;
-                                min-width: 13px !important;
-                                min-height: 13px !important;
-                                background-size: 13px 13px !important;
-                                color: $color-secondary !important;
-                                fill: $color-secondary !important;
-                            }
-                        }
-                    }
-
-                    .kksr-legend {
-                        margin: 0 0 0 0.35rem !important;
-                        padding: 0 !important;
-                        font-size: 0.8125rem !important;
-                        line-height: 1 !important;
-                        white-space: nowrap !important;
-                        font-family: $font-primary !important;
-                        display: inline-flex !important;
-                        align-items: center !important;
-                        gap: 2px !important;
-
-                        .kksr-score,
-                        strong,
-                        b {
-                            color: $color-heading !important;
-                            font-weight: 700 !important;
-                        }
-
-                        .kksr-muted,
-                        .kksr-total,
-                        span {
-                            color: $gray-600 !important;
-                            font-weight: 400 !important;
-                        }
-                    }
-                }
+            svg {
+                width: 14px;
+                height: 14px;
+                color: $st-accent;
             }
         }
 
-        &__body {
-            padding: 1.5rem;
+        .ui-form-booking__header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid $st-border;
+        }
+
+        .ui-form-booking__price {
+            display: flex;
+            flex-direction: column;
+
+            &-label {
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: $st-text-muted;
+                margin-bottom: 0.15rem;
+            }
+
+            &-main {
+                display: flex;
+                align-items: baseline;
+                gap: 0.25rem;
+            }
+
+            &-value {
+                font-family: $st-font-heading;
+                font-size: 2rem;
+                font-weight: 800;
+                line-height: 1;
+                color: $st-primary;
+                letter-spacing: -0.02em;
+            }
+
+            &-currency {
+                font-size: 1.25rem;
+                font-weight: 700;
+            }
+
+            &-unit {
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: $st-text-muted;
+            }
+        }
+
+        .ui-form-booking__rating {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: $st-text-secondary;
+
+            &-stars {
+                color: #f59e0b;
+                margin-right: 0.25rem;
+            }
+
+            .kksr-stars,
+            .kksr-legend {
+                font-size: 0.75rem !important;
+            }
+        }
+
+        .ui-form-booking__body {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
 
             .form-group {
-                margin-bottom: 1.15rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.45rem;
 
                 label {
-                    display: block;
-                    font-size: 0.875rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.4rem;
+                    font-size: 0.8125rem;
                     font-weight: 700;
-                    color: $color-heading;
-                    margin-bottom: 0.5rem;
+                    color: $st-text-main;
+                    margin: 0;
+
+                    svg {
+                        width: 15px;
+                        height: 15px;
+                        color: $st-primary;
+                    }
 
                     small {
                         font-weight: 500;
-                        color: #64748b;
+                        color: $st-text-muted;
                     }
                 }
 
-                input[type="date"],
                 .form-control {
-                    width: 100%;
-                    height: 46px;
-                    padding: 0.625rem 1rem;
-                    border: 1px solid #e2e8f0;
-                    border-radius: 12px;
-                    background: #f8fafc;
+                    height: 48px;
+                    padding: 0.65rem 1rem;
+                    border-radius: $st-radius-md;
+                    border: 1px solid $st-border;
+                    background: $st-bg-page;
+                    font-family: $st-font-sans;
                     font-size: 0.9375rem;
-                    color: $color-heading;
-                    font-family: inherit;
-                    transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+                    font-weight: 600;
+                    color: $st-text-main;
+                    transition: $st-transition;
 
                     &:focus {
                         outline: none;
-                        border-color: $color-primary;
                         background: #ffffff;
-                        box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
+                        border-color: $st-primary;
+                        box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.12);
                     }
                 }
             }
 
             .form-row {
-                display: flex;
-                gap: 0.875rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.85rem;
 
-                .half {
-                    flex: 1;
-                    margin-bottom: 1.15rem;
+                @media (max-width: 400px) {
+                    grid-template-columns: 1fr;
                 }
             }
 
             .quantity-selector {
                 display: flex;
                 align-items: center;
-                background: #f8fafc;
-                border: 1px solid #e2e8f0;
-                border-radius: 12px;
-                overflow: hidden;
-                height: 46px;
-                transition: border-color 0.25s ease;
-
-                &:focus-within {
-                    border-color: $color-primary;
-                    box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
-                    background: #ffffff;
-                }
+                justify-content: space-between;
+                height: 48px;
+                padding: 0.25rem;
+                background: $st-bg-page;
+                border: 1px solid $st-border;
+                border-radius: $st-radius-md;
 
                 .qty-btn {
-                    width: 40px;
-                    height: 100%;
-                    border: none;
-                    background: transparent;
-                    color: $color-heading;
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 10px;
+                    border: 1px solid $st-border;
+                    background: #ffffff;
+                    color: $st-text-main;
                     font-size: 1.125rem;
-                    font-weight: 600;
-                    cursor: pointer;
-                    display: flex;
+                    font-weight: 700;
+                    display: inline-flex;
                     align-items: center;
                     justify-content: center;
-                    transition: background-color 0.2s ease, color 0.2s ease;
-                    user-select: none;
+                    cursor: pointer;
+                    transition: $st-transition;
 
                     &:hover {
-                        background-color: rgba($color-primary, 0.08);
-                        color: $color-primary;
-                    }
-
-                    &:active {
-                        background-color: rgba($color-primary, 0.15);
+                        background: $st-primary;
+                        border-color: $st-primary;
+                        color: #ffffff;
                     }
                 }
 
                 input[type="number"] {
-                    flex: 1;
-                    width: 100%;
-                    height: 100%;
-                    text-align: center;
+                    width: 44px;
                     border: none;
                     background: transparent;
-                    font-size: 0.9375rem;
-                    font-weight: 700;
-                    color: $color-heading;
-                    padding: 0;
+                    text-align: center;
+                    font-family: $st-font-heading;
+                    font-size: 1rem;
+                    font-weight: 800;
+                    color: $st-text-main;
                     -moz-appearance: textfield;
 
                     &::-webkit-outer-spin-button,
@@ -1819,456 +3445,123 @@ body.single-tours {
                 }
             }
 
-            #rc-btn-check-availability,
-            .ui-button {
+            .ui-form-error {
+                color: #b91c1c;
+                font-size: 0.8125rem;
+                font-weight: 600;
+                padding: 0.75rem 1rem;
+                background-color: #fef2f2;
+                border-radius: $st-radius-sm;
+                border: 1px solid #fecaca;
+            }
+
+            .ui-btn-check-availability {
                 width: 100%;
-                height: 50px;
-                background-color: $color-secondary;
-                color: $color-heading;
-                font-size: 1rem;
+                height: 52px;
+                margin-top: 0.25rem;
+                border-radius: $st-radius-md;
+                font-size: 0.9375rem;
                 font-weight: 700;
-                border-radius: 12px;
-                border: none;
-                cursor: pointer;
-                gap: 0.5rem;
-                box-shadow: 0 8px 16px -2px rgba(223, 161, 40, 0.3);
-                transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+                gap: 0.55rem;
+                box-shadow: 0 10px 24px -6px rgba(15, 76, 129, 0.4);
+                transition: $st-transition;
 
                 svg {
-                    width: 20px;
-                    height: 20px;
-                    max-width: 20px;
-                    flex-shrink: 0;
-                    stroke: currentColor;
+                    width: 18px;
+                    height: 18px;
+                    transform: rotate(90deg);
                     transition: transform 0.25s ease;
                 }
 
                 &:hover {
-                    background-color: #fbbf24;
-                    transform: translateY(-1px);
-                    box-shadow: 0 12px 20px -2px rgba(223, 161, 40, 0.4);
+                    transform: translateY(-2px);
+                    box-shadow: 0 14px 28px -6px rgba(15, 76, 129, 0.5);
 
                     svg {
-                        transform: translateX(3px);
+                        transform: rotate(90deg) translateX(2px);
                     }
-                }
-
-                &:active {
-                    transform: translateY(0);
-                    box-shadow: 0 4px 8px -1px rgba(223, 161, 40, 0.25);
                 }
             }
         }
 
-        &__footer {
-            padding: 1.15rem 1.5rem;
-            background: #f8fafc;
-            border-top: 1px solid #f1f5f9;
+        .ui-form-booking__footer {
+            margin-top: 1.25rem;
+            padding-top: 1.15rem;
+            border-top: 1px dashed $st-border;
             display: flex;
             flex-direction: column;
-            gap: 0.65rem;
+            gap: 0.55rem;
 
             .feature-line {
                 display: flex;
                 align-items: center;
-                gap: 0.6rem;
+                gap: 0.55rem;
                 font-size: 0.8125rem;
                 font-weight: 500;
-                color: #64748b;
+                color: $st-text-secondary;
 
                 svg {
                     width: 16px;
                     height: 16px;
-                    max-width: 16px;
+                    color: $st-success;
                     flex-shrink: 0;
-                    stroke: currentColor;
-                    color: #16a34a;
                 }
             }
         }
     }
 
-    // ======================================================================
-    // Tour Options Section (.ui-tour-options)
-    // ======================================================================
-    .ui-tour-options {
-        padding-top: 2rem;
-        padding-bottom: 3.5rem;
+    // ==========================================================================
+    // 13. RELATED TOURS SECTION (.related-tour-section)
+    // ==========================================================================
+    .related-tour-section {
+        padding: 4.5rem 0;
+        background: #ffffff;
+        border-top: 1px solid $st-border;
 
-        @include media-breakpoint-down(md) {
-            padding-top: 1.5rem;
-            padding-bottom: 2.5rem;
+        @media (max-width: 767.98px) {
+            padding: 3rem 0;
         }
 
-        &__title {
-            margin-bottom: 2rem;
-        }
-
-        &__grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.75rem;
-            align-items: stretch;
-
-            @include media-breakpoint-down(md) {
-                grid-template-columns: 1fr;
-                gap: 1.25rem;
-            }
-        }
-
-        // Option Item Card
-        .option-item {
-            background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 1.6rem 1.6rem 1.4rem;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            box-shadow: 0 4px 16px -2px rgba(15, 35, 43, 0.04);
-            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
-
-            &:hover {
-                border-color: rgba(15, 76, 129, 0.35);
-                box-shadow: 0 12px 28px -4px rgba(15, 35, 43, 0.09);
-                transform: translateY(-3px);
-            }
-
-            // Selected / Active state
-            &.is-selected {
-                border-color: $color-primary;
-                box-shadow: 0 12px 30px -4px rgba(15, 76, 129, 0.16);
-                background: linear-gradient(180deg, #ffffff 0%, rgba(15, 76, 129, 0.02) 100%);
-
-                .option-item__header h3 {
-                    color: $color-primary;
-                }
-
-                .option-item__radio {
-                    border-color: $color-primary;
-
-                    &-inner {
-                        background-color: $color-primary;
-                        transform: scale(1);
-                    }
-                }
-
-                .btn-select {
-                    background-color: $color-secondary;
-                    border-color: $color-secondary;
-                    color: $color-heading;
-                    box-shadow: 0 4px 14px rgba(223, 161, 40, 0.32);
-
-                    &:hover {
-                        background-color: #fbbf24;
-                        border-color: #fbbf24;
-                    }
-                }
-            }
-
-            // Header
-            &__header {
-                display: flex;
-                align-items: flex-start;
-                justify-content: space-between;
-                gap: 1rem;
-                margin-bottom: 0.85rem;
-
-                h3 {
-                    font-family: $font-primary;
-                    font-size: 1.15rem;
-                    font-weight: 700;
-                    color: $color-heading;
-                    margin: 0;
-                    line-height: 1.35;
-                    transition: color 0.25s ease;
-                }
-            }
-
-            // Radio indicator
-            &__radio {
-                width: 22px;
-                height: 22px;
+        .ui-related-nav {
+            .ui-swiper-prev,
+            .ui-swiper-next {
+                width: 44px;
+                height: 44px;
                 border-radius: 50%;
-                border: 2px solid #cbd5e1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-                margin-top: 2px;
-                transition: border-color 0.2s ease;
-
-                &-inner {
-                    width: 10px;
-                    height: 10px;
-                    border-radius: 50%;
-                    background-color: transparent;
-                    transform: scale(0);
-                    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
-                }
-            }
-
-            // Description
-            &__desc {
-                font-size: 0.875rem;
-                color: $color-body;
-                line-height: 1.6;
-                margin-bottom: 1.15rem;
-
-                p {
-                    margin-bottom: 0.35rem;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 3;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-
-                .option-item__read-more {
-                    display: inline-block;
-                    font-size: 0.8125rem;
-                    font-weight: 600;
-                    color: $color-primary;
-                    text-decoration: none;
-                    margin-top: 0.25rem;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-            }
-
-            // Benefits list
-            &__benefits {
-                list-style: none;
-                margin: 0 0 1.25rem;
-                padding: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 0.65rem;
-
-                li {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.65rem;
-                    font-size: 0.875rem;
-                    color: $color-heading;
-                    line-height: 1.4;
-
-                    &::before {
-                        display: none !important;
-                    }
-
-                    svg {
-                        width: 17px;
-                        height: 17px;
-                        flex-shrink: 0;
-                        color: $color-primary;
-                    }
-
-                    span {
-                        flex: 1;
-                    }
-
-                    &:last-child svg {
-                        color: #16a34a;
-                    }
-                }
-            }
-
-            // Starting Time
-            &__time {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 0.75rem;
-                padding: 0.65rem 0.875rem;
-                background: #f8fafc;
-                border: 1px solid #e2e8f0;
-                border-radius: 12px;
-                margin-bottom: 1.25rem;
-
-                &-label {
-                    font-size: 0.8125rem;
-                    font-weight: 600;
-                    color: #64748b;
-                }
-
-                &-chip {
-                    display: inline-flex;
-                    align-items: center;
-                    padding: 0.22rem 0.6rem;
-                    border-radius: 6px;
-                    font-family: $font-second;
-                    font-size: 0.8125rem;
-                    font-weight: 700;
-                    color: $color-primary;
-                    background: rgba(15, 76, 129, 0.08);
-                    border: 1px solid rgba(15, 76, 129, 0.14);
-                }
-            }
-
-            // Pricing Area
-            &__pricing {
-                margin-top: auto;
-                padding-top: 1.15rem;
-                border-top: 1px solid #f1f5f9;
-                display: flex;
-                flex-direction: column;
-                gap: 0.4rem;
-
-                .option-item__price-total {
-                    font-family: $font-second;
-                    font-size: 1.5rem;
-                    font-weight: 800;
-                    color: $color-primary;
-                    margin: 0;
-                    line-height: 1.2;
-
-                    span.mb-0 {
-                        font-size: 1rem;
-                        font-weight: 700;
-                        margin-right: 2px;
-                    }
-                }
-
-                .option-item__price-calc {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    font-size: 0.8125rem;
-                    color: #64748b;
-
-                    span:last-child {
-                        font-weight: 600;
-                        color: $color-heading;
-
-                        span.mb-0 {
-                            font-weight: 500;
-                            margin-right: 1px;
-                        }
-                    }
-                }
-
-                .option-item__price-tax {
-                    font-size: 0.75rem;
-                    color: #94a3b8;
-                    font-style: italic;
-                    margin-top: 0.15rem;
-                }
-            }
-
-            // CTA Button
-            &__cta {
-                margin-top: 1.25rem;
-
-                .btn-select {
-                    width: 100%;
-                    height: 46px;
-                    border-radius: 12px;
-                    font-size: 0.9375rem;
-                    font-weight: 700;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    transition: all 0.25s ease;
-                    border: 1.5px solid $color-primary;
-                    background: transparent;
-                    color: $color-primary;
-
-                    &:hover {
-                        background: rgba(15, 76, 129, 0.06);
-                        border-color: $color-primary;
-                        color: $color-primary;
-                    }
-
-                    &:active {
-                        transform: translateY(0);
-                    }
-
-                    &:focus-visible {
-                        outline: 2px solid $color-secondary;
-                        outline-offset: 2px;
-                    }
-
-                    &--active {
-                        background-color: $color-secondary;
-                        border-color: $color-secondary;
-                        color: $color-heading;
-                        box-shadow: 0 4px 14px rgba(223, 161, 40, 0.32);
-
-                        &:hover {
-                            background-color: #fbbf24;
-                            border-color: #fbbf24;
-                            color: $color-heading;
-                        }
-                    }
-                }
-            }
-        }
-
-        // Empty State
-        .ui-tour-options-empty,
-        .vm-tour-options-empty {
-            background: #ffffff;
-            border: 2px dashed #cbd5e1;
-            border-radius: 18px;
-            padding: 3rem 2rem;
-            text-align: center;
-            max-width: 620px;
-            margin: 0 auto;
-
-            .empty-icon {
+                border: 1px solid $st-border;
+                background: $st-bg-page;
+                color: $st-text-main;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 64px;
-                height: 64px;
-                border-radius: 50%;
-                background: rgba(239, 68, 68, 0.08);
-                color: #ef4444;
-                margin-bottom: 1.25rem;
+                cursor: pointer;
+                transition: $st-transition;
 
                 svg {
-                    width: 32px;
-                    height: 32px;
+                    width: 18px;
+                    height: 18px;
                 }
-            }
 
-            h3 {
-                font-family: $font-second;
-                font-size: 1.35rem;
-                font-weight: 700;
-                color: $color-heading;
-                margin-bottom: 0.75rem;
-            }
+                &:hover:not(.swiper-button-disabled) {
+                    background: $st-primary;
+                    border-color: $st-primary;
+                    color: #ffffff;
+                }
 
-            p {
-                font-size: 0.95rem;
-                line-height: 1.6;
-                color: #64748b;
-                margin-bottom: 0;
-
-                strong {
-                    color: $color-primary;
-                    font-weight: 600;
+                &.swiper-button-disabled {
+                    opacity: 0.4;
+                    cursor: not-allowed;
                 }
             }
         }
-    }
-}
 
-// Body scroll lock when lightbox is active
-body.tour-gallery-lightbox-open {
-    overflow: hidden !important;
-}
+        .swiper-slide {
+            height: auto;
+            display: flex;
 
-@keyframes gallerySpinner {
-    to {
-        transform: rotate(360deg);
+            .tour-item {
+                width: 100%;
+            }
+        }
     }
 }

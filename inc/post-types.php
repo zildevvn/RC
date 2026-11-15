@@ -3,9 +3,9 @@
 /**
  * Use this file to register any custom post types you wish to create.
  */
-if (!function_exists('vm_create_custom_post_type')) {
+if (!function_exists('rc_create_custom_post_type')) {
 	// Register Custom Post Type
-	function vm_create_custom_post_type()
+	function rc_create_custom_post_type()
 	{
 		register_post_type('tours', array(
 			'labels' => array(
@@ -22,7 +22,7 @@ if (!function_exists('vm_create_custom_post_type')) {
 				'all_items' => __('All Tours'),
 				'menu_name' => __('Tours'),
 			),
-			'label' => __('Tours', 'vm'),
+			'label' => __('Tours', 'rc'),
 
 			'supports' => array(
 				'title',
@@ -47,7 +47,7 @@ if (!function_exists('vm_create_custom_post_type')) {
 			'exclude_from_search' => false,
 			'publicly_queryable' => true,
 			'show_in_rest' => true,
-			'rewrite' => array('slug' => 'phu-quoc-tour'),
+			'rewrite' => array('slug' => 'private-car-da-nang'),
 		));
 
 
@@ -66,7 +66,7 @@ if (!function_exists('vm_create_custom_post_type')) {
 		// 		'all_items' => __('All Cars'),
 		// 		'menu_name' => __('Cars'),
 		// 	),
-		// 	'label' => __('Cars', 'vm'),
+		// 	'label' => __('Cars', 'rc'),
 		// 	'supports' => array('title', 'editor', 'thumbnail', 'revisions', 'page-attributes', 'comments'),
 		// 	'menu_icon' => 'dashicons-car',
 		// 	'hierarchical' => false,
@@ -98,7 +98,7 @@ if (!function_exists('vm_create_custom_post_type')) {
 				'all_items' => __('All Bookings'),
 				'menu_name' => __('Bookings'),
 			),
-			'label' => __('Bookings', 'vm'),
+			'label' => __('Bookings', 'rc'),
 			'supports' => array('title', 'custom-fields'),
 			'menu_icon' => 'dashicons-book-alt',
 			'hierarchical' => false,
@@ -117,11 +117,11 @@ if (!function_exists('vm_create_custom_post_type')) {
 
 	}
 
-	add_action('init', 'vm_create_custom_post_type', 0);
+	add_action('init', 'rc_create_custom_post_type', 0);
 }
 
-if (!function_exists('vm_create_custom_taxonomy')) {
-	function vm_create_custom_taxonomy()
+if (!function_exists('rc_create_custom_taxonomy')) {
+	function rc_create_custom_taxonomy()
 	{
 		register_taxonomy('tour_cats', array('tours'), array(
 			'labels' => array(
@@ -195,5 +195,5 @@ if (!function_exists('vm_create_custom_taxonomy')) {
 			'show_in_rest' => true,
 		));
 	}
-	add_action('init', 'vm_create_custom_taxonomy', 0);
+	add_action('init', 'rc_create_custom_taxonomy', 0);
 }

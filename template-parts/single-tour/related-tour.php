@@ -55,7 +55,11 @@ if (is_array($current_tour_cats) && !empty($current_tour_cats)) {
 
             <div
                 class="related-tour-section__header d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
-                <div>
+                <div class="related-tour-section__title-group">
+                    <div class="ui-badge mb-2">
+                        <span class="ui-badge__dot" aria-hidden="true"></span>
+                        <span><?php esc_html_e('Curated Recommendations', 'rc'); ?></span>
+                    </div>
                     <h2 class="ui-heading mb-2">
                         <?php echo $heading; ?>
                     </h2>

@@ -4,7 +4,13 @@ $faqs = get_field('faqs_list_tour');
 
 <?php if (!empty($faqs) && is_array($faqs)): ?>
     <div id="tour-faqs" class="tour-faqs">
-        <h2 class="ui-heading">Frequently Asked Questions</h2>
+        <div class="tour-section-header">
+            <span class="tour-section-header__eyebrow">
+                <?php echo rc_svg_icon('alert_circle'); ?>
+                <span><?php esc_html_e('Good to Know', 'rc'); ?></span>
+            </span>
+            <h2 class="ui-heading"><?php esc_html_e('Frequently Asked Questions', 'rc'); ?></h2>
+        </div>
         <div class="faqs-list" data-purpose="tour-faqs">
             <?php foreach ($faqs as $key => $item): ?>
                 <?php

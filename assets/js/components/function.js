@@ -438,150 +438,162 @@ import AOS from 'aos';
         const $closeBtn = $lightbox.find('.tour-gallery__lightbox-close');
         const $prevBtn = $lightbox.find('.tour-gallery__lightbox-prev');
         const $nextBtn = $lightbox.find('.tour-gallery__lightbox-next');
-        const $overlay = $lightbox.find('.tour-gallery__lightbox-overlay');
 
-        $galleries.each(function () {
-            const $gallery = $(this);
-            if ($gallery.data('rcTourGalleryInit')) {
+        let activeImages = [];
+        let currentIndex = 0;
+        let $lastFocusedElement = null;
+
+        const preloadImage = (url) => {
+            if (url) {
+                const img = new Image();
+                img.src = url;
+            }
+        };
+
+        const updateLightboxImage = (index) => {
+            if (!activeImages.length || index < 0 || index >= activeImages.length) {
                 return;
             }
-            $gallery.data('rcTourGalleryInit', true);
+            currentIndex = index;
+            const imgData = activeImages[currentIndex];
 
-            const $items = $gallery.find('.tour-gallery__item');
+            const currentSrc = $lightboxImg.attr('src') || '';
+            const isSameLoaded =
+                currentSrc === imgData.full &&
+                $lightboxImg[0] &&
+                $lightboxImg[0].complete &&
+                $lightboxImg[0].naturalWidth > 0;
 
-            // Collect all gallery items data
-            const images = [];
-            $items.each(function (idx) {
-                const $item = $(this);
-                const fullSrc = $item.data('full') || $item.find('img').attr('src');
-                if (fullSrc) {
-                    images.push({
-                        index: idx,
-                        full: fullSrc,
-                        alt: $item.data('alt') || $item.find('img').attr('alt') || '',
-                        title: $item.data('title') || ''
-                    });
-                }
-            });
-
-            if (!images.length) {
-                return;
-            }
-
-            let currentIndex = 0;
-            let $lastFocusedElement = null;
-
-            // Preload image
-            const preloadImage = (url) => {
-                if (url) {
-                    const img = new Image();
-                    img.src = url;
-                }
-            };
-
-            const updateLightboxImage = (index) => {
-                if (index < 0 || index >= images.length) {
-                    return;
-                }
-                currentIndex = index;
-                const imgData = images[currentIndex];
-
+            if (!isSameLoaded) {
                 $lightbox.addClass('is-loading');
-                $lightboxImg.attr('src', imgData.full).attr('alt', imgData.alt);
+                $lightboxImg
+                    .off('load.rcTourGallery error.rcTourGallery')
+                    .on('load.rcTourGallery error.rcTourGallery', function () {
+                        $lightbox.removeClass('is-loading');
+                    });
+                $lightboxImg.attr('src', imgData.full);
 
-                $lightboxImg.off('load.rcTourGallery error.rcTourGallery').on('load.rcTourGallery error.rcTourGallery', function () {
+                if ($lightboxImg[0] && $lightboxImg[0].complete && $lightboxImg[0].naturalWidth > 0) {
                     $lightbox.removeClass('is-loading');
-                });
-
-                if ($lightboxCounter.length) {
-                    $lightboxCounter.text((currentIndex + 1) + ' / ' + images.length);
                 }
+            } else {
+                $lightbox.removeClass('is-loading');
+            }
 
-                if ($lightboxCaption.length) {
-                    const captionText = imgData.title || imgData.alt;
-                    $lightboxCaption.text(captionText ? captionText : '');
+            $lightboxImg.attr('alt', imgData.alt || '');
+
+            if ($lightboxCounter.length) {
+                $lightboxCounter.text((currentIndex + 1) + ' / ' + activeImages.length);
+            }
+
+            if ($lightboxCaption.length) {
+                const captionText = imgData.title || imgData.alt || '';
+                $lightboxCaption.text(captionText);
+            }
+
+            // Preload adjacent images
+            if (activeImages.length > 1) {
+                const nextIdx = (currentIndex + 1) % activeImages.length;
+                const prevIdx = (currentIndex - 1 + activeImages.length) % activeImages.length;
+                preloadImage(activeImages[nextIdx].full);
+                preloadImage(activeImages[prevIdx].full);
+            }
+
+            // Hide prev/next if only 1 image
+            if (activeImages.length <= 1) {
+                $prevBtn.hide();
+                $nextBtn.hide();
+            } else {
+                $prevBtn.show();
+                $nextBtn.show();
+            }
+        };
+
+        const openLightbox = (images, index, $trigger) => {
+            if (!images || !images.length) {
+                return;
+            }
+            activeImages = images;
+            const safeIndex = (index >= 0 && index < activeImages.length) ? index : 0;
+            $lastFocusedElement = $trigger && $trigger.length ? $trigger : $(document.activeElement);
+
+            updateLightboxImage(safeIndex);
+
+            $lightbox.addClass('is-active').attr('aria-hidden', 'false');
+            $('body').addClass('tour-gallery-lightbox-open');
+
+            setTimeout(() => {
+                if ($lightbox.hasClass('is-active')) {
+                    $closeBtn.trigger('focus');
                 }
+            }, 30);
+        };
 
-                // Preload adjacent images
-                if (images.length > 1) {
-                    const nextIdx = (currentIndex + 1) % images.length;
-                    const prevIdx = (currentIndex - 1 + images.length) % images.length;
-                    preloadImage(images[nextIdx].full);
-                    preloadImage(images[prevIdx].full);
-                }
+        const closeLightbox = () => {
+            if (!$lightbox.hasClass('is-active')) {
+                return;
+            }
+            $lightbox.removeClass('is-active is-loading').attr('aria-hidden', 'true');
+            $('body').removeClass('tour-gallery-lightbox-open');
 
-                // Hide prev/next if only 1 image
-                if (images.length <= 1) {
-                    $prevBtn.hide();
-                    $nextBtn.hide();
-                } else {
-                    $prevBtn.show();
-                    $nextBtn.show();
-                }
-            };
+            if ($lastFocusedElement && $lastFocusedElement.length && $lastFocusedElement.is(':visible')) {
+                $lastFocusedElement.trigger('focus');
+            }
+            $lastFocusedElement = null;
+        };
 
-            const openLightbox = (index, $trigger) => {
-                $lastFocusedElement = $trigger || $(document.activeElement);
-                updateLightboxImage(index);
+        const showNext = () => {
+            if (activeImages.length <= 1) return;
+            const next = (currentIndex + 1) % activeImages.length;
+            updateLightboxImage(next);
+        };
 
-                $lightbox.addClass('is-active').attr('aria-hidden', 'false');
-                $('body').addClass('tour-gallery-lightbox-open');
+        const showPrev = () => {
+            if (activeImages.length <= 1) return;
+            const prev = (currentIndex - 1 + activeImages.length) % activeImages.length;
+            updateLightboxImage(prev);
+        };
 
-                $closeBtn.trigger('focus');
-            };
+        // Bind modal-level controls once
+        if (!$lightbox.data('rcTourLightboxBound')) {
+            $lightbox.data('rcTourLightboxBound', true);
 
-            const closeLightbox = () => {
-                if (!$lightbox.hasClass('is-active')) {
-                    return;
-                }
-                $lightbox.removeClass('is-active is-loading').attr('aria-hidden', 'true');
-                $('body').removeClass('tour-gallery-lightbox-open');
-
-                if ($lastFocusedElement && $lastFocusedElement.length) {
-                    $lastFocusedElement.trigger('focus');
-                }
-            };
-
-            const showNext = () => {
-                if (images.length <= 1) return;
-                const next = (currentIndex + 1) % images.length;
-                updateLightboxImage(next);
-            };
-
-            const showPrev = () => {
-                if (images.length <= 1) return;
-                const prev = (currentIndex - 1 + images.length) % images.length;
-                updateLightboxImage(prev);
-            };
-
-            // Event bindings
-            $gallery.on('click.rcTourGallery', '.tour-gallery__item, .tour-gallery__view-all-btn', function (e) {
+            $closeBtn.on('click.rcTourGallery', function (e) {
                 e.preventDefault();
-                const $target = $(this);
-                const idx = parseInt($target.data('index'), 10) || 0;
-                openLightbox(idx, $target);
-            });
-
-            $closeBtn.off('click.rcTourGallery').on('click.rcTourGallery', function (e) {
-                e.preventDefault();
+                e.stopPropagation();
                 closeLightbox();
             });
 
-            $overlay.off('click.rcTourGallery').on('click.rcTourGallery', function () {
-                closeLightbox();
-            });
-
-            $nextBtn.off('click.rcTourGallery').on('click.rcTourGallery', function (e) {
+            $nextBtn.on('click.rcTourGallery', function (e) {
                 e.preventDefault();
+                e.stopPropagation();
                 showNext();
             });
 
-            $prevBtn.off('click.rcTourGallery').on('click.rcTourGallery', function (e) {
+            $prevBtn.on('click.rcTourGallery', function (e) {
                 e.preventDefault();
+                e.stopPropagation();
                 showPrev();
             });
 
-            $(document).off('keydown.rcTourGallery').on('keydown.rcTourGallery', function (e) {
+            // Prevent clicks on the image or caption from closing the modal
+            $lightbox.on('click.rcTourGallery', '.tour-gallery__lightbox-image, .tour-gallery__lightbox-caption, .tour-gallery__lightbox-counter', function (e) {
+                e.stopPropagation();
+            });
+
+            // Close when clicking backdrop / empty stage area around the image
+            $lightbox.on('click.rcTourGallery', function (e) {
+                if (
+                    $(e.target).is(
+                        '.tour-gallery__lightbox, .tour-gallery__lightbox-overlay, .tour-gallery__lightbox-content, .tour-gallery__lightbox-image-container, .tour-gallery__lightbox-header'
+                    )
+                ) {
+                    closeLightbox();
+                }
+            });
+
+            // Keyboard navigation & focus trap
+            $(document).on('keydown.rcTourGallery', function (e) {
                 if (!$lightbox.hasClass('is-active')) {
                     return;
                 }
@@ -595,6 +607,25 @@ import AOS from 'aos';
                 } else if (e.key === 'ArrowLeft') {
                     e.preventDefault();
                     showPrev();
+                } else if (e.key === 'Tab') {
+                    const $focusable = $lightbox
+                        .find('button, [href], [tabindex]:not([tabindex="-1"])')
+                        .filter(':visible:not(:disabled)');
+
+                    if (!$focusable.length) {
+                        return;
+                    }
+
+                    const firstEl = $focusable[0];
+                    const lastEl = $focusable[$focusable.length - 1];
+
+                    if (e.shiftKey && document.activeElement === firstEl) {
+                        e.preventDefault();
+                        lastEl.focus();
+                    } else if (!e.shiftKey && document.activeElement === lastEl) {
+                        e.preventDefault();
+                        firstEl.focus();
+                    }
                 }
             });
 
@@ -603,7 +634,6 @@ import AOS from 'aos';
             let touchEndX = 0;
 
             $lightbox.find('.tour-gallery__lightbox-image-container')
-                .off('touchstart.rcTourGallery touchend.rcTourGallery')
                 .on('touchstart.rcTourGallery', function (e) {
                     if (e.originalEvent && e.originalEvent.changedTouches) {
                         touchStartX = e.originalEvent.changedTouches[0].screenX;
@@ -622,6 +652,45 @@ import AOS from 'aos';
                         }
                     }
                 });
+        }
+
+        // Initialize each gallery instance
+        $galleries.each(function () {
+            const $gallery = $(this);
+            if ($gallery.data('rcTourGalleryInit')) {
+                return;
+            }
+            $gallery.data('rcTourGalleryInit', true);
+
+            const $items = $gallery.find('.tour-gallery__item');
+            const images = [];
+
+            $items.each(function (idx) {
+                const $item = $(this);
+                const fullSrc = $item.attr('data-full') || $item.data('full') || $item.find('img').attr('src');
+                if (fullSrc) {
+                    const dataIdx = parseInt($item.attr('data-index'), 10);
+                    images.push({
+                        index: !isNaN(dataIdx) ? dataIdx : idx,
+                        full: fullSrc,
+                        alt: $item.attr('data-alt') || $item.data('alt') || $item.find('img').attr('alt') || '',
+                        title: $item.attr('data-title') || $item.data('title') || ''
+                    });
+                }
+            });
+
+            if (!images.length) {
+                return;
+            }
+
+            $gallery.on('click.rcTourGallery', '.tour-gallery__item, .tour-gallery__view-all-btn', function (e) {
+                e.preventDefault();
+                const $target = $(this);
+                const rawIdx = parseInt($target.attr('data-index'), 10);
+                const targetIndex = !isNaN(rawIdx) ? rawIdx : 0;
+                const mappedIdx = images.findIndex((img) => img.index === targetIndex);
+                openLightbox(images, mappedIdx !== -1 ? mappedIdx : 0, $target);
+            });
         });
     };
 

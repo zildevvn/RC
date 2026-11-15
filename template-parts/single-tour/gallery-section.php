@@ -30,7 +30,7 @@ $layout_count = min(5, $total_images);
 $remaining_images = max(0, $total_images - 5);
 ?>
 
-<section class="tour-gallery" aria-label="<?php esc_attr_e('Tour Photo Gallery', 'rc'); ?>">
+<section class="tour-gallery ui-tour-gallery" aria-label="<?php esc_attr_e('Tour Photo Gallery', 'rc'); ?>">
     <div class="container">
         <div class="tour-gallery__wrapper">
             <div class="tour-gallery__grid tour-gallery__grid--count-<?php echo esc_attr($layout_count); ?>">
@@ -41,7 +41,12 @@ $remaining_images = max(0, $total_images - 5);
 
                     $item_classes = 'tour-gallery__item';
                     if ($is_featured) {
-                        $item_classes .= ' tour-gallery__item--featured';
+                        $item_classes .= ' tour-gallery__item--featured tour-gallery__item--main';
+                    } elseif ($i < 5) {
+                        $item_classes .= ' tour-gallery__item--sub tour-gallery__item--sub-' . $i;
+                    }
+                    if ($is_last_visible) {
+                        $item_classes .= ' tour-gallery__item--has-more';
                     }
                     if ($is_hidden_desktop) {
                         $item_classes .= ' tour-gallery__item--hidden';
@@ -49,18 +54,31 @@ $remaining_images = max(0, $total_images - 5);
                     ?>
                     <button type="button"
                             class="<?php echo esc_attr($item_classes); ?>"
-                            data-index="<?php echo $i; ?>"
+                            data-index="<?php echo esc_attr($i); ?>"
                             data-full="<?php echo esc_url($img_data['url']); ?>"
                             data-alt="<?php echo esc_attr($img_data['alt']); ?>"
                             data-title="<?php echo esc_attr($img_data['title']); ?>"
-                            aria-label="<?php echo esc_attr(sprintf(__('View photo %d of %d', 'rc'), $i + 1, $total_images)); ?>">
+                            aria-label="<?php echo esc_attr(
+                                $is_last_visible
+                                    ? sprintf(__('View photo %1$d of %2$d (+%3$d more photos)', 'rc'), $i + 1, $total_images, $remaining_images)
+                                    : sprintf(__('View photo %1$d of %2$d', 'rc'), $i + 1, $total_images)
+                            ); ?>">
                         <img src="<?php echo esc_url($img_data['thumb']); ?>"
                              alt="<?php echo esc_attr($img_data['alt']); ?>"
                              loading="<?php echo $is_featured ? 'eager' : 'lazy'; ?>"
                              decoding="async">
 
+                        <?php if (!$is_last_visible && !$is_hidden_desktop): ?>
+                            <span class="tour-gallery__zoom-badge" aria-hidden="true">
+                                <?php echo rc_svg_icon('search_outline'); ?>
+                            </span>
+                        <?php endif; ?>
+
                         <?php if ($is_last_visible): ?>
                             <div class="tour-gallery__counter-badge" aria-hidden="true">
+                                <span class="tour-gallery__counter-icon">
+                                    <?php echo rc_svg_icon('gallery_image'); ?>
+                                </span>
                                 <span class="tour-gallery__counter-number">+<?php echo esc_html($remaining_images); ?></span>
                                 <span class="tour-gallery__counter-text"><?php echo esc_html(_n('Photo', 'Photos', $remaining_images, 'rc')); ?></span>
                             </div>
@@ -90,9 +108,9 @@ $remaining_images = max(0, $total_images - 5);
      aria-modal="true"
      aria-label="<?php esc_attr_e('Image Gallery Lightbox', 'rc'); ?>">
     <div class="tour-gallery__lightbox-overlay"></div>
-    <div class="tour-gallery__lightbox-content">
+    <div class="tour-gallery__lightbox-content" role="document">
         <div class="tour-gallery__lightbox-header">
-            <div class="tour-gallery__lightbox-counter" id="tourGalleryLightboxCounter"></div>
+            <div class="tour-gallery__lightbox-counter" id="tourGalleryLightboxCounter" aria-live="polite"></div>
             <button type="button" class="tour-gallery__lightbox-close" aria-label="<?php esc_attr_e('Close gallery', 'rc'); ?>">
                 <?php echo rc_svg_icon('lightbox_close'); ?>
             </button>
