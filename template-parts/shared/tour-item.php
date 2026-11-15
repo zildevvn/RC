@@ -31,12 +31,12 @@ $features_tour = get_field('features_tour', $post_id);
 $price_tour = get_field('price_tour', $post_id);
 $formatted_price = function_exists('rc_format_price') ? rc_format_price($price_tour) : (is_numeric($price_tour) ? number_format((float)$price_tour) : '');
 ?>
-<div class="tour-item<?= !empty($extra_class) ? ' ' . esc_attr($extra_class) : '' ?>">
+<a href="<?= esc_url($permalink) ?>" class="tour-item<?= !empty($extra_class) ? ' ' . esc_attr($extra_class) : '' ?>">
     <div class="tour-item-thumb">
         <?php if (!empty($thumb_url)): ?>
-            <a href="<?= esc_url($permalink) ?>" class="d-block w-100 h-100" tabindex="-1" aria-hidden="true">
+            <div class="d-block w-100 h-100">
                 <img alt="<?= esc_attr($thumb_alt) ?>" src="<?= esc_url($thumb_url) ?>" loading="lazy">
-            </a>
+            </div>
         <?php endif; ?>
         <?php if (!empty($card_badge)): ?>
             <span class="tour-item-badge"><?= esc_html($card_badge) ?></span>
@@ -50,9 +50,7 @@ $formatted_price = function_exists('rc_format_price') ? rc_format_price($price_t
             </div>
         <?php endif; ?>
         <h3 class="tour-item-title">
-            <a href="<?= esc_url($permalink) ?>">
-                <?= esc_html($title) ?>
-            </a>
+            <?= esc_html($title) ?>
         </h3>
         <?php if (!empty($features_tour) && is_array($features_tour)): ?>
             <ul class="tour-item-features list-unstyled">
@@ -80,11 +78,11 @@ $formatted_price = function_exists('rc_format_price') ? rc_format_price($price_t
                         <span>/ car</span></span>
                 <?php endif; ?>
             </div>
-            <a class="ui-button" href="<?= esc_url($permalink) ?>">
+            <span class="ui-button">
                 <?php esc_html_e('Book Ride', 'rc'); ?>
                 <?php echo function_exists('rc_svg_icon') ? rc_svg_icon('arrow_next') : ''; ?>
-            </a>
+            </span>
         </div>
     </div>
-</div>
+</a>
 

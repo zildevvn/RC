@@ -10,6 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 
+    <meta name="google-site-verification" content="qwN9omocrfcaegsJm2o714T7TfY7zubl9ghNA7DAcSM" />
+
     <!-- Tailwind CSS CDN with Forms & Container Queries plugins -->
     <!-- <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
