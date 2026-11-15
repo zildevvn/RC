@@ -55,7 +55,7 @@ $query = new WP_Query($args);
             </div>
 
             <div class="tours-section__footer d-flex justify-content-center">
-                <a href="<?php echo home_url('/da-nang-travel-car/') ?>" class="ui-button"
+                <a href="<?php echo home_url('/private-car-da-nang/') ?>" class="ui-button"
                     label=" View All  da nang travel car">
                     View All
                     <?php echo rc_svg_icon('arrow_next'); ?>

@@ -13,7 +13,7 @@ function rc_breadcrumbs($title)
         </span>
 
         <?php if (is_singular('tours')): ?>
-            <a href="<?= home_url('/da-nang-travel-car/') ?>" class="ui-breadcrumbs__link">Tours</a>
+            <a href="<?= home_url('/private-car-da-nang/') ?>" class="ui-breadcrumbs__link">Tours</a>
             <span class="ui-breadcrumbs__separator">
                 <?= rc_svg_icon('breadcrumb_separator'); ?>
             </span>
@@ -119,7 +119,7 @@ function rc_item_tour($post_id = null, $extra_class = '')
 {
     $post_id = $post_id ? (int) $post_id : get_the_ID();
     get_template_part('template-parts/shared/tour-item', null, [
-        'post_id'     => $post_id,
+        'post_id' => $post_id,
         'extra_class' => $extra_class,
     ]);
 }
@@ -129,7 +129,7 @@ if (!function_exists('rc_post_item')) {
     {
         $post_id = $post_id ? (int) $post_id : get_the_ID();
         get_template_part('template-parts/shared/post-item', null, [
-            'post_id'     => $post_id,
+            'post_id' => $post_id,
             'extra_class' => $extra_class,
         ]);
     }
