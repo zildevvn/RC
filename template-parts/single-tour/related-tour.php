@@ -50,7 +50,7 @@ if (is_array($current_tour_cats) && !empty($current_tour_cats)) {
 ?>
 
 <?php if ($the_query->have_posts()): ?>
-    <section class="ui-section related-tour-section">
+    <section class="wp-block-section related-tour-section">
         <div class="container">
 
             <div

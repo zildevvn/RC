@@ -53,7 +53,7 @@ if (empty($image_alt)) {
 $badge = !empty($badge) ? $badge : __('Private Fleet & Chauffeur Service', 'rc');
 $heading = !empty($heading) ? $heading : __('Your Trusted Private Car & Driver Service in Central Vietnam', 'rc');
 ?>
-<section class="ui-section cars-about-section" id="about-car-section" aria-labelledby="cars-about-title">
+<section class="wp-block-section cars-about-section" id="about-car-section" aria-labelledby="cars-about-title">
     <div class="container">
         <div class="cars-about-section__grid">
 

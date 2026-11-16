@@ -15,7 +15,7 @@ $license_desc = $operator_license['description'];
     </div>
 
     <div class="container">
-        <?php vm_icon_heading() ?>
+
         <?php if (!empty($heading)): ?>
             <h2 class="vm-heading">
                 <?= $heading ?>

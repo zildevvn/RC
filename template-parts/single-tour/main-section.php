@@ -17,7 +17,7 @@ $price_tour = get_field('price_tour');
 $formatted_price = rc_format_price($price_tour);
 $faqs_tour = get_field('faqs_list_tour');
 ?>
-<section class="ui-section main-section">
+<section class="wp-block-section main-section">
     <div class="container">
         <div class="main-section-wrap">
             <div class="main-section-content">

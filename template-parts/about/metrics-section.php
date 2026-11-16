@@ -4,7 +4,7 @@
  * Panoramic Performance Dashboard for Rent Car Da Nang
  */
 ?>
-<section class="about-metrics-section ui-section">
+<section class="about-metrics-section wp-block-section">
     <div class="container">
         <div class="about-metrics-panel">
             <div class="about-metrics-header text-center">

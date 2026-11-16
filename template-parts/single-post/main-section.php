@@ -50,7 +50,7 @@ $facebook_share = 'https://www.facebook.com/sharer/sharer.php?u=' . $share_url;
 $twitter_share = 'https://twitter.com/intent/tweet?text=' . $share_title . '&url=' . $share_url;
 ?>
 
-<section class="ui-section single-post-body-section">
+<section class="wp-block-section single-post-body-section">
     <div class="container">
         <div class="row single-post-layout">
             <!-- ================================================================ -->

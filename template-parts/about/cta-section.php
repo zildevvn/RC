@@ -10,7 +10,7 @@ if (empty($phone)) {
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : 'https://wa.me/' . preg_replace('/\D/', '', $phone);
 $cars_url = home_url('/cars/');
 ?>
-<section class="about-cta-section ui-section">
+<section class="about-cta-section wp-block-section">
     <div class="container">
         <div class="about-cta-card">
             <div class="about-cta-card__bg-glow"></div>

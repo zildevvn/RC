@@ -35,8 +35,8 @@ if (!empty($bg_banner)) {
 	}
 }
 ?>
-<section class="ui-section hero-section-shared search-hero-section<?= !empty($bg_banner_url) ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?>">
-	<div class="hero-section-shared__bg ui-section__bg">
+<section class="wp-block-section hero-section-shared search-hero-section<?= !empty($bg_banner_url) ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?>">
+	<div class="hero-section-shared__bg wp-block-section__bg">
 		<?php if (!empty($bg_banner_url)): ?>
 			<img src="<?= esc_url($bg_banner_url) ?>" alt="<?= esc_attr($bg_banner_alt) ?>" class="hero-section-shared__img" loading="eager" />
 		<?php endif; ?>

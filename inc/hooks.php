@@ -202,7 +202,7 @@ function override_kk_star_ratings_meta($value, $object_id, $meta_key, $single)
 
 
 
-add_action('init', 'block_vn_except_danang');
+// add_action('init', 'block_vn_except_danang');
 function block_vn_except_danang()
 {
 	// 1. Bỏ qua trang quản trị admin và các bot tìm kiếm (Google, Bing...)

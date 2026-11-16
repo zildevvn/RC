@@ -5,7 +5,7 @@
  */
 $main_image = content_url('/uploads/2026/11/img-Da-Nang-Airport-to-Hotel-1536x1152.webp');
 ?>
-<section class="about-story-section ui-section">
+<section class="about-story-section wp-block-section">
     <div class="container">
         <div class="about-story-grid">
             <!-- Left Column: Editorial Brand Story -->

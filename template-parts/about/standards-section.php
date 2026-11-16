@@ -4,7 +4,7 @@
  * The 4 Pillars of the Rent Car Da Nang Experience
  */
 ?>
-<section class="about-standards-section ui-section">
+<section class="about-standards-section wp-block-section">
     <div class="container">
         <!-- Section Header -->
         <div class="about-standards-header text-center">

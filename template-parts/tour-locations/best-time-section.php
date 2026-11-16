@@ -70,7 +70,7 @@ if (!empty($map)) {
 }
 ?>
 
-<section class="ui-section best-time-section" id="best-time-section" aria-labelledby="best-time-heading">
+<section class="wp-block-section best-time-section" id="best-time-section" aria-labelledby="best-time-heading">
     <div class="container">
 
         <!-- 1. Section Header -->

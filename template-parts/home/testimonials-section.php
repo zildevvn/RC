@@ -4,7 +4,7 @@ $badge = get_field('badge_tes_home');
 $testimonials = get_field('testimonials_home');
 ?>
 
-<section class="ui-section testimonials-section" data-purpose="testimonials-section">
+<section class="wp-block-section testimonials-section" data-purpose="testimonials-section">
     <div class="container">
         <!-- Section Header -->
         <div class="testimonials-section__header text-center mx-auto" data-aos="fade-up">

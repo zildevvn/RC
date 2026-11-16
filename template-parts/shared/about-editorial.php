@@ -56,7 +56,7 @@ $badge   = !empty($badge) ? $badge : __('About Rent Car Da Nang', 'rc');
 $heading = !empty($heading) ? $heading : __('Your Trusted Private Driver & Fleet Across Central Vietnam', 'rc');
 ?>
 
-<section class="ui-section blog-about-section" id="<?php echo esc_attr($section_id); ?>" aria-labelledby="<?php echo esc_attr($title_id); ?>">
+<section class="wp-block-section blog-about-section" id="<?php echo esc_attr($section_id); ?>" aria-labelledby="<?php echo esc_attr($title_id); ?>">
     <div class="container">
         <div class="blog-about-section__grid">
 

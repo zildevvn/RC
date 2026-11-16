@@ -38,7 +38,7 @@ if (!$the_query->have_posts() && !empty($category_ids)) {
 ?>
 
 <?php if ($the_query->have_posts()): ?>
-    <section class="ui-section related-post-section" data-purpose="related-articles">
+    <section class="wp-block-section related-post-section" data-purpose="related-articles">
         <div class="container">
             <div class="related-post-section__header d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4 mb-md-5">
                 <div>

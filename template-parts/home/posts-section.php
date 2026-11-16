@@ -10,7 +10,7 @@ $args = array(
 $query = new WP_Query($args);
 ?>
 <?php if ($query->have_posts()): ?>
-    <section class="ui-section posts-section" data-purpose="blog-section">
+    <section class="wp-block-section posts-section" data-purpose="blog-section">
         <div class="container">
             <!-- Section Header -->
             <div class="posts-section__header d-flex flex-column flex-md-row align-items-md-end justify-content-between"

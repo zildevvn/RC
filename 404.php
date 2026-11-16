@@ -17,7 +17,7 @@ $cta_group = [
 ];
 ?>
 <main class="site-main">
-    <section class="error-404-section ui-section">
+    <section class="error-404-section wp-block-section">
         <div class="container">
             <div class="error-404-section__code">404</div>
             <h1 class="error-404-section__title">Oops! Page Not Found</h1>

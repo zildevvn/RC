@@ -159,7 +159,7 @@ $rc_render_locations_tree = function ($prefix = 'desktop') use ($locations_hiera
 };
 ?>
 
-<section class="ui-section cars-filter-section" id="cars-filter-section" aria-labelledby="cars-filter-heading"
+<section class="wp-block-section cars-filter-section" id="cars-filter-section" aria-labelledby="cars-filter-heading"
     data-nonce="<?php echo esc_attr($nonce); ?>" data-currency="<?php echo esc_attr($currency); ?>"
     data-min-bound="<?php echo esc_attr($min_bound); ?>" data-max-bound="<?php echo esc_attr($max_bound); ?>"
     data-initial-locations="<?php echo esc_attr(json_encode($initial_selected_locations)); ?>">
@@ -261,7 +261,8 @@ $rc_render_locations_tree = function ($prefix = 'desktop') use ($locations_hiera
             <!-- 2. Right Content: Tour Results -->
             <main class="cars-filter-results" id="cars-filter-results-main">
                 <!-- Results Header: Count on left, Sort By & Mobile Filter Trigger on right -->
-                <div class="cars-filter-results-header cars-filter-meta-bar d-flex align-items-center justify-content-between">
+                <div
+                    class="cars-filter-results-header cars-filter-meta-bar d-flex align-items-center justify-content-between">
                     <div class="cars-filter-count" id="rc-filter-count-text">
                         <span id="rc-filter-count"><?php echo esc_html($initial_query->found_posts); ?></span>
                         <span><?php echo esc_html(_n('tour found', 'tours found', $initial_query->found_posts, 'rc')); ?></span>
@@ -270,7 +271,8 @@ $rc_render_locations_tree = function ($prefix = 'desktop') use ($locations_hiera
                     <div class="cars-filter-results-actions d-flex align-items-center">
                         <!-- Sort By Control -->
                         <div class="cars-filter-sort d-flex align-items-center">
-                            <label for="rc-filter-sort" class="cars-filter-sort__label"><?php esc_html_e('Sort By:', 'rc'); ?></label>
+                            <label for="rc-filter-sort"
+                                class="cars-filter-sort__label"><?php esc_html_e('Sort By:', 'rc'); ?></label>
                             <div class="cars-filter-select-wrapper">
                                 <select id="rc-filter-sort" class="cars-filter-select">
                                     <option value="recommended"><?php esc_html_e('Recommended', 'rc'); ?></option>

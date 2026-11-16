@@ -214,9 +214,9 @@ function rc_hero_section_shared($title = '', $image = '', $desc = '', $args = []
     $has_image = !empty($image);
     ?>
     <section
-        class="ui-section hero-section-shared<?= $has_image ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?><?= !empty($custom_class) ? ' ' . esc_attr($custom_class) : ''; ?>">
+        class="wp-block-section hero-section-shared<?= $has_image ? ' hero-section-shared--has-image' : ' hero-section-shared--no-image'; ?><?= !empty($custom_class) ? ' ' . esc_attr($custom_class) : ''; ?>">
         <!-- Background Layer with Multi-Depth Overlay -->
-        <div class="hero-section-shared__bg ui-section__bg">
+        <div class="hero-section-shared__bg wp-block-section__bg">
             <?php if ($has_image): ?>
                 <img src="<?= esc_url($image); ?>" alt="<?= esc_attr($alt); ?>" class="hero-section-shared__img"
                     loading="eager" />

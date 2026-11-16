@@ -44,7 +44,7 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
 ?>
 
 <?php if (empty($tour_options)): ?>
-    <section class="ui-section ui-tour-options vm-tour-options ui-tour-options--empty">
+    <section class="wp-block-section ui-tour-options vm-tour-options ui-tour-options--empty">
         <div class="container">
             <div class="ui-tour-options-empty vm-tour-options-empty">
                 <div class="empty-icon">
@@ -69,7 +69,7 @@ if (isset($args['filtered_options']) && is_array($args['filtered_options'])) {
     $first_key = array_key_first($tour_options);
     $options_count = count($tour_options);
     ?>
-    <section class="ui-section ui-tour-options vm-tour-options">
+    <section class="wp-block-section ui-tour-options vm-tour-options">
         <div class="container">
             <h2 class="ui-heading ui-tour-options__title">
                 <?php

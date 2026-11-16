@@ -39,7 +39,7 @@ $description = !empty($grid_tour['description'])
 ?>
 
 <?php if (have_posts()): ?>
-    <section class="ui-section grid-tour-section" id="grid-tour-section" aria-labelledby="grid-tour-heading">
+    <section class="wp-block-section grid-tour-section" id="grid-tour-section" aria-labelledby="grid-tour-heading">
         <div class="container">
 
             <!-- Section Header -->

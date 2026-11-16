@@ -13,7 +13,7 @@ $desc = !empty($args['desc']) ? $args['desc'] : 'No prepayment required • Free
 $phone = function_exists('get_field') ? get_field('phone', 'option') : '';
 $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '';
 ?>
-<section class="ui-section banner-section" data-purpose="final-cta-section">
+<section class="wp-block-section banner-section" data-purpose="final-cta-section">
     <div class="container">
         <div class="banner-section__card position-relative overflow-hidden" data-aos="fade-up">
             <div aria-hidden="true" class="banner-section__waves">

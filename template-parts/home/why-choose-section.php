@@ -4,8 +4,8 @@ $badge = get_field('badge_wc_home');
 $desc = get_field('desc_wc_home');
 $items = get_field('list_items_wc_home');
 ?>
-<section class="ui-section wc-section">
-    <div aria-hidden="true" class="ui-section__bg wc-section__bg">
+<section class="wp-block-section wc-section">
+    <div aria-hidden="true" class="wp-block-section__bg wc-section__bg">
         <?php echo rc_svg_icon('wc_bg'); ?>
     </div>
     <div class="container">

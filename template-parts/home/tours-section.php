@@ -19,8 +19,8 @@ $args = array(
 $query = new WP_Query($args);
 ?>
 <?php if ($query->have_posts()): ?>
-    <section class="ui-section tours-section" data-purpose="popular-tours-transfers">
-        <div aria-hidden="true" class="ui-section__bg tours-section__bg">
+    <section class="wp-block-section tours-section" data-purpose="popular-tours-transfers">
+        <div aria-hidden="true" class="wp-block-section__bg tours-section__bg">
             <div class="tours-section__bg-dots"></div>
             <?php echo rc_svg_icon('tours_bg'); ?>
         </div>

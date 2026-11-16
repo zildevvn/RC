@@ -33,10 +33,10 @@
 
     // ----------------------------------------------------------------------
     // Background Layer & Overlays
-    // Supports .hero-section-shared__bg and legacy .ui-section__bg / .vm-section__bg
+    // Supports .hero-section-shared__bg and legacy .wp-block-section__bg / .vm-section__bg
     // ----------------------------------------------------------------------
     &__bg,
-    .ui-section__bg,
+    .wp-block-section__bg,
     .vm-section__bg {
         position: absolute;
         inset: 0;
@@ -125,8 +125,8 @@
         }
     }
 
-    // Legacy fallback support for .ui-section__bg / .vm-section__bg when raw markup is used
-    .ui-section__bg:not(:has(.hero-section-shared__overlay)),
+    // Legacy fallback support for .wp-block-section__bg / .vm-section__bg when raw markup is used
+    .wp-block-section__bg:not(:has(.hero-section-shared__overlay)),
     .vm-section__bg:not(:has(.hero-section-shared__overlay)) {
         &::before {
             content: "";

@@ -6840,7 +6840,7 @@ a {
   color: #0F4C81;
 }
 
-.ui-section {
+.wp-block-section {
   width: 100%;
   height: auto;
   position: relative;
@@ -6848,16 +6848,16 @@ a {
   padding: 90px 0;
 }
 @media (max-width: 1023.98px) {
-  .ui-section {
+  .wp-block-section {
     padding: 60px 0;
   }
 }
 @media (max-width: 767.98px) {
-  .ui-section {
+  .wp-block-section {
     padding: 40px 0;
   }
 }
-.ui-section__bg {
+.wp-block-section__bg {
   position: absolute;
   left: 0;
   top: 0;
@@ -6865,7 +6865,7 @@ a {
   height: 100%;
   overflow: hidden;
 }
-.ui-section__bg img {
+.wp-block-section__bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -9276,7 +9276,7 @@ body.book-car-modal-open {
   }
 }
 .hero-section-shared__bg,
-.hero-section-shared .ui-section__bg,
+.hero-section-shared .wp-block-section__bg,
 .hero-section-shared .vm-section__bg {
   position: absolute;
   inset: 0;
@@ -9288,8 +9288,8 @@ body.book-car-modal-open {
 }
 .hero-section-shared__bg img,
 .hero-section-shared__bg .hero-section-shared__img,
-.hero-section-shared .ui-section__bg img,
-.hero-section-shared .ui-section__bg .hero-section-shared__img,
+.hero-section-shared .wp-block-section__bg img,
+.hero-section-shared .wp-block-section__bg .hero-section-shared__img,
 .hero-section-shared .vm-section__bg img,
 .hero-section-shared .vm-section__bg .hero-section-shared__img {
   width: 100%;
@@ -9349,7 +9349,7 @@ body.book-car-modal-open {
     bottom: -10px;
   }
 }
-.hero-section-shared .ui-section__bg:not(:has(.hero-section-shared__overlay))::before,
+.hero-section-shared .wp-block-section__bg:not(:has(.hero-section-shared__overlay))::before,
 .hero-section-shared .vm-section__bg:not(:has(.hero-section-shared__overlay))::before {
   content: "";
   position: absolute;

@@ -10,7 +10,7 @@ if (!empty($address)):
         'https://maps.google.com/maps'
     );
     ?>
-    <section class="vm-section map-section">
+    <section class="wp-block-section map-section">
         <div class="map-section__container container">
             <div class="map-section__embed">
                 <iframe src="<?php echo esc_url($map_url); ?>"

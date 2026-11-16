@@ -12,7 +12,7 @@ $terms = get_terms([
 ]);
 ?>
 <?php if (!empty($terms) && !is_wp_error($terms)): ?>
-    <section class="ui-section destinations-section" data-purpose="destinations-section">
+    <section class="wp-block-section destinations-section" data-purpose="destinations-section">
         <div class="container">
             <!-- Section Header -->
             <div class="destinations-section__header text-center" data-aos="fade-up">
