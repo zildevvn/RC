@@ -592,7 +592,7 @@ $faqs_tour = get_field('faqs_list_tour');
                             $is_car_tour = has_term('Car Tours', 'tour_cats', get_the_ID());
                             if (!$is_car_tour):
                                 ?>
-                                <span class="unit">/ person</span>
+                                <span class="unit">/ car</span>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
