@@ -223,9 +223,24 @@
         window.addEventListener('resize', updateStickyState, { passive: true });
     };
 
+    const headerLangAccessibility = () => {
+        $(document).on('keydown.rcHeaderLang', function (e) {
+            if (e.key !== 'Escape') {
+                return;
+            }
+            const $openTrigger = $('#site-header .rc-header-lang .gt_selected a.open');
+            if ($openTrigger.length) {
+                const triggerEl = $openTrigger[0];
+                document.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+                triggerEl.focus();
+            }
+        });
+    };
+
     $(document).ready(function () {
         mobileHeaderMenu();
         stickyHeaderBottomBar();
+        headerLangAccessibility();
     });
 })(jQuery);
 

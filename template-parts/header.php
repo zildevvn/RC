@@ -69,6 +69,12 @@ $whatsapp_url = function_exists('rc_whatsapp_url') ? rc_whatsapp_url($phone) : '
                             <?php echo rc_svg_icon('search-icon'); ?>
                         </button>
 
+                        <?php if (shortcode_exists('gtranslate')): ?>
+                            <div class="header-main__lang rc-header-lang d-flex align-items-center">
+                                <?php echo do_shortcode('[gtranslate]'); ?>
+                            </div>
+                        <?php endif; ?>
+
                         <?php if (!empty($phone)): ?>
                             <a href="<?= !empty($whatsapp_url) ? esc_url($whatsapp_url) : '#' ?>"
                                 class="header-main__cta d-none d-md-inline-flex align-items-center"
