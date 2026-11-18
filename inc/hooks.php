@@ -239,3 +239,122 @@ function block_vn_except_danang()
 		}
 	}
 }
+
+/**
+ * Get Ninja Forms phone-based email routing configuration.
+ *
+ * Scoped strictly to:
+ * - Form ID 1: Contact Me
+ * - Form ID 2: Book Car
+ *
+ * @return array<int, array{phone_field_id: int, phone_field: string, vn_recipient: string}>
+ */
+function rc_get_nf_phone_routing_config()
+{
+	return array(
+		1 => array(
+			'phone_field_id' => 17,
+			'phone_field'    => 'your_phone_whatsapp_1794240866187',
+			'vn_recipient'   => 'phaothu591997@gmail.com',
+		),
+		2 => array(
+			'phone_field_id' => 14,
+			'phone_field'    => 'whats_app_1794103710633',
+			'vn_recipient'   => 'phaothu591997@gmail.com',
+		),
+	);
+}
+
+/**
+ * Extract the submitted phone field value from Ninja Forms submission data.
+ *
+ * @param array $fields Submitted fields from $form_data['fields'].
+ * @param array $form_config Routing configuration for the current form.
+ * @return string Raw phone field value or empty string if not found.
+ */
+function rc_extract_nf_submission_phone($fields, $form_config)
+{
+	if (!is_array($fields)) {
+		return '';
+	}
+
+	$target_key = isset($form_config['phone_field']) ? (string) $form_config['phone_field'] : '';
+	$target_id = isset($form_config['phone_field_id']) ? intval($form_config['phone_field_id']) : 0;
+
+	foreach ($fields as $field_id => $field) {
+		if (!is_array($field)) {
+			continue;
+		}
+
+		$current_key = isset($field['key']) ? (string) $field['key'] : '';
+		$current_id = isset($field['id']) ? intval($field['id']) : intval($field_id);
+
+		if (($target_key !== '' && $current_key === $target_key) || ($target_id > 0 && $current_id === $target_id)) {
+			return isset($field['value']) && is_scalar($field['value']) ? (string) $field['value'] : '';
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Route admin email notifications to the Vietnam-specific inbox when a Vietnamese
+ * phone number is submitted on Ninja Forms ID 1 (Contact Me) or 2 (Book Car).
+ *
+ * Preserves customer confirmation emails, CC/BCC, subjects, bodies, and all other forms.
+ *
+ * @param array $actions    Ninja Forms submission actions.
+ * @param array $form_cache Cached form definition.
+ * @param array $form_data  Submitted form data.
+ * @return array
+ */
+add_filter('ninja_forms_submission_actions', 'rc_route_ninja_forms_vn_email_notification', 10, 3);
+function rc_route_ninja_forms_vn_email_notification($actions, $form_cache, $form_data)
+{
+	if (!is_array($actions)) {
+		return $actions;
+	}
+
+	$form_id = 0;
+	if (is_array($form_data) && isset($form_data['id'])) {
+		$form_id = intval($form_data['id']);
+	} elseif (is_array($form_cache) && isset($form_cache['id'])) {
+		$form_id = intval($form_cache['id']);
+	}
+
+	$config = rc_get_nf_phone_routing_config();
+	if (!isset($config[$form_id])) {
+		return $actions;
+	}
+
+	$form_config = $config[$form_id];
+	$submitted_fields = (is_array($form_data) && isset($form_data['fields'])) ? $form_data['fields'] : array();
+	$phone_value = rc_extract_nf_submission_phone($submitted_fields, $form_config);
+
+	if (!rc_is_vietnam_phone_number($phone_value)) {
+		return $actions;
+	}
+
+	foreach ($actions as $index => $action) {
+		if (!is_array($action) || !isset($action['settings']) || !is_array($action['settings'])) {
+			continue;
+		}
+
+		$settings = $action['settings'];
+		if (($settings['type'] ?? '') !== 'email' || empty($settings['active'])) {
+			continue;
+		}
+
+		$to = isset($settings['to']) ? trim((string) $settings['to']) : '';
+		$label = isset($settings['label']) ? (string) $settings['label'] : '';
+
+		// Never alter customer confirmation emails (e.g. to={field:email} or Confirmation label)
+		if (strpos($to, '{field:') !== false || stripos($label, 'confirmation') !== false) {
+			continue;
+		}
+
+		$actions[$index]['settings']['to'] = $form_config['vn_recipient'];
+	}
+
+	return $actions;
+}

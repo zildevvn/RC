@@ -462,3 +462,64 @@ if (!function_exists('rc_get_ajax_pagination')) {
 		return $output;
 	}
 }
+
+if (!function_exists('rc_normalize_phone_number')) {
+	/**
+	 * Normalize a phone number string by stripping whitespace and common separators.
+	 *
+	 * @param mixed $phone Raw phone number input.
+	 * @return string Normalized phone string (digits with optional leading '+'), or empty string if invalid.
+	 */
+	function rc_normalize_phone_number($phone)
+	{
+		if (!is_scalar($phone)) {
+			return '';
+		}
+
+		$trimmed = trim((string) $phone);
+		if ($trimmed === '') {
+			return '';
+		}
+
+		$normalized = preg_replace('/[\s\-\(\)\.]+/', '', $trimmed);
+		if ($normalized === null || !preg_match('/^\+?\d+$/', $normalized)) {
+			return '';
+		}
+
+		return $normalized;
+	}
+}
+
+if (!function_exists('rc_is_vietnam_phone_number')) {
+	/**
+	 * Determine whether a phone number is a valid Vietnamese phone number.
+	 *
+	 * Supports international (+84, 0084, 84) and domestic (03, 05, 07, 08, 09) formats.
+	 *
+	 * @param mixed $phone Raw phone number input.
+	 * @return bool True if recognized as a Vietnamese phone number, false otherwise.
+	 */
+	function rc_is_vietnam_phone_number($phone)
+	{
+		$normalized = rc_normalize_phone_number($phone);
+		if ($normalized === '') {
+			return false;
+		}
+
+		// International: +84xxxxxxxxx, 0084xxxxxxxxx, or 84xxxxxxxxx (9 subscriber digits starting with 3, 5, 7, 8, 9)
+		if (preg_match('/^(?:\+84|0084)0?[35789]\d{8}$/', $normalized)) {
+			return true;
+		}
+
+		if (preg_match('/^84[35789]\d{8}$/', $normalized)) {
+			return true;
+		}
+
+		// Domestic: 03xxxxxxxx, 05xxxxxxxx, 07xxxxxxxx, 08xxxxxxxx, 09xxxxxxxx (10 digits total)
+		if (preg_match('/^0[35789]\d{8}$/', $normalized)) {
+			return true;
+		}
+
+		return false;
+	}
+}
