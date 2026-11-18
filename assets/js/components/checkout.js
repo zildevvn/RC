@@ -54,10 +54,18 @@
 
             // Validate Phone
             const phone = $form.find('input[name="customer_phone"]').val().trim();
+            const isVnPhone = window.rcPhoneValidation && typeof window.rcPhoneValidation.isVietnamPhoneNumber === 'function'
+                ? window.rcPhoneValidation.isVietnamPhoneNumber(phone)
+                : false;
             if (!phone) {
                 isValid = false;
                 const $fb = $form.find('input[name="customer_phone"]').siblings('.invalid-feedback');
                 $fb.text('Phone number is required.').slideDown(200);
+                if (!$firstInvalid) $firstInvalid = $form.find('input[name="customer_phone"]');
+            } else if (isVnPhone) {
+                isValid = false;
+                const $fb = $form.find('input[name="customer_phone"]').siblings('.invalid-feedback');
+                $fb.text(window.rcPhoneValidation.vnBlockedMessage).slideDown(200);
                 if (!$firstInvalid) $firstInvalid = $form.find('input[name="customer_phone"]');
             }
 

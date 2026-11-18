@@ -167,6 +167,13 @@ function rc_ajax_submit_checkout()
         wp_send_json_error(['message' => 'Invalid email address.']);
     }
 
+    if (function_exists('rc_is_vietnam_phone_number') && rc_is_vietnam_phone_number($customer_phone)) {
+        wp_send_json_error([
+            'message' => 'Vietnamese phone numbers are currently not accepted. Please enter an international phone number.',
+            'field'   => 'customer_phone',
+        ]);
+    }
+
     $tour_id = $booking_data['tour_id'];
     $option_id = $booking_data['option_id'];
     $tour = get_post($tour_id);
@@ -716,6 +723,13 @@ function rc_ajax_create_paypal_order()
 
     if (!is_email($customer_email)) {
         wp_send_json_error(['message' => 'Invalid email address.']);
+    }
+
+    if (function_exists('rc_is_vietnam_phone_number') && rc_is_vietnam_phone_number($customer_phone)) {
+        wp_send_json_error([
+            'message' => 'Vietnamese phone numbers are currently not accepted. Please enter an international phone number.',
+            'field'   => 'customer_phone',
+        ]);
     }
 
     $tour_id = $booking_data['tour_id'];

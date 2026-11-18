@@ -301,14 +301,18 @@ function rc_extract_nf_submission_phone($fields, $form_config)
  * Route admin email notifications to the Vietnam-specific inbox when a Vietnamese
  * phone number is submitted on Ninja Forms ID 1 (Contact Me) or 2 (Book Car).
  *
- * Preserves customer confirmation emails, CC/BCC, subjects, bodies, and all other forms.
+ * TEMPORARILY DISABLED:
+ * Email routing to phaothu591997@gmail.com is currently disabled while Vietnamese
+ * phone numbers are blocked at validation time. Both forms use their default
+ * Ninja Forms recipient settings. To re-enable email routing in the future,
+ * uncomment the add_filter call below and disable rc_validate_ninja_forms_vn_phone.
  *
  * @param array $actions    Ninja Forms submission actions.
  * @param array $form_cache Cached form definition.
  * @param array $form_data  Submitted form data.
  * @return array
  */
-add_filter('ninja_forms_submission_actions', 'rc_route_ninja_forms_vn_email_notification', 10, 3);
+// add_filter('ninja_forms_submission_actions', 'rc_route_ninja_forms_vn_email_notification', 10, 3);
 function rc_route_ninja_forms_vn_email_notification($actions, $form_cache, $form_data)
 {
 	if (!is_array($actions)) {
@@ -357,4 +361,73 @@ function rc_route_ninja_forms_vn_email_notification($actions, $form_cache, $form
 	}
 
 	return $actions;
+}
+
+/**
+ * Friendly error message shown when a Vietnamese phone number is submitted.
+ *
+ * @return string
+ */
+function rc_get_nf_vn_phone_error_message()
+{
+	return __('Vietnamese phone numbers are currently not accepted. Please enter an international phone number.', 'rc');
+}
+
+/**
+ * Backend validation: reject Vietnamese phone numbers on Ninja Forms ID 1 (Contact Me)
+ * and ID 2 (Book Car) before any submission actions (database save or email) execute.
+ *
+ * @param array $form_data Ninja Forms submitted form data.
+ * @return array
+ */
+add_filter('ninja_forms_submit_data', 'rc_validate_ninja_forms_vn_phone', 10, 1);
+function rc_validate_ninja_forms_vn_phone($form_data)
+{
+	if (!is_array($form_data) || empty($form_data['fields']) || !is_array($form_data['fields'])) {
+		return $form_data;
+	}
+
+	$form_id = isset($form_data['id']) ? intval($form_data['id']) : 0;
+	$config = rc_get_nf_phone_routing_config();
+	if (!isset($config[$form_id])) {
+		return $form_data;
+	}
+
+	$form_config = $config[$form_id];
+	$target_key = isset($form_config['phone_field']) ? (string) $form_config['phone_field'] : '';
+	$target_id = isset($form_config['phone_field_id']) ? intval($form_config['phone_field_id']) : 0;
+
+	$matched_field_key = null;
+	$phone_value = '';
+
+	foreach ($form_data['fields'] as $field_key => $field) {
+		if (!is_array($field)) {
+			continue;
+		}
+
+		$current_key = isset($field['key']) ? (string) $field['key'] : '';
+		$current_id = isset($field['id']) ? intval($field['id']) : intval($field_key);
+
+		if (($target_key !== '' && $current_key === $target_key) || ($target_id > 0 && $current_id === $target_id)) {
+			$matched_field_key = $field_key;
+			$phone_value = isset($field['value']) && is_scalar($field['value']) ? (string) $field['value'] : '';
+			break;
+		}
+	}
+
+	if ($matched_field_key === null || trim($phone_value) === '') {
+		return $form_data;
+	}
+
+	if (function_exists('rc_is_vietnam_phone_number') && rc_is_vietnam_phone_number($phone_value)) {
+		if (!isset($form_data['errors']) || !is_array($form_data['errors'])) {
+			$form_data['errors'] = array();
+		}
+		if (!isset($form_data['errors']['fields']) || !is_array($form_data['errors']['fields'])) {
+			$form_data['errors']['fields'] = array();
+		}
+		$form_data['errors']['fields'][$matched_field_key] = rc_get_nf_vn_phone_error_message();
+	}
+
+	return $form_data;
 }

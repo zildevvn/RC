@@ -28,6 +28,17 @@ add_action('wp_enqueue_scripts', function () {
 		true
 	);
 
+	$nf_phone_script_path = get_template_directory() . '/assets/js/components/ninja-forms-phone-validation.js';
+	if (file_exists($nf_phone_script_path)) {
+		wp_enqueue_script(
+			'rc-nf-phone-validation',
+			get_template_directory_uri() . '/assets/js/components/ninja-forms-phone-validation.js',
+			array('jquery'),
+			filemtime($nf_phone_script_path),
+			true
+		);
+	}
+
 	$paypal_currency = 'USD';
 	if (function_exists('rc_paypal_convert_amount')) {
 		$converted_sample = rc_paypal_convert_amount(100);
